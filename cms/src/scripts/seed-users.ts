@@ -1,7 +1,7 @@
 // biome-ignore assist/source/organizeImports: dotenv import must remain at the top
 import 'dotenv/config';
 import { getPayload } from 'payload';
-import type { Agent, User } from '@/payload-types';
+import type { User } from '@/payload-types';
 
 import config from '../payload.config';
 import users from '../../seeds/users.json';
