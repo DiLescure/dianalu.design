@@ -37,29 +37,5 @@ export const checkHealth = async (payload: Payload): Promise<HealthStatus> => {
     health.status = 'degraded';
   }
 
-  // Check Valkey
-  try {
-    const { getCmsValkeyClient } = await import('@/services/valkey/client');
-    const cmsValkeyClient = await getCmsValkeyClient(payload);
-    await cmsValkeyClient.ping();
-    health.services.valkey = 'healthy';
-  } catch (_error) {
-    health.services.valkey = 'unhealthy';
-    health.status = 'degraded';
-  }
-
-  // Check message broker
-  try {
-    const { getMessageBrokerSocket } = await import('@/services/message-broker');
-    const socket = await getMessageBrokerSocket();
-    health.services.messageBroker = socket.connected ? 'healthy' : 'disconnected';
-    if (!socket.connected) {
-      health.status = 'degraded';
-    }
-  } catch (_error) {
-    health.services.messageBroker = 'unhealthy';
-    health.status = 'degraded';
-  }
-
   return health;
 };

@@ -13,15 +13,10 @@ import sharp from 'sharp';
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { healthEndpoint } from './endpoints/health';
-import { getMessage, getRecentMessages, listMessages } from './endpoints/messages';
 import { metricsEndpoint } from './endpoints/metrics';
 import DocsMockData from './globals/DocsMockData';
 import { healthQuery } from './graphql/health';
-import { messageQuery, messagesQuery, recentMessagesQuery } from './graphql/messages';
 import { metricsQuery } from './graphql/metrics';
-import { forceUnlockThreadMutation, threadLockStatusQuery } from './graphql/threads';
-import { initMessageBrokerSocket } from './services/message-broker';
-import { startLockCleanup } from './utils/threads/cleanup';
 
 const level = process.env.PAYLOAD_LOG_LEVEL || 'info';
 
@@ -65,22 +60,6 @@ export default buildConfig({
       path: '/metrics',
       method: 'get',
       handler: metricsEndpoint,
-    },
-    // Virtual Messages collection endpoints
-    {
-      path: '/messages',
-      method: 'get',
-      handler: listMessages,
-    },
-    {
-      path: '/messages/recent',
-      method: 'get',
-      handler: getRecentMessages,
-    },
-    {
-      path: '/messages/:id',
-      method: 'get',
-      handler: getMessage,
     },
   ],
   admin: {
@@ -129,19 +108,12 @@ export default buildConfig({
     schemaOutputFile: path.resolve(dirname, 'generated-schema.graphql'),
     queries: (_GraphQL) => {
       return {
-        threadLockStatus: threadLockStatusQuery,
         health: healthQuery,
         metrics: metricsQuery,
-        // Virtual Messages queries
-        Messages: messagesQuery,
-        Message: messageQuery,
-        RecentMessages: recentMessagesQuery,
       };
     },
     mutations: (_GraphQL) => {
-      return {
-        forceUnlockThread: forceUnlockThreadMutation,
-      };
+      return {};
     },
   },
   plugins: [
@@ -153,25 +125,6 @@ export default buildConfig({
   onInit: async (payload) => {
     if (!process.env.SEED_SCRIPT) {
       // Initialize services in the background (non-blocking)
-      // This prevents hanging if message broker is not ready
-      setImmediate(async () => {
-        // Initialize message broker connection
-        try {
-          payload.logger.info('[Payload Init] Starting message broker initialization...');
-          await initMessageBrokerSocket();
-          payload.logger.info('[Payload Init] Message broker initialized successfully');
-        } catch (error) {
-          payload.logger.error(error, '[Payload Init] Failed to initialize message broker');
-        }
-      });
-
-      // Start thread lock cleanup job (synchronous, non-blocking)
-      try {
-        startLockCleanup();
-        payload.logger.info('[Payload Init] Thread lock cleanup job started');
-      } catch (error) {
-        payload.logger.error(error, '[Payload Init] Failed to start lock cleanup job');
-      }
 
       payload.logger.info('[Payload Init] Initialization complete (background tasks started)');
     }

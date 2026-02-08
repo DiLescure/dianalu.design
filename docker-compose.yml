@@ -93,7 +93,7 @@ services:
       - '5432:5432'
     environment:
       POSTGRES_USER: pglocaldev
-      POSTGRES_PASSWORD: 8Ypcsh67df6e3daXtlTF4Dh6
+      POSTGRES_PASSWORD: wBJ6987b4f9gu3rz8G816BC3
       POSTGRES_DB: payload
     volumes:
       - ./.docker/postgres/data:/var/lib/postgresql/data

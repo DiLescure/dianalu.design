@@ -87,8 +87,8 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: pglocaldev
-      POSTGRES_PASSWORD: wqXclVPPPFUPV86696a7a6ff
+      POSTGRES_USER: pgproduction
+      POSTGRES_PASSWORD: fanSTHJXtL6987e5d4sMqFda
       POSTGRES_DB: payload
     volumes:
       - ./.docker/postgres/data:/var/lib/postgresql/data
