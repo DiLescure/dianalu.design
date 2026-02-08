@@ -19,7 +19,7 @@ jobs:
           playbook: deploy.yml
           inventory: |
             [debian_servers]
-            dianalu.design ansible_user=admin
+            ec2-34-228-89-155.compute-1.amazonaws.com ansible_user=admin
           key: ${{ secrets.PRODUCTION_PRIVATE_KEY }}
 
       - name: Wait for DianaLú CMS to be ready
