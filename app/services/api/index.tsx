@@ -19,6 +19,7 @@ import { ChannelList } from './queries/collections/Channels';
 import { MessageList } from './queries/collections/Messages';
 import { ThreadLockStatus } from './queries/collections/Threads';
 import DocsMockDatum from './queries/globals/DocsMockDatum';
+import HomePageContent from './queries/globals/HomePageContent';
 import meUser from './queries/globals/meUser';
 
 export const graphqlClient = new Client({
@@ -61,6 +62,7 @@ const useGraphQL = () => {
 
 const queryDefinitions = {
   DocsMockDatum, // This is the name of the query in the GraphQL schema
+  HomePageContent,
   meUser,
   ChannelList,
   MessageList,
@@ -107,6 +109,61 @@ const ApiContext = createContext<ApiContextType>({
   graphqlClient,
 } as ApiContextType);
 
+export const runQuery = async (
+  {
+    query,
+    variables,
+    commonErrorHandler,
+  }: {
+    query: keyof typeof queryDefinitions;
+    variables?: Record<string, any>;
+    runtimeVariables?: Record<string, any>;
+    commonErrorHandler: (error: any) => Error;
+  }
+) => {
+  console.log({graphqlUrl});
+  return graphqlClient
+    .query(queryDefinitions[query].query, {
+      ...queryDefinitions[query].defaultVariables,
+      ...variables,
+    })
+    .toPromise()
+    .then(({ data, error }) => {
+      if (data?.error || error) {
+        throw commonErrorHandler(data?.error || error);
+      }
+
+      return data;
+    });
+};
+
+export const runMutation = async <TVariables,>({
+  mutation,
+  variables,
+  runtimeVariables,
+  commonErrorHandler,
+}: {
+  mutation: keyof typeof mutationDefinitions;
+  variables?: TVariables,
+  runtimeVariables?: TVariables,
+  commonErrorHandler: (error: any) => Error;
+}) => {
+  return graphqlClient
+    .mutation(mutationDefinitions[mutation].mutation, {
+      ...mutationDefinitions[mutation].defaultVariables,
+      ...variables,
+      ...runtimeVariables,
+    })
+    .toPromise()
+    .then(({ data, error }) => {
+      if (data?.error || error) {
+        throw commonErrorHandler(data?.error || error);
+      }
+
+      return data;
+    });
+};
+
 export const ApiProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const pageContext = usePageContext();
 
@@ -125,20 +182,12 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         queryFn: (runtimeVariables?: Record<string, any>) => {
           // console.log('queryDefinitions[query].query', queryDefinitions[query].query);
 
-          return graphqlClient
-            .query(queryDefinitions[query].query, {
-              ...queryDefinitions[query].defaultVariables,
-              ...variables,
-              ...runtimeVariables,
-            })
-            .toPromise()
-            .then(({ data, error }) => {
-              if (data.error || error) {
-                throw commonErrorHandler(data.error || error);
-              }
-
-              return data;
-            });
+          return runQuery({
+            query,
+            variables,
+            runtimeVariables,
+            commonErrorHandler,
+          });
         },
         ...options,
       };
@@ -153,20 +202,12 @@ export const ApiProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       return {
         mutationKey: [mutation],
         mutationFn: (runtimeVariables?: TVariables) => {
-          return graphqlClient
-            .mutation(mutationDefinitions[mutation].mutation, {
-              ...mutationDefinitions[mutation].defaultVariables,
-              ...variables,
-              ...runtimeVariables,
-            })
-            .toPromise()
-            .then(({ data, error }) => {
-              if (data.error || error) {
-                throw commonErrorHandler(data.error || error);
-              }
-
-              return data;
-            });
+          return runMutation({
+            mutation,
+            variables,
+            runtimeVariables,
+            commonErrorHandler,
+          });
         },
         ...options,
       };

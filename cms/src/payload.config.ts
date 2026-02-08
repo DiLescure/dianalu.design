@@ -15,6 +15,7 @@ import { Media } from './collections/Media';
 import { healthEndpoint } from './endpoints/health';
 import { metricsEndpoint } from './endpoints/metrics';
 import DocsMockData from './globals/DocsMockData';
+import { HomePageContent } from './globals/HomePageContent';
 import { healthQuery } from './graphql/health';
 import { metricsQuery } from './graphql/metrics';
 
@@ -82,7 +83,10 @@ export default buildConfig({
     Users,
     Media,
   ],
-  globals: [DocsMockData],
+  globals: [
+    DocsMockData,
+    HomePageContent,
+  ],
   editor: lexicalEditor(),
   email: nodemailerAdapter({
     defaultFromAddress: `postmaster@${process.env.PAYLOAD_MAILGUN_DOMAIN || ''}`,
