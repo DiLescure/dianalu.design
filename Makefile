@@ -188,7 +188,7 @@ build-cms: ## Build cms
 	cd cms && bun run build
 
 cms-migrate: ## Migrate cms
-	cd cms && bun run payload migrate
+	cd cms && bun --env-file=../.env run payload migrate
 
 cms-cli: ## Run cms cli
 	docker compose exec -it cms bash

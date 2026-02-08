@@ -39,3 +39,8 @@
       shell: screen -dmS dianalu.design make production
       args:
         chdir: ~/dianalu.design
+
+    - name: Run database migrations
+      shell: make cms-migrate
+      args:
+        chdir: ~/dianalu.design
