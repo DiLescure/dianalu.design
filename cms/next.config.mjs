@@ -23,15 +23,12 @@ const nextConfig = {
     NEXT_PUBLIC_PAYLOAD_ADMIN_PATH: process.env.APP_PAYLOAD_ADMIN_PATH || '/admin',
     NEXT_PUBLIC_PAYLOAD_API_PATH: process.env.APP_PAYLOAD_API_PATH || '/api',
     NEXT_PUBLIC_PAYLOAD_GRAPHQL_PATH: process.env.APP_PAYLOAD_GRAPHQL_PATH || '/graphql',
-    NEXT_MESSAGE_BROKER_SERVER_HOST: `${process.env.MESSAGE_BROKER_SERVER_HOST || 'localhost'}`,
-    NEXT_MESSAGE_BROKER_SERVER_PORT: process.env.MESSAGE_BROKER_SERVER_PORT || 3001,
-    NEXT_MESSAGE_BROKER_PATH: process.env.APP_MESSAGE_BROKER_PATH || '/message-broker',
     NEXT_PAYLOAD_EMAIL_TRANSPORT_OFF: process.env.PAYLOAD_EMAIL_TRANSPORT_OFF || 'false',
     PAYLOAD_GRAPHQL_PLAYGROUND_PATH: process.env.PAYLOAD_GRAPHQL_PLAYGROUND_PATH || '/graphql-playground',
     PAYLOAD_CORS_CONFIG: process.env.PAYLOAD_CORS_CONFIG || '*',
   },
   serverExternalPackages,
-  webpack: (webpackConfig, { isServer, webpack }) => {
+  webpack: (webpackConfig, { isServer, _webpack }) => {
     if (isServer) {
       webpackConfig.externals = [
         ...webpackConfig.externals,
