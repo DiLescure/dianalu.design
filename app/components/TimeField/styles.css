@@ -1,0 +1,9 @@
+@reference "@/global.css";
+
+.react-aria-TimeField {
+  @apply text-base-content;
+
+  .react-aria-DateInput {
+    @apply inline-block;
+  }
+}

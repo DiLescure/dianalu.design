@@ -1,0 +1,95 @@
+import Code from '@/components/Code';
+import Button from '@/components/Button';
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+
+The `<TutorialModal/>` component is designed to guide users through a multi-step tutorial or wizard. It wraps the standard `<Modal/>` and adds navigation logic (Next, Back, Skip, Finish).
+
+<div className="flex flex-col gap-4">
+  <div className="flex justify-center">
+    <Button className="btn-primary" onPress={props.handleOpenModal}>
+      Start Tutorial
+    </Button>
+  </div>
+</div>
+
+<details open>
+  <summary>Source Code</summary>
+
+  <Code
+    readOnly={true}
+    language="tsx"
+    value={`import TutorialModal, { type TutorialStep } from '@/components/TutorialModal';
+
+    const steps: TutorialStep[] = [
+      {
+        title: 'Welcome',
+        content: <p>Welcome to the tutorial! This is the first step.</p>,
+      },
+      {
+        title: 'Features',
+        content: <p>Here we explain some features...</p>,
+      },
+      {
+        title: 'Get Started',
+        content: <p>You are ready to go!</p>,
+      },
+    ];
+
+    const MyComponent = () => {
+      const [isOpen, setIsOpen] = useState(false);
+
+      return (
+        <>
+          <Button onPress={() => setIsOpen(true)}>Start Tutorial</Button>
+          <TutorialModal
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            steps={steps}
+          />
+        </>
+      );
+    };`}
+  />
+</details>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>isOpen</code></td>
+        <td><code>boolean</code></td>
+        <td>✅</td>
+        <td>Controls whether the modal is open or closed</td>
+      </tr>
+      <tr>
+        <td><code>onClose</code></td>
+        <td><code>() => void</code></td>
+        <td>✅</td>
+        <td>Handler called when the tutorial is closed, skipped, or finished</td>
+      </tr>
+      <tr>
+        <td><code>steps</code></td>
+        <td><code>TutorialStep[]</code></td>
+        <td>✅</td>
+        <td>Array of steps to display. Each step has a title, content, and optional media.</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes to apply to the modal</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

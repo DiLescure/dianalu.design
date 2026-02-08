@@ -1,0 +1,45 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Image from '@/components/Image';
+
+<div className="w-full">
+  <Image 
+    src="/images/docs/taleforge-logo-candidate-01.webp" 
+    alt="Taleforge Logo" 
+    className="block w-[350px] h-[350px] object-contain"
+    loading="eager"
+  />
+</div>
+
+<p className="text-2xl font-bold">Let your app be strengthened by tales forged with care.</p>
+
+Taleforge is a component development and documentation framework that allows you to create, visualize, and interact with UI components in isolation.
+
+<Heading level={2}>Key Features</Heading>
+
+<ul className="list-disc pl-6 space-y-2 mb-4">
+  <li>
+    <strong>Interactive Component Demos</strong>: Each UI component can have a "tale" that
+    demonstrates its functionality with live examples that users can interact with.
+  </li>
+  <li>
+    <strong>Schema-Based Form Controls</strong>: Components use Zod schemas to define their
+    properties, which automatically generates appropriate form controls.
+  </li>
+  <li>
+    <strong>Live Preview</strong>: As you adjust the controls, the component updates in
+    real-time, showing how different property values affect the component.
+  </li>
+  <li>
+    <strong>Organized Documentation</strong>: Components are categorized in a navigable menu
+    structure, making it easy to browse the component library.
+  </li>
+  <li>
+    <strong>Markdown Support</strong>: Tales can be written in Markdown, with support for
+    components, checkboxes, details, and more.
+  </li>
+</ul>
+
+<Heading level={3}>Next Steps</Heading>
+
+Check out the <Link to="/docs/taleforge/getting-started/">Getting Started</Link> tale to learn how to add your own components to Taleforge.

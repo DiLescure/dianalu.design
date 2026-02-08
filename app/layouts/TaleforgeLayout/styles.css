@@ -1,0 +1,19 @@
+@reference "@/global.css";
+
+.drawer {
+  @apply h-full;
+}
+
+.taleforge-nav {
+  aside {
+    @apply overflow-y-auto w-80 bg-base-200 border-r border-gray-400;
+  }
+}
+
+.taleforge-nav-strip {
+  @apply bg-base-200 border-r border-gray-400;
+}
+
+.taleforge-content {
+  @apply overflow-hidden h-full bg-base-100;
+}

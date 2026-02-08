@@ -1,0 +1,114 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Code from '@/components/Code';
+import MinMaxSlider from '@/components/MinMaxSlider';
+
+This component wraps the <Link to="https://react-spectrum.adobe.com/react-aria/" external={true}>react-aria-components</Link> <Link to="https://react-spectrum.adobe.com/react-aria/Slider.html" external={true}>Slider</Link> to provide a two-thumb range selector with optional label, description, and error handling hooks.
+
+<div className="card bg-base-200 shadow-sm max-w-xl">
+  <div className="card-body">
+    <MinMaxSlider {...props.sliderProps} />
+  </div>
+</div>
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import MinMaxSlider from '@/components/MinMaxSlider';
+
+  <MinMaxSlider
+    label="${props.sliderProps.label}"
+    description="${props.sliderProps.description || ''}"
+    isDisabled={${props.sliderProps.isDisabled ? 'true' : 'false'}}
+    isLoading={${props.sliderProps.isLoading ? 'true' : 'false'}}
+    minValue={${props.sliderProps.minValue}}
+    maxValue={${props.sliderProps.maxValue}}
+    step={${props.sliderProps.step}}
+    value={[${props.sliderProps.value?.[0] ?? 0}, ${props.sliderProps.value?.[1] ?? 0}]}
+    thumbLabels={["${props.sliderProps.thumbLabels?.[0] || ''}", "${props.sliderProps.thumbLabels?.[1] || ''}"]}
+  />
+`}
+/>
+</details>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>label</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Label shown above the slider</td>
+      </tr>
+      <tr>
+        <td><code>description</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Description text shown below the label</td>
+      </tr>
+      <tr>
+        <td><code>isLoading</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Disables the slider while loading</td>
+      </tr>
+      <tr>
+        <td><code>isDisabled</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Disables interaction</td>
+      </tr>
+      <tr>
+        <td><code>minValue</code></td>
+        <td><code>number</code></td>
+        <td>❌</td>
+        <td>Minimum value for the range</td>
+      </tr>
+      <tr>
+        <td><code>maxValue</code></td>
+        <td><code>number</code></td>
+        <td>❌</td>
+        <td>Maximum value for the range</td>
+      </tr>
+      <tr>
+        <td><code>step</code></td>
+        <td><code>number</code></td>
+        <td>❌</td>
+        <td>Increment step for values</td>
+      </tr>
+      <tr>
+        <td><code>value</code></td>
+        <td><code>[number, number]</code></td>
+        <td>❌</td>
+        <td>Controlled range values [min, max]</td>
+      </tr>
+      <tr>
+        <td><code>onChange</code></td>
+        <td><code>(value: [number, number]) =&gt; void</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Change handler for controlled usage</td>
+      </tr>
+      <tr>
+        <td><code>thumbLabels</code></td>
+        <td><code>string[]</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Accessible labels for the min and max thumbs</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

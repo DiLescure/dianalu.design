@@ -1,0 +1,16 @@
+@reference "@/global.css";
+
+.loading-overlay-component {
+  @apply absolute top-0 left-0 right-0 bottom-0 bg-[#00000050];
+
+  z-index: 950;
+
+  /* blur content below */
+  backdrop-filter: blur(3px);
+}
+
+.loading-overlay-spinner {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  @apply w-12 h-12;
+  @apply text-white;
+}

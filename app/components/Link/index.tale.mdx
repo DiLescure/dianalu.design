@@ -1,0 +1,180 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Code from '@/components/Code';
+
+The `<Link />` component is our enhanced navigation component (meant to replace the `<a />` element) that provides several convenient features for both internal and external links.
+
+<Heading level={2}>Key Features</Heading>
+
+<Heading level={3}>Automatic Active State</Heading>
+
+The Link component uses Vike's page context to automatically apply an `is-active` class to itself when the current page matches the link's destination.
+
+<Heading level={3}>External Link Handling</Heading>
+
+The `external` prop automatically sets the appropriate `target="_blank"` and `rel="noopener noreferrer"` attributes for external links.
+
+<Heading level={3}>Search Parameters Integration</Heading>
+
+The optional `searchParams` prop integrates with nuqs to serialize objects into URL search strings, making it easy to create links with complex query parameters.
+
+<Heading level={2}>Interactive Example</Heading>
+
+<div className="card bg-base-200 shadow-sm max-w-md">
+  <div className="card-body">
+    <Link
+      to={props.to || '#'}
+      external={props.external}
+      className={props.className}
+      rel={props.rel}
+      searchParams={props.searchParams}
+    >
+      {props.children || 'Link Text'}
+    </Link>
+  </div>
+</div>
+
+<details open>
+  <summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={
+    `<Link ${
+      JSON.stringify(
+        {
+          ...props,
+          searchParams: JSON.stringify(
+              props.searchParams,
+              null,
+              2,
+            ).replace(/\n/g, '\\n  ')
+              .replace(/"([^" ]+)": /g, '$1:'
+          )
+        },
+        null,
+        2,
+      ).replace(/^\{|\}$/g, '')
+        .replace(/([^\\])"([^" ]+)": /g, '$1$2=')
+        .replace(/\\n/g, '\n')
+        .replace(/"(\{)|(\})"/g, '$1$1$2$2')
+        .replace(/\\/g, '')
+    } />`
+  }
+/>
+</details>
+
+Modify the tale controls below to see how the link is affected.
+
+<Heading level={2}>Usage Examples</Heading>
+
+<Heading level={3}>Basic Internal Link</Heading>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import Link from '@/components/Link';
+
+<Link to="/about">
+  About Us
+</Link>`}
+/>
+<br/>
+
+<Heading level={3}>External Link</Heading>
+
+The `external` prop automatically adds `target="_blank"` and appropriate `rel` attributes:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import Link from '@/components/Link';
+
+<Link to="https://example.com" external={true}>
+  Visit Example.com
+</Link>`}
+/>
+<br/>
+
+<Heading level={3}>Link with Search Parameters</Heading>
+
+The `searchParams` prop is serialized into a URL search string using nuqs:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import Link from '@/components/Link';
+
+<Link 
+  to="/search" 
+  searchParams={{
+    query: 'react',
+    category: 'docs',
+    page: 1
+  }}
+>
+  Search Results
+</Link>
+
+// Results in: /search?query=react&category=docs&page=1`}
+/>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">For more detailed information about search parameter management, check out the <Link to="/docs/services/search-parameters/">Search Parameters Provider</Link> doc.</p>
+</div>
+<br/>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>to</code></td>
+        <td><code>string</code></td>
+        <td>✅</td>
+        <td>The destination URL or path</td>
+      </tr>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>React.ReactNode</code></td>
+        <td>✅</td>
+        <td>The content of the link</td>
+      </tr>
+      <tr>
+        <td><code>external</code></td>
+        <td><code>boolean</code></td>
+        <td>❌</td>
+        <td>Automatically sets target and rel for external links</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes</td>
+      </tr>
+      <tr>
+        <td><code>rel</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Custom rel attribute (merged with external defaults)</td>
+      </tr>
+      <tr>
+        <td><code>searchParams</code></td>
+        <td><code>Record&lt;string, any&gt;</code></td>
+        <td>❌</td>
+        <td>Object to serialize into URL search parameters</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

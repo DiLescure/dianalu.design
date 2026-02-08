@@ -1,0 +1,107 @@
+services:
+  proxy:
+    image: nginxproxy/nginx-proxy
+    cpus: 1
+    mem_limit: 1g
+    # If port error try: sudo sysctl net.ipv4.ip_unprivileged_port_start=80
+    privileged: true
+    ports:
+      - 80:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ${PWD}/.config/nginx-proxy/10.custom.conf:/etc/nginx/conf.d/10.custom.conf
+    environment:
+      - DEFAULT_HOST=dianalu.design
+      - NGINX_PROXY_WEBSOCKET=1
+      - TRUST_DOWNSTREAM_PROXYS=true
+  app:
+    image: oven/bun:1.3-debian
+    cpus: 1
+    mem_limit: 4.5g
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      # Anonymous volumes for node_modules to prevent host interference
+      - /app/node_modules
+    command: >
+      /usr/bin/bash -c "bun install && bun run production"
+    ports:
+      - 9090:3002
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      NODE_OPTIONS: --max-old-space-size=4096
+      VIRTUAL_HOST_MULTIPORTS: |-
+        dianalu.design:
+          "/":
+            port: 3002
+    env_file:
+      - .env
+    # depends_on:
+    #   - cms
+  cms:
+    image: oven/bun:1.3-debian
+    cpus: 2
+    mem_limit: 4.5g
+    working_dir: /app
+    volumes:
+      - ./cms:/app
+      - /app/node_modules
+    command: >
+      /usr/bin/bash -c "bun install;
+              if [ $(arch) = 'aarch64' ]; then
+                bun install --cpu=arm64 --os=linux sharp;
+              fi
+              bun start"
+    ports:
+      - 9091:3000
+      - 38935:38935
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      NODE_OPTIONS: --max-old-space-size=4096
+      VIRTUAL_HOST_MULTIPORTS: |-
+        dianalu.design:
+          "/admin/hmr/":
+            port: 38935
+          "/admin":
+            port: 3000
+          "/_next":
+            port: 3000
+          "/api/":
+            port: 3000
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+  postgres:
+    # Version 18 is not working with the current version of Payload/Drizzle
+    # https://github.com/payloadcms/payload/issues/13963
+    image: postgres:17
+    cpus: 2
+    mem_limit: 2g
+    shm_size: 128mb
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: pglocaldev
+      POSTGRES_PASSWORD: wqXclVPPPFUPV86696a7a6ff
+      POSTGRES_DB: payload
+    volumes:
+      - ./.docker/postgres/data:/var/lib/postgresql/data
+  adminer:
+    image: adminer:5
+    cpus: 1
+    mem_limit: 1g
+    ports:
+      - 9093:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      VIRTUAL_HOST_MULTIPORTS: |-
+        dianalu.design:
+          "/adminer":
+            port: 8080

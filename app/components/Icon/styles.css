@@ -1,0 +1,5 @@
+@reference "@/global.css";
+
+.icon-component {
+  @apply inline-block min-w-4;
+}

@@ -1,0 +1,120 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+import Link from '@/components/Link';
+import { NotesField } from '@/components/NotesField';
+
+<Heading level={2}>Standalone NotesField Example</Heading>
+
+In any other case unrelated to using a form to send data to the server (e.g. as part of in-browser interactions), you can use the standalone version of the NotesField component.
+
+
+<div className="card bg-base-200 shadow-sm max-w-md">
+  <div className="card-body">
+    <NotesField
+      label={props.label}
+      defaultValue={props.value}
+      onChange={props.onChange}
+      description={props.description}
+    />
+  </div>
+</div>
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useState } from 'react';
+  import { NotesField } from '@/components/NotesField';
+
+  /* ... */
+
+    const [value, setValue] = useState<string>('');
+
+    const handleChange = (newValue: string) => {
+      setValue(newValue);
+    };
+
+  /* ... */
+
+      <NotesField
+        label="${props.label}"
+        defaultValue={value}
+        onChange={handleChange}
+        description="${props.description}"
+      />
+  `}
+/>
+</details> 
+
+<Heading level={2}>Standalone NotesField Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>label</code></td>
+        <td><code>string</code></td>
+        <td>✅</td>
+        <td>The label text displayed above the notes field</td>
+      </tr>
+      <tr>
+        <td><code>onChange</code></td>
+        <td><code>(value: string) =&gt; void</code></td>
+        <td>✅</td>
+        <td>Handler called when the rich text content changes</td>
+      </tr>
+      <tr>
+        <td><code>defaultValue</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Initial HTML content for the WYSIWYG editor</td>
+      </tr>
+      <tr>
+        <td><code>description</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Optional description text displayed below the editor</td>
+      </tr>
+      <tr>
+        <td><code>errorMessage</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Error message to display when validation fails</td>
+      </tr>
+      <tr>
+        <td><code>isLoading</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Shows skeleton loading state when true</td>
+      </tr>
+      <tr>
+        <td><code>isDisabled</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Disables the WYSIWYG editor when true</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes for the field wrapper</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">This component uses <Link to="https://github.com/megahertz/react-simple-wysiwyg" external={true}>react-simple-wysiwyg</Link> for rich text editing capabilities. The editor includes a toolbar with formatting options like bold, italic, lists, and links.</p>
+  <p className="text-sm">The component outputs HTML content, so make sure to sanitize the content if displaying it elsewhere in your application.</p>
+</div> 

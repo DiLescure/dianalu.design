@@ -1,0 +1,119 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+
+You might notice we heavily use the `<Heading />` component in our documentation.
+
+The reason we use this component as opposed to the default heading tags is that it provides additional out-of-the-box functionality, such as the ability to link to a specific heading within the content of a page.
+
+It is extremely simple to use, and is a great way to make your documentation more navigation friendly and accessible:
+
+<Code
+  readOnly={true}
+  className="bg-gray-100"
+  language="tsx"
+  value={`import Heading from '@/components/Heading';
+
+/* ... */
+
+<Heading level={2}>My Heading</Heading>`}
+/>
+
+As mentioned before, the component automagically generates a slug from the text you provide, which is used to link to the heading.
+
+<Heading level={2}>Copy Button Functionality</Heading>
+
+Each heading includes a copy button that appears when you hover over the heading. This button allows users to easily copy a direct link to that specific heading, making it simple to share links to particular sections of a page.
+
+The copy button:
+- Shows a link icon that appears on hover
+- Copies the full URL with the heading anchor (e.g., `https://example.com/page#my-heading`)
+- Displays a confirmation checkmark when successfully copied
+- Automatically hides after a short delay
+
+You can also provide a custom copy value if you want the button to copy something other than the heading link:
+
+<Code
+  readOnly={true}
+  className="bg-gray-100"
+  language="tsx"
+  value={`<Heading level={2} copyValue="Custom text to copy">
+  My Heading
+</Heading>`}
+/>
+
+To disable the copy button functionality, you can use the `noSlug` prop:
+
+<Code
+  readOnly={true}
+  className="bg-gray-100"
+  language="tsx"
+  value={`<Heading level={2} noSlug>
+  Heading Without Copy Button
+</Heading>`}
+/>
+
+For more information on how this component works you can take a look at the following files:
+
+- `src/components/Heading/index.tsx`
+- `src/components/CopyButton/index.tsx`
+- `src/services/anchor-navigation/index.tsx`
+
+<Heading level={1}>Heading Level 1</Heading>
+<Heading level={2}>Heading Level 2</Heading>
+<Heading level={3}>Heading Level 3</Heading>
+<Heading level={4}>Heading Level 4</Heading>
+<Heading level={5}>Heading Level 5</Heading>
+<Heading level={6}>Heading Level 6</Heading>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>level</code></td>
+        <td><code>1</code> | <code>2</code> | <code>3</code> | <code>4</code> | <code>5</code> | <code>6</code></td>
+        <td>✅</td>
+        <td>The heading level (determines which HTML heading tag to render)</td>
+      </tr>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>React.ReactNode</code></td>
+        <td>✅</td>
+        <td>The content of the heading</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes to apply</td>
+      </tr>
+      <tr>
+        <td><code>id</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Custom ID for the heading (auto-generated from content if not provided)</td>
+      </tr>
+      <tr>
+        <td><code>noSlug</code></td>
+        <td><code>boolean</code></td>
+        <td>❌</td>
+        <td>Disables automatic slug generation and copy button functionality</td>
+      </tr>
+      <tr>
+        <td><code>copyValue</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Custom value to copy when the copy button is clicked (defaults to heading link)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

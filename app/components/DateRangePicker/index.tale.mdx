@@ -1,0 +1,159 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+import Link from '@/components/Link';
+import DateRangePicker from '@/components/DateRangePicker';
+
+<Heading level={2}>Standalone DateRangePicker Example</Heading>
+
+Use the standalone DateRangePicker for client-side interactions that don't involve form submission.
+
+<div className="card bg-base-200 shadow-sm max-w-md">
+  <div className="card-body">
+    <DateRangePicker
+      label={props.label}
+      value={props.value}
+      onChange={props.onChange}
+      isDisabled={props.isDisabled}
+      isLoading={props.isLoading}
+      description={props.description}
+      granularity={props.granularity}
+    />
+  </div>
+  </div>
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useState } from 'react';
+  import DateRangePicker from '@/components/DateRangePicker';
+  import dayjs from 'dayjs';
+  import { endOfDate, startOfDate } from '@/util/date-helpers';
+
+  /* ... */
+
+  const localTimeZone = dayjs.tz.guess();
+  const todayDate = dayjs().tz(localTimeZone);
+  const startOfToday = startOfDate(todayDate.toDate(), localTimeZone);
+  const endOfTomorrow = endOfDate(todayDate.add(1, 'day').toDate(), localTimeZone);
+
+  /* ... */
+
+    const [value, setValue] = useState({ start: startOfToday, end: endOfTomorrow });
+
+    const handleChange = (newValue) => {
+      setValue(newValue);
+    };
+
+  /* ... */
+
+      <DateRangePicker
+        label="${props.label}"
+        value={value}
+        isLoading={${props.isLoading ? 'true' : 'false'}}
+        isDisabled={${props.isDisabled ? 'true' : 'false'}}
+        description="${props.description || ''}"
+        granularity="${props.granularity}"
+        onChange={handleChange}
+      />
+`}
+/>
+</details>
+
+<Heading level={2}>Standalone DateRangePicker Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>value</code></td>
+        <td><code>{`{ start: Date | null; end: Date | null } | null`}</code></td>
+        <td>❌</td>
+        <td>The current selected date range</td>
+      </tr>
+      <tr>
+        <td><code>onChange</code></td>
+        <td><code>(value: {`{ start: Date | null; end: Date | null } | null`}) =&gt; void</code></td>
+        <td>❌</td>
+        <td>Handler called when the date range changes</td>
+      </tr>
+      <tr>
+        <td><code>label</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The label text displayed above the inputs</td>
+      </tr>
+      <tr>
+        <td><code>description</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Optional description text displayed below the inputs</td>
+      </tr>
+      <tr>
+        <td><code>errorMessage</code></td>
+        <td><code>string</code> | <code>function</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Error message to display. Can be a string or function that receives validation result</td>
+      </tr>
+      <tr>
+        <td><code>isLoading</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Shows skeleton loading state when true</td>
+      </tr>
+      <tr>
+        <td><code>isDisabled</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Disables the inputs when true</td>
+      </tr>
+      <tr>
+        <td><code>granularity</code></td>
+        <td><code>'day'</code> | <code>'hour'</code> | <code>'minute'</code> | <code>'second'</code></td>
+        <td>❌</td>
+        <td>Controls the precision of the date segments</td>
+      </tr>
+      <tr>
+        <td><code>minValue</code></td>
+        <td><code>DateValue</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The minimum allowed date</td>
+      </tr>
+      <tr>
+        <td><code>maxValue</code></td>
+        <td><code>DateValue</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The maximum allowed date</td>
+      </tr>
+      <tr>
+        <td><code>isDateUnavailable</code></td>
+        <td><code>(date: DateValue) =&gt; boolean</code></td>
+        <td>❌</td>
+        <td>Function to disable specific dates</td>
+      </tr>
+      <tr>
+        <td><code>placeholderValue</code></td>
+        <td><code>DateValue</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>A placeholder date for formatting when no value is selected</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">This component extends React Aria's DateRangePickerProps and mirrors our DatePicker patterns, including the FieldError workaround. See the <Link to="https://react-spectrum.adobe.com/react-aria/DateRangePicker.html#props" external={true}>React Aria DateRangePicker documentation</Link> for the underlying prop details.</p>
+  </div>
+
+

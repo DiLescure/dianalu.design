@@ -1,0 +1,125 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+import Link from '@/components/Link';
+import CopyButton from '@/components/CopyButton';
+
+The `<CopyButton />` component is a specialized button that copies text to the clipboard when clicked. It displays a clipboard icon by default and shows a checkmark icon temporarily after a successful copy operation.
+
+Use the tale controls below to modify the behavior of this copy button:
+
+<CopyButton {...props.copyButtonProps} />
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`<CopyButton value="${props.copyButtonProps.value}" className="${props.copyButtonProps.className}" />`}
+/>
+</details>
+<br/>
+
+<Heading level={2}>How It Works</Heading>
+
+The CopyButton component combines a regular button with clipboard functionality:
+
+1. **Default State**: Shows a clipboard icon
+2. **Copy Action**: When clicked, it copies the `value` prop to the clipboard
+3. **Success Feedback**: If the copy is successful, it temporarily shows a checkmark icon for 2 seconds
+4. **Restart Timer**: If clicked again while the checkmark is visible, the 2-second timer restarts
+
+<Heading level={2}>Basic Usage</Heading>
+
+The simplest usage requires only a `value` prop:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value="<CopyButton value='Text to copy' />"
+/>
+<br/>
+
+<Heading level={2}>With Custom Label</Heading>
+
+You can provide children to display text alongside the icon:
+
+<CopyButton value='https://example.com'>
+  Copy URL
+</CopyButton>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`<CopyButton value='https://example.com'>
+    Copy URL
+  </CopyButton>`}
+/>
+</details>
+<br/>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>value</code></td>
+        <td><code>string</code></td>
+        <td>✅</td>
+        <td>The text to copy to the clipboard when the button is clicked</td>
+      </tr>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>ReactNode</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Optional text or content to display alongside the copy icon</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes for styling. Includes DaisyUI button variants and tooltip classes</td>
+      </tr>
+      <tr>
+        <td><code>iconName</code></td>
+        <td><code>IconName</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Custom icon to display. Defaults to 'clipboard', shows 'checkmark' after successful copy</td>
+      </tr>
+      <tr>
+        <td><code>isDisabled</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Disables the copy button when true</td>
+      </tr>
+      <tr>
+        <td><code>isLoading</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Shows loading spinner when true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">CopyButton extends all standard <Link to="/docs/components/actions/button/">Button component</Link> props except <code>onPress</code>, which is handled internally for the copy functionality.</p>
+  <p className="text-sm">The component automatically handles visual feedback with tooltip messages and icon changes, and includes fallbacks for older browsers.</p>
+</div>
+
+<Heading level={2}>Browser Compatibility</Heading>
+
+The component uses the modern Clipboard API when available and falls back to the legacy `document.execCommand('copy')` method for older browsers. It also includes server-side rendering (SSR) safety checks. 

@@ -1,0 +1,45 @@
+@reference "@/global.css";
+
+.taleforge-tale {
+  @apply flex flex-col h-full;
+}
+
+.taleforge-tale-content {
+  @apply grow-1 overflow-auto;
+}
+
+.taleforge-tale-controls-container {
+  @apply shrink-0 max-h-[33%] border-t border-gray-400 bg-base-200 rounded-b-none;
+
+  .collapse-title {
+    @apply flex items-center cursor-pointer gap-2;
+    &::before {
+      @apply content-['▲'] block ml-2 text-sm transition-transform duration-200;
+    }
+  }
+
+  /* Chrome fix for controls scrolling */
+  .taleforge-tale-controls {
+    @apply overflow-y-auto px-4 h-full max-h-full;
+  }
+
+  /* Ensure collapse-content doesn't overflow but allows its children to scroll */
+  .collapse-content {
+    @apply overflow-hidden p-0 h-full;
+  }
+
+  input[type="checkbox"]:checked ~ .collapse-content {
+    @apply pt-2;
+  }
+
+  input[type="checkbox"]:checked ~ .collapse-title {
+    @apply border-b-2 border-gray-400;
+    &:before {
+      @apply transform rotate-180;
+    }
+  }
+
+  select {
+    @apply w-full;
+  }
+}

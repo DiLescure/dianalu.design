@@ -1,0 +1,35 @@
+{
+  "name": "message-broker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "bun --hot src/server.ts",
+    "start": "bun src/server.ts"
+  },
+  "author": "Jean M. Lescure",
+  "license": "Apache-2.0",
+  "description": "",
+  "dependencies": {
+    "@urql/core": "6.0.1",
+    "@valkey/valkey-glide": "2.1.2",
+    "change-case": "5.4.4",
+    "dotenv": "17.2.3",
+    "express": "5.1.0",
+    "fastify": "5.6.1",
+    "jsonwebtoken": "9.0.2",
+    "pino": "10.1.0",
+    "pino-pretty": "13.1.2",
+    "short-unique-id": "5.3.2",
+    "socket.io": "4.8.1",
+    "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.5",
+    "@types/jsonwebtoken": "9.0.10",
+    "@types/node": "24.10.0"
+  },
+  "trustedDependencies": [
+    "esbuild",
+    "protobufjs"
+  ]
+}

@@ -1,0 +1,134 @@
+import Code from '@/components/Code';
+import Heading from '@/components/Heading';
+
+The Overlay Service is a centralized system that manages various overlay components in your application, including modals, toasts, and loading overlays. It provides a consistent, event-driven approach to handling these UI elements across your application.
+
+This service coordinates three main components:
+- [Basic Modal](/docs/components/actions/modal-basic/)
+- [Toast Notifications](/docs/components/feedback/toast/)
+- [Loading Overlay](/docs/components/feedback/loading-overlay/)
+
+<Heading level={2}>Event-Driven Architecture</Heading>
+
+The Overlay Service uses an event-driven architecture to manage state and trigger updates. This approach prevents unnecessary re-renders and ensures consistent behavior across your application.
+
+Here are the main events you can emit:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import eventService from '@/services/event';
+
+  // Show/hide loading overlay
+  eventService.emit('overlay:request-set-app-loading', true);
+
+  // Show/hide modal
+  eventService.emit('overlay:request-set-modal-props', {
+    isOpen: true,
+    title: "My Modal",
+    children: "Modal content here",
+    onClose: () => eventService.emit('overlay:request-set-modal-props', null),
+  });
+
+  // Add a toast to the queue
+  eventService.emit('overlay:request-toast-queue-add', {
+    message: "Operation successful!",
+    level: "success", // 'info' | 'success' | 'warning' | 'error'
+  });`}
+/>
+<br/>
+
+<Heading level={2}>React Hooks</Heading>
+
+The service provides several specialized hooks to access specific parts of the overlay state:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import {
+    useOverlayState,    // Access the complete overlay state
+    useToastProps,      // Access current toast properties
+    useModalProps,      // Access current modal properties
+    useToastQueue,      // Access toast queue and its methods
+    useAppLoading,      // Access loading overlay state
+  } from '@/services/overlay';
+
+  function MyComponent() {
+    // Get complete overlay state
+    const overlayState = useOverlayState();
+
+    // Or use specialized hooks for better performance
+    const modalProps = useModalProps();
+    const toastProps = useToastProps();
+    const { toastQueue, toastQueueAdd } = useToastQueue();
+    const isLoading = useAppLoading();
+
+    // ...
+  }`}
+/>
+<br/>
+
+<Heading level={2}>Toast Queue Management</Heading>
+
+The toast queue system automatically manages the display of multiple toasts. When you add a toast to the queue:
+
+1. If no toast is currently displayed, it shows immediately
+2. If a toast is already visible, new toasts are added to the queue
+3. Each toast is displayed for 5 seconds before automatically moving to the next one
+
+The `useToastQueue` hook provides methods for queue management:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const {
+    toastQueue,         // Current queue state
+    toastQueueAdd,      // Add a new toast
+    toastQueueRemove,   // Remove a specific toast
+    toastQueueClear,    // Clear all toasts
+    toastQueueNext,     // Move to next toast
+  } = useToastQueue();`}
+/>
+<br/>
+
+<Heading level={2}>Provider Setup</Heading>
+
+The Overlay Service requires the `OverlayProvider` to be present in your application. Typically, this should be near the root of your app:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { OverlayProvider } from '@/services/overlay';
+
+  function App() {
+    return (
+      <OverlayProvider>
+        {/* Your app content */}
+      </OverlayProvider>
+    );
+  }`}
+/>
+<br/>
+
+<Heading level={2}>Performance Considerations</Heading>
+
+The service is designed with performance in mind:
+
+- State is split into individual pieces to prevent full re-renders when only one property changes
+- Specialized hooks allow components to subscribe only to the state they need
+- Event listeners are properly cleaned up to prevent memory leaks
+- Context values are memoized to prevent unnecessary re-renders
+
+<Heading level={2}>Type Safety</Heading>
+
+The service is fully typed with TypeScript, providing type safety for all its features:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import type {
+    OverlayState,    // Complete state type
+    ModalProps,      // Modal properties type
+    ToastProps,      // Toast properties type
+  } from '@/services/overlay';`}
+/>

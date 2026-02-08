@@ -1,0 +1,23 @@
+@reference "@/global.css";
+
+.select-list {
+  @apply bg-base-200 border border-[var(--input-color)] p-1 ml-1 mt-[-8px] rounded-b-sm shadow-md max-h-80 overflow-y-auto;
+}
+
+.select-item {
+  @apply hover:bg-base-300 p-2 border-b border-gray-300 cursor-pointer;
+
+  &.focused,
+  &[data-focused="true"] {
+    @apply bg-primary/50 text-primary-content;
+  }
+
+  &.selected,
+  &[data-selected="true"] {
+    @apply bg-primary text-primary-content;
+  }
+
+  &:last-child {
+    @apply border-0;
+  }
+}

@@ -1,0 +1,8071 @@
+type Access {
+  agentMessages: agentMessagesAccess
+  agents: agentsAccess
+  canAccessAdmin: Boolean!
+  channels: channelsAccess
+  docsMockData: docsMockDataAccess
+  media: mediaAccess
+  modelDefinitions: modelDefinitionsAccess
+  payload_kv: payload_kvAccess
+  payload_locked_documents: payload_locked_documentsAccess
+  payload_preferences: payload_preferencesAccess
+  threads: threadsAccess
+  userMessages: userMessagesAccess
+  users: usersAccess
+}
+
+type Agent {
+  agentModel: ModelDefinition!
+  agentName: String!
+  agentSystemMessage: String!
+  agentUid: String!
+  createdAt: DateTime
+  id: Int!
+  updatedAt: DateTime
+}
+
+type AgentMessage {
+  channel: Channel!
+  channelUid: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: Int!
+  messageContent: JSON!
+  messageUid: String
+  originatorUser: User!
+  originatorUserUid: String
+  recipientType: AgentMessage_recipientType!
+  recipientUid: String
+  senderAgent: Agent!
+  senderAgentUid: String
+  thread: Thread!
+  threadUid: String!
+  updatedAt: DateTime
+}
+
+enum AgentMessageUpdate_recipientType_MutationInput {
+  agent
+  broadcast
+  user
+}
+
+input AgentMessage_channelUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input AgentMessage_channel_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input AgentMessage_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input AgentMessage_deletedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input AgentMessage_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input AgentMessage_messageContent_operator {
+  contains: JSON
+  equals: JSON
+  intersects: JSON
+  like: JSON
+  not_equals: JSON
+  within: JSON
+}
+
+input AgentMessage_messageUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input AgentMessage_originatorUserUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input AgentMessage_originatorUser_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+enum AgentMessage_recipientType {
+  agent
+  broadcast
+  user
+}
+
+enum AgentMessage_recipientType_Input {
+  agent
+  broadcast
+  user
+}
+
+enum AgentMessage_recipientType_MutationInput {
+  agent
+  broadcast
+  user
+}
+
+input AgentMessage_recipientType_operator {
+  all: [AgentMessage_recipientType_Input]
+  equals: AgentMessage_recipientType_Input
+  in: [AgentMessage_recipientType_Input]
+  not_equals: AgentMessage_recipientType_Input
+  not_in: [AgentMessage_recipientType_Input]
+}
+
+input AgentMessage_recipientUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input AgentMessage_senderAgentUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input AgentMessage_senderAgent_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input AgentMessage_threadUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input AgentMessage_thread_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input AgentMessage_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input AgentMessage_where {
+  AND: [AgentMessage_where_and]
+  OR: [AgentMessage_where_or]
+  channel: AgentMessage_channel_operator
+  channelUid: AgentMessage_channelUid_operator
+  createdAt: AgentMessage_createdAt_operator
+  deletedAt: AgentMessage_deletedAt_operator
+  id: AgentMessage_id_operator
+  messageContent: AgentMessage_messageContent_operator
+  messageUid: AgentMessage_messageUid_operator
+  originatorUser: AgentMessage_originatorUser_operator
+  originatorUserUid: AgentMessage_originatorUserUid_operator
+  recipientType: AgentMessage_recipientType_operator
+  recipientUid: AgentMessage_recipientUid_operator
+  senderAgent: AgentMessage_senderAgent_operator
+  senderAgentUid: AgentMessage_senderAgentUid_operator
+  thread: AgentMessage_thread_operator
+  threadUid: AgentMessage_threadUid_operator
+  updatedAt: AgentMessage_updatedAt_operator
+}
+
+input AgentMessage_where_and {
+  AND: [AgentMessage_where_and]
+  OR: [AgentMessage_where_or]
+  channel: AgentMessage_channel_operator
+  channelUid: AgentMessage_channelUid_operator
+  createdAt: AgentMessage_createdAt_operator
+  deletedAt: AgentMessage_deletedAt_operator
+  id: AgentMessage_id_operator
+  messageContent: AgentMessage_messageContent_operator
+  messageUid: AgentMessage_messageUid_operator
+  originatorUser: AgentMessage_originatorUser_operator
+  originatorUserUid: AgentMessage_originatorUserUid_operator
+  recipientType: AgentMessage_recipientType_operator
+  recipientUid: AgentMessage_recipientUid_operator
+  senderAgent: AgentMessage_senderAgent_operator
+  senderAgentUid: AgentMessage_senderAgentUid_operator
+  thread: AgentMessage_thread_operator
+  threadUid: AgentMessage_threadUid_operator
+  updatedAt: AgentMessage_updatedAt_operator
+}
+
+input AgentMessage_where_or {
+  AND: [AgentMessage_where_and]
+  OR: [AgentMessage_where_or]
+  channel: AgentMessage_channel_operator
+  channelUid: AgentMessage_channelUid_operator
+  createdAt: AgentMessage_createdAt_operator
+  deletedAt: AgentMessage_deletedAt_operator
+  id: AgentMessage_id_operator
+  messageContent: AgentMessage_messageContent_operator
+  messageUid: AgentMessage_messageUid_operator
+  originatorUser: AgentMessage_originatorUser_operator
+  originatorUserUid: AgentMessage_originatorUserUid_operator
+  recipientType: AgentMessage_recipientType_operator
+  recipientUid: AgentMessage_recipientUid_operator
+  senderAgent: AgentMessage_senderAgent_operator
+  senderAgentUid: AgentMessage_senderAgentUid_operator
+  thread: AgentMessage_thread_operator
+  threadUid: AgentMessage_threadUid_operator
+  updatedAt: AgentMessage_updatedAt_operator
+}
+
+type AgentMessages {
+  docs: [AgentMessage!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type AgentMessagesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentMessagesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentMessagesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentMessagesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentMessagesDocAccessFields {
+  channel: AgentMessagesDocAccessFields_channel
+  channelUid: AgentMessagesDocAccessFields_channelUid
+  createdAt: AgentMessagesDocAccessFields_createdAt
+  deletedAt: AgentMessagesDocAccessFields_deletedAt
+  messageContent: AgentMessagesDocAccessFields_messageContent
+  messageUid: AgentMessagesDocAccessFields_messageUid
+  originatorUser: AgentMessagesDocAccessFields_originatorUser
+  originatorUserUid: AgentMessagesDocAccessFields_originatorUserUid
+  recipientType: AgentMessagesDocAccessFields_recipientType
+  recipientUid: AgentMessagesDocAccessFields_recipientUid
+  senderAgent: AgentMessagesDocAccessFields_senderAgent
+  senderAgentUid: AgentMessagesDocAccessFields_senderAgentUid
+  thread: AgentMessagesDocAccessFields_thread
+  threadUid: AgentMessagesDocAccessFields_threadUid
+  updatedAt: AgentMessagesDocAccessFields_updatedAt
+}
+
+type AgentMessagesDocAccessFields_channel {
+  create: AgentMessagesDocAccessFields_channel_Create
+  delete: AgentMessagesDocAccessFields_channel_Delete
+  read: AgentMessagesDocAccessFields_channel_Read
+  update: AgentMessagesDocAccessFields_channel_Update
+}
+
+type AgentMessagesDocAccessFields_channelUid {
+  create: AgentMessagesDocAccessFields_channelUid_Create
+  delete: AgentMessagesDocAccessFields_channelUid_Delete
+  read: AgentMessagesDocAccessFields_channelUid_Read
+  update: AgentMessagesDocAccessFields_channelUid_Update
+}
+
+type AgentMessagesDocAccessFields_channelUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_channelUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_channelUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_channelUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_channel_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_channel_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_channel_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_channel_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_createdAt {
+  create: AgentMessagesDocAccessFields_createdAt_Create
+  delete: AgentMessagesDocAccessFields_createdAt_Delete
+  read: AgentMessagesDocAccessFields_createdAt_Read
+  update: AgentMessagesDocAccessFields_createdAt_Update
+}
+
+type AgentMessagesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_deletedAt {
+  create: AgentMessagesDocAccessFields_deletedAt_Create
+  delete: AgentMessagesDocAccessFields_deletedAt_Delete
+  read: AgentMessagesDocAccessFields_deletedAt_Read
+  update: AgentMessagesDocAccessFields_deletedAt_Update
+}
+
+type AgentMessagesDocAccessFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageContent {
+  create: AgentMessagesDocAccessFields_messageContent_Create
+  delete: AgentMessagesDocAccessFields_messageContent_Delete
+  read: AgentMessagesDocAccessFields_messageContent_Read
+  update: AgentMessagesDocAccessFields_messageContent_Update
+}
+
+type AgentMessagesDocAccessFields_messageContent_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageContent_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageContent_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageContent_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageUid {
+  create: AgentMessagesDocAccessFields_messageUid_Create
+  delete: AgentMessagesDocAccessFields_messageUid_Delete
+  read: AgentMessagesDocAccessFields_messageUid_Read
+  update: AgentMessagesDocAccessFields_messageUid_Update
+}
+
+type AgentMessagesDocAccessFields_messageUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_messageUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUser {
+  create: AgentMessagesDocAccessFields_originatorUser_Create
+  delete: AgentMessagesDocAccessFields_originatorUser_Delete
+  read: AgentMessagesDocAccessFields_originatorUser_Read
+  update: AgentMessagesDocAccessFields_originatorUser_Update
+}
+
+type AgentMessagesDocAccessFields_originatorUserUid {
+  create: AgentMessagesDocAccessFields_originatorUserUid_Create
+  delete: AgentMessagesDocAccessFields_originatorUserUid_Delete
+  read: AgentMessagesDocAccessFields_originatorUserUid_Read
+  update: AgentMessagesDocAccessFields_originatorUserUid_Update
+}
+
+type AgentMessagesDocAccessFields_originatorUserUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUserUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUserUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUserUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUser_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUser_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUser_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_originatorUser_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientType {
+  create: AgentMessagesDocAccessFields_recipientType_Create
+  delete: AgentMessagesDocAccessFields_recipientType_Delete
+  read: AgentMessagesDocAccessFields_recipientType_Read
+  update: AgentMessagesDocAccessFields_recipientType_Update
+}
+
+type AgentMessagesDocAccessFields_recipientType_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientType_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientType_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientType_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientUid {
+  create: AgentMessagesDocAccessFields_recipientUid_Create
+  delete: AgentMessagesDocAccessFields_recipientUid_Delete
+  read: AgentMessagesDocAccessFields_recipientUid_Read
+  update: AgentMessagesDocAccessFields_recipientUid_Update
+}
+
+type AgentMessagesDocAccessFields_recipientUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_recipientUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgent {
+  create: AgentMessagesDocAccessFields_senderAgent_Create
+  delete: AgentMessagesDocAccessFields_senderAgent_Delete
+  read: AgentMessagesDocAccessFields_senderAgent_Read
+  update: AgentMessagesDocAccessFields_senderAgent_Update
+}
+
+type AgentMessagesDocAccessFields_senderAgentUid {
+  create: AgentMessagesDocAccessFields_senderAgentUid_Create
+  delete: AgentMessagesDocAccessFields_senderAgentUid_Delete
+  read: AgentMessagesDocAccessFields_senderAgentUid_Read
+  update: AgentMessagesDocAccessFields_senderAgentUid_Update
+}
+
+type AgentMessagesDocAccessFields_senderAgentUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgentUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgentUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgentUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgent_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgent_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgent_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_senderAgent_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_thread {
+  create: AgentMessagesDocAccessFields_thread_Create
+  delete: AgentMessagesDocAccessFields_thread_Delete
+  read: AgentMessagesDocAccessFields_thread_Read
+  update: AgentMessagesDocAccessFields_thread_Update
+}
+
+type AgentMessagesDocAccessFields_threadUid {
+  create: AgentMessagesDocAccessFields_threadUid_Create
+  delete: AgentMessagesDocAccessFields_threadUid_Delete
+  read: AgentMessagesDocAccessFields_threadUid_Read
+  update: AgentMessagesDocAccessFields_threadUid_Update
+}
+
+type AgentMessagesDocAccessFields_threadUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_threadUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_threadUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_threadUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_thread_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_thread_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_thread_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_thread_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_updatedAt {
+  create: AgentMessagesDocAccessFields_updatedAt_Create
+  delete: AgentMessagesDocAccessFields_updatedAt_Delete
+  read: AgentMessagesDocAccessFields_updatedAt_Read
+  update: AgentMessagesDocAccessFields_updatedAt_Update
+}
+
+type AgentMessagesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields {
+  channel: AgentMessagesFields_channel
+  channelUid: AgentMessagesFields_channelUid
+  createdAt: AgentMessagesFields_createdAt
+  deletedAt: AgentMessagesFields_deletedAt
+  messageContent: AgentMessagesFields_messageContent
+  messageUid: AgentMessagesFields_messageUid
+  originatorUser: AgentMessagesFields_originatorUser
+  originatorUserUid: AgentMessagesFields_originatorUserUid
+  recipientType: AgentMessagesFields_recipientType
+  recipientUid: AgentMessagesFields_recipientUid
+  senderAgent: AgentMessagesFields_senderAgent
+  senderAgentUid: AgentMessagesFields_senderAgentUid
+  thread: AgentMessagesFields_thread
+  threadUid: AgentMessagesFields_threadUid
+  updatedAt: AgentMessagesFields_updatedAt
+}
+
+type AgentMessagesFields_channel {
+  create: AgentMessagesFields_channel_Create
+  delete: AgentMessagesFields_channel_Delete
+  read: AgentMessagesFields_channel_Read
+  update: AgentMessagesFields_channel_Update
+}
+
+type AgentMessagesFields_channelUid {
+  create: AgentMessagesFields_channelUid_Create
+  delete: AgentMessagesFields_channelUid_Delete
+  read: AgentMessagesFields_channelUid_Read
+  update: AgentMessagesFields_channelUid_Update
+}
+
+type AgentMessagesFields_channelUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_channelUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_channelUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_channelUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_channel_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_channel_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_channel_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_channel_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_createdAt {
+  create: AgentMessagesFields_createdAt_Create
+  delete: AgentMessagesFields_createdAt_Delete
+  read: AgentMessagesFields_createdAt_Read
+  update: AgentMessagesFields_createdAt_Update
+}
+
+type AgentMessagesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_deletedAt {
+  create: AgentMessagesFields_deletedAt_Create
+  delete: AgentMessagesFields_deletedAt_Delete
+  read: AgentMessagesFields_deletedAt_Read
+  update: AgentMessagesFields_deletedAt_Update
+}
+
+type AgentMessagesFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageContent {
+  create: AgentMessagesFields_messageContent_Create
+  delete: AgentMessagesFields_messageContent_Delete
+  read: AgentMessagesFields_messageContent_Read
+  update: AgentMessagesFields_messageContent_Update
+}
+
+type AgentMessagesFields_messageContent_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageContent_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageContent_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageContent_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageUid {
+  create: AgentMessagesFields_messageUid_Create
+  delete: AgentMessagesFields_messageUid_Delete
+  read: AgentMessagesFields_messageUid_Read
+  update: AgentMessagesFields_messageUid_Update
+}
+
+type AgentMessagesFields_messageUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_messageUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUser {
+  create: AgentMessagesFields_originatorUser_Create
+  delete: AgentMessagesFields_originatorUser_Delete
+  read: AgentMessagesFields_originatorUser_Read
+  update: AgentMessagesFields_originatorUser_Update
+}
+
+type AgentMessagesFields_originatorUserUid {
+  create: AgentMessagesFields_originatorUserUid_Create
+  delete: AgentMessagesFields_originatorUserUid_Delete
+  read: AgentMessagesFields_originatorUserUid_Read
+  update: AgentMessagesFields_originatorUserUid_Update
+}
+
+type AgentMessagesFields_originatorUserUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUserUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUserUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUserUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUser_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUser_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUser_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_originatorUser_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientType {
+  create: AgentMessagesFields_recipientType_Create
+  delete: AgentMessagesFields_recipientType_Delete
+  read: AgentMessagesFields_recipientType_Read
+  update: AgentMessagesFields_recipientType_Update
+}
+
+type AgentMessagesFields_recipientType_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientType_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientType_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientType_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientUid {
+  create: AgentMessagesFields_recipientUid_Create
+  delete: AgentMessagesFields_recipientUid_Delete
+  read: AgentMessagesFields_recipientUid_Read
+  update: AgentMessagesFields_recipientUid_Update
+}
+
+type AgentMessagesFields_recipientUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_recipientUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgent {
+  create: AgentMessagesFields_senderAgent_Create
+  delete: AgentMessagesFields_senderAgent_Delete
+  read: AgentMessagesFields_senderAgent_Read
+  update: AgentMessagesFields_senderAgent_Update
+}
+
+type AgentMessagesFields_senderAgentUid {
+  create: AgentMessagesFields_senderAgentUid_Create
+  delete: AgentMessagesFields_senderAgentUid_Delete
+  read: AgentMessagesFields_senderAgentUid_Read
+  update: AgentMessagesFields_senderAgentUid_Update
+}
+
+type AgentMessagesFields_senderAgentUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgentUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgentUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgentUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgent_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgent_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgent_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_senderAgent_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_thread {
+  create: AgentMessagesFields_thread_Create
+  delete: AgentMessagesFields_thread_Delete
+  read: AgentMessagesFields_thread_Read
+  update: AgentMessagesFields_thread_Update
+}
+
+type AgentMessagesFields_threadUid {
+  create: AgentMessagesFields_threadUid_Create
+  delete: AgentMessagesFields_threadUid_Delete
+  read: AgentMessagesFields_threadUid_Read
+  update: AgentMessagesFields_threadUid_Update
+}
+
+type AgentMessagesFields_threadUid_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_threadUid_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_threadUid_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_threadUid_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_thread_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_thread_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_thread_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_thread_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_updatedAt {
+  create: AgentMessagesFields_updatedAt_Create
+  delete: AgentMessagesFields_updatedAt_Delete
+  read: AgentMessagesFields_updatedAt_Read
+  update: AgentMessagesFields_updatedAt_Update
+}
+
+type AgentMessagesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type AgentMessagesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type AgentMessagesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentMessagesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentMessagesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentMessagesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentRequestMetrics {
+  failed: Int!
+  processed: Int!
+  successRate: Float!
+}
+
+input Agent_agentModel_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Agent_agentName_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Agent_agentSystemMessage_operator {
+  contains: String
+  equals: String
+  like: String
+  not_equals: String
+}
+
+input Agent_agentUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Agent_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Agent_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input Agent_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Agent_where {
+  AND: [Agent_where_and]
+  OR: [Agent_where_or]
+  agentModel: Agent_agentModel_operator
+  agentName: Agent_agentName_operator
+  agentSystemMessage: Agent_agentSystemMessage_operator
+  agentUid: Agent_agentUid_operator
+  createdAt: Agent_createdAt_operator
+  id: Agent_id_operator
+  updatedAt: Agent_updatedAt_operator
+}
+
+input Agent_where_and {
+  AND: [Agent_where_and]
+  OR: [Agent_where_or]
+  agentModel: Agent_agentModel_operator
+  agentName: Agent_agentName_operator
+  agentSystemMessage: Agent_agentSystemMessage_operator
+  agentUid: Agent_agentUid_operator
+  createdAt: Agent_createdAt_operator
+  id: Agent_id_operator
+  updatedAt: Agent_updatedAt_operator
+}
+
+input Agent_where_or {
+  AND: [Agent_where_and]
+  OR: [Agent_where_or]
+  agentModel: Agent_agentModel_operator
+  agentName: Agent_agentName_operator
+  agentSystemMessage: Agent_agentSystemMessage_operator
+  agentUid: Agent_agentUid_operator
+  createdAt: Agent_createdAt_operator
+  id: Agent_id_operator
+  updatedAt: Agent_updatedAt_operator
+}
+
+type Agents {
+  docs: [Agent!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type AgentsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentsDocAccessFields {
+  agentModel: AgentsDocAccessFields_agentModel
+  agentName: AgentsDocAccessFields_agentName
+  agentSystemMessage: AgentsDocAccessFields_agentSystemMessage
+  agentUid: AgentsDocAccessFields_agentUid
+  createdAt: AgentsDocAccessFields_createdAt
+  updatedAt: AgentsDocAccessFields_updatedAt
+}
+
+type AgentsDocAccessFields_agentModel {
+  create: AgentsDocAccessFields_agentModel_Create
+  delete: AgentsDocAccessFields_agentModel_Delete
+  read: AgentsDocAccessFields_agentModel_Read
+  update: AgentsDocAccessFields_agentModel_Update
+}
+
+type AgentsDocAccessFields_agentModel_Create {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentModel_Delete {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentModel_Read {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentModel_Update {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentName {
+  create: AgentsDocAccessFields_agentName_Create
+  delete: AgentsDocAccessFields_agentName_Delete
+  read: AgentsDocAccessFields_agentName_Read
+  update: AgentsDocAccessFields_agentName_Update
+}
+
+type AgentsDocAccessFields_agentName_Create {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentName_Delete {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentName_Read {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentName_Update {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentSystemMessage {
+  create: AgentsDocAccessFields_agentSystemMessage_Create
+  delete: AgentsDocAccessFields_agentSystemMessage_Delete
+  read: AgentsDocAccessFields_agentSystemMessage_Read
+  update: AgentsDocAccessFields_agentSystemMessage_Update
+}
+
+type AgentsDocAccessFields_agentSystemMessage_Create {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentSystemMessage_Delete {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentSystemMessage_Read {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentSystemMessage_Update {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentUid {
+  create: AgentsDocAccessFields_agentUid_Create
+  delete: AgentsDocAccessFields_agentUid_Delete
+  read: AgentsDocAccessFields_agentUid_Read
+  update: AgentsDocAccessFields_agentUid_Update
+}
+
+type AgentsDocAccessFields_agentUid_Create {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentUid_Delete {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentUid_Read {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_agentUid_Update {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_createdAt {
+  create: AgentsDocAccessFields_createdAt_Create
+  delete: AgentsDocAccessFields_createdAt_Delete
+  read: AgentsDocAccessFields_createdAt_Read
+  update: AgentsDocAccessFields_createdAt_Update
+}
+
+type AgentsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_updatedAt {
+  create: AgentsDocAccessFields_updatedAt_Create
+  delete: AgentsDocAccessFields_updatedAt_Delete
+  read: AgentsDocAccessFields_updatedAt_Read
+  update: AgentsDocAccessFields_updatedAt_Update
+}
+
+type AgentsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type AgentsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type AgentsFields {
+  agentModel: AgentsFields_agentModel
+  agentName: AgentsFields_agentName
+  agentSystemMessage: AgentsFields_agentSystemMessage
+  agentUid: AgentsFields_agentUid
+  createdAt: AgentsFields_createdAt
+  updatedAt: AgentsFields_updatedAt
+}
+
+type AgentsFields_agentModel {
+  create: AgentsFields_agentModel_Create
+  delete: AgentsFields_agentModel_Delete
+  read: AgentsFields_agentModel_Read
+  update: AgentsFields_agentModel_Update
+}
+
+type AgentsFields_agentModel_Create {
+  permission: Boolean!
+}
+
+type AgentsFields_agentModel_Delete {
+  permission: Boolean!
+}
+
+type AgentsFields_agentModel_Read {
+  permission: Boolean!
+}
+
+type AgentsFields_agentModel_Update {
+  permission: Boolean!
+}
+
+type AgentsFields_agentName {
+  create: AgentsFields_agentName_Create
+  delete: AgentsFields_agentName_Delete
+  read: AgentsFields_agentName_Read
+  update: AgentsFields_agentName_Update
+}
+
+type AgentsFields_agentName_Create {
+  permission: Boolean!
+}
+
+type AgentsFields_agentName_Delete {
+  permission: Boolean!
+}
+
+type AgentsFields_agentName_Read {
+  permission: Boolean!
+}
+
+type AgentsFields_agentName_Update {
+  permission: Boolean!
+}
+
+type AgentsFields_agentSystemMessage {
+  create: AgentsFields_agentSystemMessage_Create
+  delete: AgentsFields_agentSystemMessage_Delete
+  read: AgentsFields_agentSystemMessage_Read
+  update: AgentsFields_agentSystemMessage_Update
+}
+
+type AgentsFields_agentSystemMessage_Create {
+  permission: Boolean!
+}
+
+type AgentsFields_agentSystemMessage_Delete {
+  permission: Boolean!
+}
+
+type AgentsFields_agentSystemMessage_Read {
+  permission: Boolean!
+}
+
+type AgentsFields_agentSystemMessage_Update {
+  permission: Boolean!
+}
+
+type AgentsFields_agentUid {
+  create: AgentsFields_agentUid_Create
+  delete: AgentsFields_agentUid_Delete
+  read: AgentsFields_agentUid_Read
+  update: AgentsFields_agentUid_Update
+}
+
+type AgentsFields_agentUid_Create {
+  permission: Boolean!
+}
+
+type AgentsFields_agentUid_Delete {
+  permission: Boolean!
+}
+
+type AgentsFields_agentUid_Read {
+  permission: Boolean!
+}
+
+type AgentsFields_agentUid_Update {
+  permission: Boolean!
+}
+
+type AgentsFields_createdAt {
+  create: AgentsFields_createdAt_Create
+  delete: AgentsFields_createdAt_Delete
+  read: AgentsFields_createdAt_Read
+  update: AgentsFields_createdAt_Update
+}
+
+type AgentsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type AgentsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type AgentsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type AgentsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type AgentsFields_updatedAt {
+  create: AgentsFields_updatedAt_Create
+  delete: AgentsFields_updatedAt_Delete
+  read: AgentsFields_updatedAt_Read
+  update: AgentsFields_updatedAt_Update
+}
+
+type AgentsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type AgentsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type AgentsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type AgentsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type AgentsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type AgentsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type BroadcastMetrics {
+  failed: Int!
+  sent: Int!
+  successRate: Float!
+}
+
+type Channel {
+  blacklistedAgents: [Agent!]
+  blacklistedUsers: [User!]
+  channelName: String!
+  channelSlug: String
+  channelUid: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: Int!
+  mainThread: Thread
+  parentChannel: Channel
+  participantAgents: [Agent!]
+  participantUsers: [User!]
+  updatedAt: DateTime
+}
+
+input Channel_blacklistedAgents_operator {
+  all: [JSON]
+  equals: JSON
+  exists: Boolean
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Channel_blacklistedUsers_operator {
+  all: [JSON]
+  equals: JSON
+  exists: Boolean
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Channel_channelName_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Channel_channelSlug_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Channel_channelUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Channel_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Channel_deletedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Channel_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input Channel_mainThread_operator {
+  all: [JSON]
+  equals: JSON
+  exists: Boolean
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Channel_parentChannel_operator {
+  all: [JSON]
+  equals: JSON
+  exists: Boolean
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Channel_participantAgents_operator {
+  all: [JSON]
+  equals: JSON
+  exists: Boolean
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Channel_participantUsers_operator {
+  all: [JSON]
+  equals: JSON
+  exists: Boolean
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Channel_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Channel_where {
+  AND: [Channel_where_and]
+  OR: [Channel_where_or]
+  blacklistedAgents: Channel_blacklistedAgents_operator
+  blacklistedUsers: Channel_blacklistedUsers_operator
+  channelName: Channel_channelName_operator
+  channelSlug: Channel_channelSlug_operator
+  channelUid: Channel_channelUid_operator
+  createdAt: Channel_createdAt_operator
+  deletedAt: Channel_deletedAt_operator
+  id: Channel_id_operator
+  mainThread: Channel_mainThread_operator
+  parentChannel: Channel_parentChannel_operator
+  participantAgents: Channel_participantAgents_operator
+  participantUsers: Channel_participantUsers_operator
+  updatedAt: Channel_updatedAt_operator
+}
+
+input Channel_where_and {
+  AND: [Channel_where_and]
+  OR: [Channel_where_or]
+  blacklistedAgents: Channel_blacklistedAgents_operator
+  blacklistedUsers: Channel_blacklistedUsers_operator
+  channelName: Channel_channelName_operator
+  channelSlug: Channel_channelSlug_operator
+  channelUid: Channel_channelUid_operator
+  createdAt: Channel_createdAt_operator
+  deletedAt: Channel_deletedAt_operator
+  id: Channel_id_operator
+  mainThread: Channel_mainThread_operator
+  parentChannel: Channel_parentChannel_operator
+  participantAgents: Channel_participantAgents_operator
+  participantUsers: Channel_participantUsers_operator
+  updatedAt: Channel_updatedAt_operator
+}
+
+input Channel_where_or {
+  AND: [Channel_where_and]
+  OR: [Channel_where_or]
+  blacklistedAgents: Channel_blacklistedAgents_operator
+  blacklistedUsers: Channel_blacklistedUsers_operator
+  channelName: Channel_channelName_operator
+  channelSlug: Channel_channelSlug_operator
+  channelUid: Channel_channelUid_operator
+  createdAt: Channel_createdAt_operator
+  deletedAt: Channel_deletedAt_operator
+  id: Channel_id_operator
+  mainThread: Channel_mainThread_operator
+  parentChannel: Channel_parentChannel_operator
+  participantAgents: Channel_participantAgents_operator
+  participantUsers: Channel_participantUsers_operator
+  updatedAt: Channel_updatedAt_operator
+}
+
+type Channels {
+  docs: [Channel!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type ChannelsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ChannelsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ChannelsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ChannelsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ChannelsDocAccessFields {
+  blacklistedAgents: ChannelsDocAccessFields_blacklistedAgents
+  blacklistedUsers: ChannelsDocAccessFields_blacklistedUsers
+  channelName: ChannelsDocAccessFields_channelName
+  channelSlug: ChannelsDocAccessFields_channelSlug
+  channelUid: ChannelsDocAccessFields_channelUid
+  createdAt: ChannelsDocAccessFields_createdAt
+  deletedAt: ChannelsDocAccessFields_deletedAt
+  mainThread: ChannelsDocAccessFields_mainThread
+  parentChannel: ChannelsDocAccessFields_parentChannel
+  participantAgents: ChannelsDocAccessFields_participantAgents
+  participantUsers: ChannelsDocAccessFields_participantUsers
+  updatedAt: ChannelsDocAccessFields_updatedAt
+}
+
+type ChannelsDocAccessFields_blacklistedAgents {
+  create: ChannelsDocAccessFields_blacklistedAgents_Create
+  delete: ChannelsDocAccessFields_blacklistedAgents_Delete
+  read: ChannelsDocAccessFields_blacklistedAgents_Read
+  update: ChannelsDocAccessFields_blacklistedAgents_Update
+}
+
+type ChannelsDocAccessFields_blacklistedAgents_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_blacklistedAgents_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_blacklistedAgents_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_blacklistedAgents_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_blacklistedUsers {
+  create: ChannelsDocAccessFields_blacklistedUsers_Create
+  delete: ChannelsDocAccessFields_blacklistedUsers_Delete
+  read: ChannelsDocAccessFields_blacklistedUsers_Read
+  update: ChannelsDocAccessFields_blacklistedUsers_Update
+}
+
+type ChannelsDocAccessFields_blacklistedUsers_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_blacklistedUsers_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_blacklistedUsers_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_blacklistedUsers_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelName {
+  create: ChannelsDocAccessFields_channelName_Create
+  delete: ChannelsDocAccessFields_channelName_Delete
+  read: ChannelsDocAccessFields_channelName_Read
+  update: ChannelsDocAccessFields_channelName_Update
+}
+
+type ChannelsDocAccessFields_channelName_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelName_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelName_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelName_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelSlug {
+  create: ChannelsDocAccessFields_channelSlug_Create
+  delete: ChannelsDocAccessFields_channelSlug_Delete
+  read: ChannelsDocAccessFields_channelSlug_Read
+  update: ChannelsDocAccessFields_channelSlug_Update
+}
+
+type ChannelsDocAccessFields_channelSlug_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelSlug_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelSlug_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelSlug_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelUid {
+  create: ChannelsDocAccessFields_channelUid_Create
+  delete: ChannelsDocAccessFields_channelUid_Delete
+  read: ChannelsDocAccessFields_channelUid_Read
+  update: ChannelsDocAccessFields_channelUid_Update
+}
+
+type ChannelsDocAccessFields_channelUid_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelUid_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelUid_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_channelUid_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_createdAt {
+  create: ChannelsDocAccessFields_createdAt_Create
+  delete: ChannelsDocAccessFields_createdAt_Delete
+  read: ChannelsDocAccessFields_createdAt_Read
+  update: ChannelsDocAccessFields_createdAt_Update
+}
+
+type ChannelsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_deletedAt {
+  create: ChannelsDocAccessFields_deletedAt_Create
+  delete: ChannelsDocAccessFields_deletedAt_Delete
+  read: ChannelsDocAccessFields_deletedAt_Read
+  update: ChannelsDocAccessFields_deletedAt_Update
+}
+
+type ChannelsDocAccessFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_mainThread {
+  create: ChannelsDocAccessFields_mainThread_Create
+  delete: ChannelsDocAccessFields_mainThread_Delete
+  read: ChannelsDocAccessFields_mainThread_Read
+  update: ChannelsDocAccessFields_mainThread_Update
+}
+
+type ChannelsDocAccessFields_mainThread_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_mainThread_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_mainThread_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_mainThread_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_parentChannel {
+  create: ChannelsDocAccessFields_parentChannel_Create
+  delete: ChannelsDocAccessFields_parentChannel_Delete
+  read: ChannelsDocAccessFields_parentChannel_Read
+  update: ChannelsDocAccessFields_parentChannel_Update
+}
+
+type ChannelsDocAccessFields_parentChannel_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_parentChannel_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_parentChannel_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_parentChannel_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantAgents {
+  create: ChannelsDocAccessFields_participantAgents_Create
+  delete: ChannelsDocAccessFields_participantAgents_Delete
+  read: ChannelsDocAccessFields_participantAgents_Read
+  update: ChannelsDocAccessFields_participantAgents_Update
+}
+
+type ChannelsDocAccessFields_participantAgents_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantAgents_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantAgents_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantAgents_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantUsers {
+  create: ChannelsDocAccessFields_participantUsers_Create
+  delete: ChannelsDocAccessFields_participantUsers_Delete
+  read: ChannelsDocAccessFields_participantUsers_Read
+  update: ChannelsDocAccessFields_participantUsers_Update
+}
+
+type ChannelsDocAccessFields_participantUsers_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantUsers_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantUsers_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_participantUsers_Update {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_updatedAt {
+  create: ChannelsDocAccessFields_updatedAt_Create
+  delete: ChannelsDocAccessFields_updatedAt_Delete
+  read: ChannelsDocAccessFields_updatedAt_Read
+  update: ChannelsDocAccessFields_updatedAt_Update
+}
+
+type ChannelsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ChannelsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields {
+  blacklistedAgents: ChannelsFields_blacklistedAgents
+  blacklistedUsers: ChannelsFields_blacklistedUsers
+  channelName: ChannelsFields_channelName
+  channelSlug: ChannelsFields_channelSlug
+  channelUid: ChannelsFields_channelUid
+  createdAt: ChannelsFields_createdAt
+  deletedAt: ChannelsFields_deletedAt
+  mainThread: ChannelsFields_mainThread
+  parentChannel: ChannelsFields_parentChannel
+  participantAgents: ChannelsFields_participantAgents
+  participantUsers: ChannelsFields_participantUsers
+  updatedAt: ChannelsFields_updatedAt
+}
+
+type ChannelsFields_blacklistedAgents {
+  create: ChannelsFields_blacklistedAgents_Create
+  delete: ChannelsFields_blacklistedAgents_Delete
+  read: ChannelsFields_blacklistedAgents_Read
+  update: ChannelsFields_blacklistedAgents_Update
+}
+
+type ChannelsFields_blacklistedAgents_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_blacklistedAgents_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_blacklistedAgents_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_blacklistedAgents_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_blacklistedUsers {
+  create: ChannelsFields_blacklistedUsers_Create
+  delete: ChannelsFields_blacklistedUsers_Delete
+  read: ChannelsFields_blacklistedUsers_Read
+  update: ChannelsFields_blacklistedUsers_Update
+}
+
+type ChannelsFields_blacklistedUsers_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_blacklistedUsers_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_blacklistedUsers_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_blacklistedUsers_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelName {
+  create: ChannelsFields_channelName_Create
+  delete: ChannelsFields_channelName_Delete
+  read: ChannelsFields_channelName_Read
+  update: ChannelsFields_channelName_Update
+}
+
+type ChannelsFields_channelName_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelName_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelName_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelName_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelSlug {
+  create: ChannelsFields_channelSlug_Create
+  delete: ChannelsFields_channelSlug_Delete
+  read: ChannelsFields_channelSlug_Read
+  update: ChannelsFields_channelSlug_Update
+}
+
+type ChannelsFields_channelSlug_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelSlug_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelSlug_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelSlug_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelUid {
+  create: ChannelsFields_channelUid_Create
+  delete: ChannelsFields_channelUid_Delete
+  read: ChannelsFields_channelUid_Read
+  update: ChannelsFields_channelUid_Update
+}
+
+type ChannelsFields_channelUid_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelUid_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelUid_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_channelUid_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_createdAt {
+  create: ChannelsFields_createdAt_Create
+  delete: ChannelsFields_createdAt_Delete
+  read: ChannelsFields_createdAt_Read
+  update: ChannelsFields_createdAt_Update
+}
+
+type ChannelsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_deletedAt {
+  create: ChannelsFields_deletedAt_Create
+  delete: ChannelsFields_deletedAt_Delete
+  read: ChannelsFields_deletedAt_Read
+  update: ChannelsFields_deletedAt_Update
+}
+
+type ChannelsFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_mainThread {
+  create: ChannelsFields_mainThread_Create
+  delete: ChannelsFields_mainThread_Delete
+  read: ChannelsFields_mainThread_Read
+  update: ChannelsFields_mainThread_Update
+}
+
+type ChannelsFields_mainThread_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_mainThread_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_mainThread_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_mainThread_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_parentChannel {
+  create: ChannelsFields_parentChannel_Create
+  delete: ChannelsFields_parentChannel_Delete
+  read: ChannelsFields_parentChannel_Read
+  update: ChannelsFields_parentChannel_Update
+}
+
+type ChannelsFields_parentChannel_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_parentChannel_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_parentChannel_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_parentChannel_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantAgents {
+  create: ChannelsFields_participantAgents_Create
+  delete: ChannelsFields_participantAgents_Delete
+  read: ChannelsFields_participantAgents_Read
+  update: ChannelsFields_participantAgents_Update
+}
+
+type ChannelsFields_participantAgents_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantAgents_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantAgents_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantAgents_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantUsers {
+  create: ChannelsFields_participantUsers_Create
+  delete: ChannelsFields_participantUsers_Delete
+  read: ChannelsFields_participantUsers_Read
+  update: ChannelsFields_participantUsers_Update
+}
+
+type ChannelsFields_participantUsers_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantUsers_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantUsers_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_participantUsers_Update {
+  permission: Boolean!
+}
+
+type ChannelsFields_updatedAt {
+  create: ChannelsFields_updatedAt_Create
+  delete: ChannelsFields_updatedAt_Delete
+  read: ChannelsFields_updatedAt_Read
+  update: ChannelsFields_updatedAt_Update
+}
+
+type ChannelsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ChannelsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ChannelsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ChannelsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ChannelsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ChannelsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ChannelsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ChannelsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+type DocsMockDataDocAccessFields {
+  createdAt: DocsMockDataDocAccessFields_createdAt
+  mockData: DocsMockDataDocAccessFields_mockData
+  updatedAt: DocsMockDataDocAccessFields_updatedAt
+}
+
+type DocsMockDataDocAccessFields_createdAt {
+  create: DocsMockDataDocAccessFields_createdAt_Create
+  delete: DocsMockDataDocAccessFields_createdAt_Delete
+  read: DocsMockDataDocAccessFields_createdAt_Read
+  update: DocsMockDataDocAccessFields_createdAt_Update
+}
+
+type DocsMockDataDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_mockData {
+  create: DocsMockDataDocAccessFields_mockData_Create
+  delete: DocsMockDataDocAccessFields_mockData_Delete
+  read: DocsMockDataDocAccessFields_mockData_Read
+  update: DocsMockDataDocAccessFields_mockData_Update
+}
+
+type DocsMockDataDocAccessFields_mockData_Create {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_mockData_Delete {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_mockData_Read {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_mockData_Update {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_updatedAt {
+  create: DocsMockDataDocAccessFields_updatedAt_Create
+  delete: DocsMockDataDocAccessFields_updatedAt_Delete
+  read: DocsMockDataDocAccessFields_updatedAt_Read
+  update: DocsMockDataDocAccessFields_updatedAt_Update
+}
+
+type DocsMockDataDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DocsMockDataDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DocsMockDataFields {
+  createdAt: DocsMockDataFields_createdAt
+  mockData: DocsMockDataFields_mockData
+  updatedAt: DocsMockDataFields_updatedAt
+}
+
+type DocsMockDataFields_createdAt {
+  create: DocsMockDataFields_createdAt_Create
+  delete: DocsMockDataFields_createdAt_Delete
+  read: DocsMockDataFields_createdAt_Read
+  update: DocsMockDataFields_createdAt_Update
+}
+
+type DocsMockDataFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_mockData {
+  create: DocsMockDataFields_mockData_Create
+  delete: DocsMockDataFields_mockData_Delete
+  read: DocsMockDataFields_mockData_Read
+  update: DocsMockDataFields_mockData_Update
+}
+
+type DocsMockDataFields_mockData_Create {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_mockData_Delete {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_mockData_Read {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_mockData_Update {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_updatedAt {
+  create: DocsMockDataFields_updatedAt_Create
+  delete: DocsMockDataFields_updatedAt_Delete
+  read: DocsMockDataFields_updatedAt_Read
+  update: DocsMockDataFields_updatedAt_Update
+}
+
+type DocsMockDataFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DocsMockDataFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DocsMockDataReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DocsMockDataReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DocsMockDataUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DocsMockDataUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DocsMockDatum {
+  createdAt: DateTime
+  mockData: JSON
+  updatedAt: DateTime
+}
+
+"""
+A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
+"""
+scalar EmailAddress
+
+type ForceUnlockResult {
+  error: String
+  message: String
+  success: Boolean!
+}
+
+type HealthServices {
+  database: String!
+  messageBroker: String!
+  valkey: String!
+}
+
+type HealthStatus {
+  services: HealthServices
+  status: String!
+  timestamp: String!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type Media {
+  alt: String
+  createdAt: DateTime
+  filename: String
+  filesize: Float
+  focalX: Float
+  focalY: Float
+  height: Float
+  id: Int!
+  mimeType: String
+  thumbnailURL: String
+  updatedAt: DateTime
+  url: String
+  width: Float
+}
+
+type MediaCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaDocAccessFields {
+  alt: MediaDocAccessFields_alt
+  createdAt: MediaDocAccessFields_createdAt
+  filename: MediaDocAccessFields_filename
+  filesize: MediaDocAccessFields_filesize
+  focalX: MediaDocAccessFields_focalX
+  focalY: MediaDocAccessFields_focalY
+  height: MediaDocAccessFields_height
+  mimeType: MediaDocAccessFields_mimeType
+  thumbnailURL: MediaDocAccessFields_thumbnailURL
+  updatedAt: MediaDocAccessFields_updatedAt
+  url: MediaDocAccessFields_url
+  width: MediaDocAccessFields_width
+}
+
+type MediaDocAccessFields_alt {
+  create: MediaDocAccessFields_alt_Create
+  delete: MediaDocAccessFields_alt_Delete
+  read: MediaDocAccessFields_alt_Read
+  update: MediaDocAccessFields_alt_Update
+}
+
+type MediaDocAccessFields_alt_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_alt_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_alt_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_alt_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt {
+  create: MediaDocAccessFields_createdAt_Create
+  delete: MediaDocAccessFields_createdAt_Delete
+  read: MediaDocAccessFields_createdAt_Read
+  update: MediaDocAccessFields_createdAt_Update
+}
+
+type MediaDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename {
+  create: MediaDocAccessFields_filename_Create
+  delete: MediaDocAccessFields_filename_Delete
+  read: MediaDocAccessFields_filename_Read
+  update: MediaDocAccessFields_filename_Update
+}
+
+type MediaDocAccessFields_filename_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize {
+  create: MediaDocAccessFields_filesize_Create
+  delete: MediaDocAccessFields_filesize_Delete
+  read: MediaDocAccessFields_filesize_Read
+  update: MediaDocAccessFields_filesize_Update
+}
+
+type MediaDocAccessFields_filesize_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX {
+  create: MediaDocAccessFields_focalX_Create
+  delete: MediaDocAccessFields_focalX_Delete
+  read: MediaDocAccessFields_focalX_Read
+  update: MediaDocAccessFields_focalX_Update
+}
+
+type MediaDocAccessFields_focalX_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY {
+  create: MediaDocAccessFields_focalY_Create
+  delete: MediaDocAccessFields_focalY_Delete
+  read: MediaDocAccessFields_focalY_Read
+  update: MediaDocAccessFields_focalY_Update
+}
+
+type MediaDocAccessFields_focalY_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height {
+  create: MediaDocAccessFields_height_Create
+  delete: MediaDocAccessFields_height_Delete
+  read: MediaDocAccessFields_height_Read
+  update: MediaDocAccessFields_height_Update
+}
+
+type MediaDocAccessFields_height_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType {
+  create: MediaDocAccessFields_mimeType_Create
+  delete: MediaDocAccessFields_mimeType_Delete
+  read: MediaDocAccessFields_mimeType_Read
+  update: MediaDocAccessFields_mimeType_Update
+}
+
+type MediaDocAccessFields_mimeType_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_thumbnailURL {
+  create: MediaDocAccessFields_thumbnailURL_Create
+  delete: MediaDocAccessFields_thumbnailURL_Delete
+  read: MediaDocAccessFields_thumbnailURL_Read
+  update: MediaDocAccessFields_thumbnailURL_Update
+}
+
+type MediaDocAccessFields_thumbnailURL_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_thumbnailURL_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_thumbnailURL_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_thumbnailURL_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt {
+  create: MediaDocAccessFields_updatedAt_Create
+  delete: MediaDocAccessFields_updatedAt_Delete
+  read: MediaDocAccessFields_updatedAt_Read
+  update: MediaDocAccessFields_updatedAt_Update
+}
+
+type MediaDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url {
+  create: MediaDocAccessFields_url_Create
+  delete: MediaDocAccessFields_url_Delete
+  read: MediaDocAccessFields_url_Read
+  update: MediaDocAccessFields_url_Update
+}
+
+type MediaDocAccessFields_url_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width {
+  create: MediaDocAccessFields_width_Create
+  delete: MediaDocAccessFields_width_Delete
+  read: MediaDocAccessFields_width_Read
+  update: MediaDocAccessFields_width_Update
+}
+
+type MediaDocAccessFields_width_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width_Update {
+  permission: Boolean!
+}
+
+type MediaFields {
+  alt: MediaFields_alt
+  createdAt: MediaFields_createdAt
+  filename: MediaFields_filename
+  filesize: MediaFields_filesize
+  focalX: MediaFields_focalX
+  focalY: MediaFields_focalY
+  height: MediaFields_height
+  mimeType: MediaFields_mimeType
+  thumbnailURL: MediaFields_thumbnailURL
+  updatedAt: MediaFields_updatedAt
+  url: MediaFields_url
+  width: MediaFields_width
+}
+
+type MediaFields_alt {
+  create: MediaFields_alt_Create
+  delete: MediaFields_alt_Delete
+  read: MediaFields_alt_Read
+  update: MediaFields_alt_Update
+}
+
+type MediaFields_alt_Create {
+  permission: Boolean!
+}
+
+type MediaFields_alt_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_alt_Read {
+  permission: Boolean!
+}
+
+type MediaFields_alt_Update {
+  permission: Boolean!
+}
+
+type MediaFields_createdAt {
+  create: MediaFields_createdAt_Create
+  delete: MediaFields_createdAt_Delete
+  read: MediaFields_createdAt_Read
+  update: MediaFields_createdAt_Update
+}
+
+type MediaFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type MediaFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type MediaFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type MediaFields_filename {
+  create: MediaFields_filename_Create
+  delete: MediaFields_filename_Delete
+  read: MediaFields_filename_Read
+  update: MediaFields_filename_Update
+}
+
+type MediaFields_filename_Create {
+  permission: Boolean!
+}
+
+type MediaFields_filename_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_filename_Read {
+  permission: Boolean!
+}
+
+type MediaFields_filename_Update {
+  permission: Boolean!
+}
+
+type MediaFields_filesize {
+  create: MediaFields_filesize_Create
+  delete: MediaFields_filesize_Delete
+  read: MediaFields_filesize_Read
+  update: MediaFields_filesize_Update
+}
+
+type MediaFields_filesize_Create {
+  permission: Boolean!
+}
+
+type MediaFields_filesize_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_filesize_Read {
+  permission: Boolean!
+}
+
+type MediaFields_filesize_Update {
+  permission: Boolean!
+}
+
+type MediaFields_focalX {
+  create: MediaFields_focalX_Create
+  delete: MediaFields_focalX_Delete
+  read: MediaFields_focalX_Read
+  update: MediaFields_focalX_Update
+}
+
+type MediaFields_focalX_Create {
+  permission: Boolean!
+}
+
+type MediaFields_focalX_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_focalX_Read {
+  permission: Boolean!
+}
+
+type MediaFields_focalX_Update {
+  permission: Boolean!
+}
+
+type MediaFields_focalY {
+  create: MediaFields_focalY_Create
+  delete: MediaFields_focalY_Delete
+  read: MediaFields_focalY_Read
+  update: MediaFields_focalY_Update
+}
+
+type MediaFields_focalY_Create {
+  permission: Boolean!
+}
+
+type MediaFields_focalY_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_focalY_Read {
+  permission: Boolean!
+}
+
+type MediaFields_focalY_Update {
+  permission: Boolean!
+}
+
+type MediaFields_height {
+  create: MediaFields_height_Create
+  delete: MediaFields_height_Delete
+  read: MediaFields_height_Read
+  update: MediaFields_height_Update
+}
+
+type MediaFields_height_Create {
+  permission: Boolean!
+}
+
+type MediaFields_height_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_height_Read {
+  permission: Boolean!
+}
+
+type MediaFields_height_Update {
+  permission: Boolean!
+}
+
+type MediaFields_mimeType {
+  create: MediaFields_mimeType_Create
+  delete: MediaFields_mimeType_Delete
+  read: MediaFields_mimeType_Read
+  update: MediaFields_mimeType_Update
+}
+
+type MediaFields_mimeType_Create {
+  permission: Boolean!
+}
+
+type MediaFields_mimeType_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_mimeType_Read {
+  permission: Boolean!
+}
+
+type MediaFields_mimeType_Update {
+  permission: Boolean!
+}
+
+type MediaFields_thumbnailURL {
+  create: MediaFields_thumbnailURL_Create
+  delete: MediaFields_thumbnailURL_Delete
+  read: MediaFields_thumbnailURL_Read
+  update: MediaFields_thumbnailURL_Update
+}
+
+type MediaFields_thumbnailURL_Create {
+  permission: Boolean!
+}
+
+type MediaFields_thumbnailURL_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_thumbnailURL_Read {
+  permission: Boolean!
+}
+
+type MediaFields_thumbnailURL_Update {
+  permission: Boolean!
+}
+
+type MediaFields_updatedAt {
+  create: MediaFields_updatedAt_Create
+  delete: MediaFields_updatedAt_Delete
+  read: MediaFields_updatedAt_Read
+  update: MediaFields_updatedAt_Update
+}
+
+type MediaFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type MediaFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type MediaFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type MediaFields_url {
+  create: MediaFields_url_Create
+  delete: MediaFields_url_Delete
+  read: MediaFields_url_Read
+  update: MediaFields_url_Update
+}
+
+type MediaFields_url_Create {
+  permission: Boolean!
+}
+
+type MediaFields_url_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_url_Read {
+  permission: Boolean!
+}
+
+type MediaFields_url_Update {
+  permission: Boolean!
+}
+
+type MediaFields_width {
+  create: MediaFields_width_Create
+  delete: MediaFields_width_Delete
+  read: MediaFields_width_Read
+  update: MediaFields_width_Update
+}
+
+type MediaFields_width_Create {
+  permission: Boolean!
+}
+
+type MediaFields_width_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_width_Read {
+  permission: Boolean!
+}
+
+type MediaFields_width_Update {
+  permission: Boolean!
+}
+
+type MediaReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+input Media_alt_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Media_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Media_filename_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Media_filesize_operator {
+  equals: Float
+  exists: Boolean
+  greater_than: Float
+  greater_than_equal: Float
+  less_than: Float
+  less_than_equal: Float
+  not_equals: Float
+}
+
+input Media_focalX_operator {
+  equals: Float
+  exists: Boolean
+  greater_than: Float
+  greater_than_equal: Float
+  less_than: Float
+  less_than_equal: Float
+  not_equals: Float
+}
+
+input Media_focalY_operator {
+  equals: Float
+  exists: Boolean
+  greater_than: Float
+  greater_than_equal: Float
+  less_than: Float
+  less_than_equal: Float
+  not_equals: Float
+}
+
+input Media_height_operator {
+  equals: Float
+  exists: Boolean
+  greater_than: Float
+  greater_than_equal: Float
+  less_than: Float
+  less_than_equal: Float
+  not_equals: Float
+}
+
+input Media_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input Media_mimeType_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Media_thumbnailURL_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Media_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Media_url_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Media_where {
+  AND: [Media_where_and]
+  OR: [Media_where_or]
+  alt: Media_alt_operator
+  createdAt: Media_createdAt_operator
+  filename: Media_filename_operator
+  filesize: Media_filesize_operator
+  focalX: Media_focalX_operator
+  focalY: Media_focalY_operator
+  height: Media_height_operator
+  id: Media_id_operator
+  mimeType: Media_mimeType_operator
+  thumbnailURL: Media_thumbnailURL_operator
+  updatedAt: Media_updatedAt_operator
+  url: Media_url_operator
+  width: Media_width_operator
+}
+
+input Media_where_and {
+  AND: [Media_where_and]
+  OR: [Media_where_or]
+  alt: Media_alt_operator
+  createdAt: Media_createdAt_operator
+  filename: Media_filename_operator
+  filesize: Media_filesize_operator
+  focalX: Media_focalX_operator
+  focalY: Media_focalY_operator
+  height: Media_height_operator
+  id: Media_id_operator
+  mimeType: Media_mimeType_operator
+  thumbnailURL: Media_thumbnailURL_operator
+  updatedAt: Media_updatedAt_operator
+  url: Media_url_operator
+  width: Media_width_operator
+}
+
+input Media_where_or {
+  AND: [Media_where_and]
+  OR: [Media_where_or]
+  alt: Media_alt_operator
+  createdAt: Media_createdAt_operator
+  filename: Media_filename_operator
+  filesize: Media_filesize_operator
+  focalX: Media_focalX_operator
+  focalY: Media_focalY_operator
+  height: Media_height_operator
+  id: Media_id_operator
+  mimeType: Media_mimeType_operator
+  thumbnailURL: Media_thumbnailURL_operator
+  updatedAt: Media_updatedAt_operator
+  url: Media_url_operator
+  width: Media_width_operator
+}
+
+input Media_width_operator {
+  equals: Float
+  exists: Boolean
+  greater_than: Float
+  greater_than_equal: Float
+  less_than: Float
+  less_than_equal: Float
+  not_equals: Float
+}
+
+type MetricsSummary {
+  agentRequests: AgentRequestMetrics!
+  averageProcessingTimeMs: Int!
+  broadcasts: BroadcastMetrics!
+  timestamp: String!
+}
+
+type ModelDefinition {
+  apiKey: String!
+  createdAt: DateTime
+  id: Int!
+  label: String!
+  provider: ModelDefinition_provider!
+  updatedAt: DateTime
+  value: String!
+}
+
+enum ModelDefinitionUpdate_provider_MutationInput {
+  anthropic
+  google
+  openai
+  openrouter
+}
+
+input ModelDefinition_apiKey_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input ModelDefinition_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input ModelDefinition_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input ModelDefinition_label_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+enum ModelDefinition_provider {
+  anthropic
+  google
+  openai
+  openrouter
+}
+
+enum ModelDefinition_provider_Input {
+  anthropic
+  google
+  openai
+  openrouter
+}
+
+enum ModelDefinition_provider_MutationInput {
+  anthropic
+  google
+  openai
+  openrouter
+}
+
+input ModelDefinition_provider_operator {
+  all: [ModelDefinition_provider_Input]
+  equals: ModelDefinition_provider_Input
+  in: [ModelDefinition_provider_Input]
+  not_equals: ModelDefinition_provider_Input
+  not_in: [ModelDefinition_provider_Input]
+}
+
+input ModelDefinition_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input ModelDefinition_value_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input ModelDefinition_where {
+  AND: [ModelDefinition_where_and]
+  OR: [ModelDefinition_where_or]
+  apiKey: ModelDefinition_apiKey_operator
+  createdAt: ModelDefinition_createdAt_operator
+  id: ModelDefinition_id_operator
+  label: ModelDefinition_label_operator
+  provider: ModelDefinition_provider_operator
+  updatedAt: ModelDefinition_updatedAt_operator
+  value: ModelDefinition_value_operator
+}
+
+input ModelDefinition_where_and {
+  AND: [ModelDefinition_where_and]
+  OR: [ModelDefinition_where_or]
+  apiKey: ModelDefinition_apiKey_operator
+  createdAt: ModelDefinition_createdAt_operator
+  id: ModelDefinition_id_operator
+  label: ModelDefinition_label_operator
+  provider: ModelDefinition_provider_operator
+  updatedAt: ModelDefinition_updatedAt_operator
+  value: ModelDefinition_value_operator
+}
+
+input ModelDefinition_where_or {
+  AND: [ModelDefinition_where_and]
+  OR: [ModelDefinition_where_or]
+  apiKey: ModelDefinition_apiKey_operator
+  createdAt: ModelDefinition_createdAt_operator
+  id: ModelDefinition_id_operator
+  label: ModelDefinition_label_operator
+  provider: ModelDefinition_provider_operator
+  updatedAt: ModelDefinition_updatedAt_operator
+  value: ModelDefinition_value_operator
+}
+
+type ModelDefinitions {
+  docs: [ModelDefinition!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type ModelDefinitionsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ModelDefinitionsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ModelDefinitionsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ModelDefinitionsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ModelDefinitionsDocAccessFields {
+  apiKey: ModelDefinitionsDocAccessFields_apiKey
+  createdAt: ModelDefinitionsDocAccessFields_createdAt
+  label: ModelDefinitionsDocAccessFields_label
+  provider: ModelDefinitionsDocAccessFields_provider
+  updatedAt: ModelDefinitionsDocAccessFields_updatedAt
+  value: ModelDefinitionsDocAccessFields_value
+}
+
+type ModelDefinitionsDocAccessFields_apiKey {
+  create: ModelDefinitionsDocAccessFields_apiKey_Create
+  delete: ModelDefinitionsDocAccessFields_apiKey_Delete
+  read: ModelDefinitionsDocAccessFields_apiKey_Read
+  update: ModelDefinitionsDocAccessFields_apiKey_Update
+}
+
+type ModelDefinitionsDocAccessFields_apiKey_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_apiKey_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_apiKey_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_apiKey_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_createdAt {
+  create: ModelDefinitionsDocAccessFields_createdAt_Create
+  delete: ModelDefinitionsDocAccessFields_createdAt_Delete
+  read: ModelDefinitionsDocAccessFields_createdAt_Read
+  update: ModelDefinitionsDocAccessFields_createdAt_Update
+}
+
+type ModelDefinitionsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_label {
+  create: ModelDefinitionsDocAccessFields_label_Create
+  delete: ModelDefinitionsDocAccessFields_label_Delete
+  read: ModelDefinitionsDocAccessFields_label_Read
+  update: ModelDefinitionsDocAccessFields_label_Update
+}
+
+type ModelDefinitionsDocAccessFields_label_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_label_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_label_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_label_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_provider {
+  create: ModelDefinitionsDocAccessFields_provider_Create
+  delete: ModelDefinitionsDocAccessFields_provider_Delete
+  read: ModelDefinitionsDocAccessFields_provider_Read
+  update: ModelDefinitionsDocAccessFields_provider_Update
+}
+
+type ModelDefinitionsDocAccessFields_provider_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_provider_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_provider_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_provider_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_updatedAt {
+  create: ModelDefinitionsDocAccessFields_updatedAt_Create
+  delete: ModelDefinitionsDocAccessFields_updatedAt_Delete
+  read: ModelDefinitionsDocAccessFields_updatedAt_Read
+  update: ModelDefinitionsDocAccessFields_updatedAt_Update
+}
+
+type ModelDefinitionsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_value {
+  create: ModelDefinitionsDocAccessFields_value_Create
+  delete: ModelDefinitionsDocAccessFields_value_Delete
+  read: ModelDefinitionsDocAccessFields_value_Read
+  update: ModelDefinitionsDocAccessFields_value_Update
+}
+
+type ModelDefinitionsDocAccessFields_value_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_value_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_value_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsDocAccessFields_value_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields {
+  apiKey: ModelDefinitionsFields_apiKey
+  createdAt: ModelDefinitionsFields_createdAt
+  label: ModelDefinitionsFields_label
+  provider: ModelDefinitionsFields_provider
+  updatedAt: ModelDefinitionsFields_updatedAt
+  value: ModelDefinitionsFields_value
+}
+
+type ModelDefinitionsFields_apiKey {
+  create: ModelDefinitionsFields_apiKey_Create
+  delete: ModelDefinitionsFields_apiKey_Delete
+  read: ModelDefinitionsFields_apiKey_Read
+  update: ModelDefinitionsFields_apiKey_Update
+}
+
+type ModelDefinitionsFields_apiKey_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_apiKey_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_apiKey_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_apiKey_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_createdAt {
+  create: ModelDefinitionsFields_createdAt_Create
+  delete: ModelDefinitionsFields_createdAt_Delete
+  read: ModelDefinitionsFields_createdAt_Read
+  update: ModelDefinitionsFields_createdAt_Update
+}
+
+type ModelDefinitionsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_label {
+  create: ModelDefinitionsFields_label_Create
+  delete: ModelDefinitionsFields_label_Delete
+  read: ModelDefinitionsFields_label_Read
+  update: ModelDefinitionsFields_label_Update
+}
+
+type ModelDefinitionsFields_label_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_label_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_label_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_label_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_provider {
+  create: ModelDefinitionsFields_provider_Create
+  delete: ModelDefinitionsFields_provider_Delete
+  read: ModelDefinitionsFields_provider_Read
+  update: ModelDefinitionsFields_provider_Update
+}
+
+type ModelDefinitionsFields_provider_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_provider_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_provider_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_provider_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_updatedAt {
+  create: ModelDefinitionsFields_updatedAt_Create
+  delete: ModelDefinitionsFields_updatedAt_Delete
+  read: ModelDefinitionsFields_updatedAt_Read
+  update: ModelDefinitionsFields_updatedAt_Update
+}
+
+type ModelDefinitionsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_value {
+  create: ModelDefinitionsFields_value_Create
+  delete: ModelDefinitionsFields_value_Delete
+  read: ModelDefinitionsFields_value_Read
+  update: ModelDefinitionsFields_value_Update
+}
+
+type ModelDefinitionsFields_value_Create {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_value_Delete {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_value_Read {
+  permission: Boolean!
+}
+
+type ModelDefinitionsFields_value_Update {
+  permission: Boolean!
+}
+
+type ModelDefinitionsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ModelDefinitionsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ModelDefinitionsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ModelDefinitionsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Mutation {
+  createAgent(data: mutationAgentInput!, draft: Boolean): Agent
+  createAgentMessage(data: mutationAgentMessageInput!, draft: Boolean): AgentMessage
+  createChannel(data: mutationChannelInput!, draft: Boolean): Channel
+  createMedia(data: mutationMediaInput!, draft: Boolean): Media
+  createModelDefinition(data: mutationModelDefinitionInput!, draft: Boolean): ModelDefinition
+  createPayloadKv(data: mutationPayloadKvInput!, draft: Boolean): PayloadKv
+  createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean): PayloadLockedDocument
+  createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean): PayloadPreference
+  createThread(data: mutationThreadInput!, draft: Boolean): Thread
+  createUser(data: mutationUserInput!, draft: Boolean): User
+  createUserMessage(data: mutationUserMessageInput!, draft: Boolean): UserMessage
+  deleteAgent(id: Int!, trash: Boolean): Agent
+  deleteAgentMessage(id: Int!, trash: Boolean): AgentMessage
+  deleteChannel(id: Int!, trash: Boolean): Channel
+  deleteMedia(id: Int!, trash: Boolean): Media
+  deleteModelDefinition(id: Int!, trash: Boolean): ModelDefinition
+  deletePayloadKv(id: Int!, trash: Boolean): PayloadKv
+  deletePayloadLockedDocument(id: Int!, trash: Boolean): PayloadLockedDocument
+  deletePayloadPreference(id: Int!, trash: Boolean): PayloadPreference
+  deleteThread(id: Int!, trash: Boolean): Thread
+  deleteUser(id: Int!, trash: Boolean): User
+  deleteUserMessage(id: Int!, trash: Boolean): UserMessage
+  duplicateAgent(data: mutationAgentInput!, id: Int!): Agent
+  duplicateAgentMessage(data: mutationAgentMessageInput!, id: Int!): AgentMessage
+  duplicateChannel(data: mutationChannelInput!, id: Int!): Channel
+  duplicateMedia(data: mutationMediaInput!, id: Int!): Media
+  duplicateModelDefinition(data: mutationModelDefinitionInput!, id: Int!): ModelDefinition
+  duplicatePayloadKv(data: mutationPayloadKvInput!, id: Int!): PayloadKv
+  duplicatePayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, id: Int!): PayloadLockedDocument
+  duplicatePayloadPreference(data: mutationPayloadPreferenceInput!, id: Int!): PayloadPreference
+  duplicateThread(data: mutationThreadInput!, id: Int!): Thread
+  duplicateUserMessage(data: mutationUserMessageInput!, id: Int!): UserMessage
+  forceUnlockThread(
+    """The UID of the thread to unlock"""
+    threadUid: String!
+  ): ForceUnlockResult
+  forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
+  loginUser(email: String!, password: String): usersLoginResult
+  logoutUser(allSessions: Boolean): String
+  refreshTokenUser: usersRefreshedUser
+  resetPasswordUser(password: String, token: String): usersResetPassword
+  unlockUser(email: String!): Boolean!
+  updateAgent(autosave: Boolean, data: mutationAgentUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): Agent
+  updateAgentMessage(autosave: Boolean, data: mutationAgentMessageUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): AgentMessage
+  updateChannel(autosave: Boolean, data: mutationChannelUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): Channel
+  updateDocsMockDatum(data: mutationDocsMockDatumInput!, draft: Boolean): DocsMockDatum
+  updateMedia(autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): Media
+  updateModelDefinition(autosave: Boolean, data: mutationModelDefinitionUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): ModelDefinition
+  updatePayloadKv(autosave: Boolean, data: mutationPayloadKvUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): PayloadKv
+  updatePayloadLockedDocument(autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): PayloadLockedDocument
+  updatePayloadPreference(autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): PayloadPreference
+  updateThread(autosave: Boolean, data: mutationThreadUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): Thread
+  updateUser(autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): User
+  updateUserMessage(autosave: Boolean, data: mutationUserMessageUpdateInput!, draft: Boolean, id: Int!, trash: Boolean): UserMessage
+  verifyEmailUser(token: String): Boolean
+}
+
+type PayloadKv {
+  data: JSON!
+  id: Int!
+  key: String!
+}
+
+type PayloadKvCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvDocAccessFields {
+  data: PayloadKvDocAccessFields_data
+  key: PayloadKvDocAccessFields_key
+}
+
+type PayloadKvDocAccessFields_data {
+  create: PayloadKvDocAccessFields_data_Create
+  delete: PayloadKvDocAccessFields_data_Delete
+  read: PayloadKvDocAccessFields_data_Read
+  update: PayloadKvDocAccessFields_data_Update
+}
+
+type PayloadKvDocAccessFields_data_Create {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Read {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Update {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key {
+  create: PayloadKvDocAccessFields_key_Create
+  delete: PayloadKvDocAccessFields_key_Delete
+  read: PayloadKvDocAccessFields_key_Read
+  update: PayloadKvDocAccessFields_key_Update
+}
+
+type PayloadKvDocAccessFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadKvFields {
+  data: PayloadKvFields_data
+  key: PayloadKvFields_key
+}
+
+type PayloadKvFields_data {
+  create: PayloadKvFields_data_Create
+  delete: PayloadKvFields_data_Delete
+  read: PayloadKvFields_data_Read
+  update: PayloadKvFields_data_Update
+}
+
+type PayloadKvFields_data_Create {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Read {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Update {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key {
+  create: PayloadKvFields_key_Create
+  delete: PayloadKvFields_key_Delete
+  read: PayloadKvFields_key_Read
+  update: PayloadKvFields_key_Update
+}
+
+type PayloadKvFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadKvReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+input PayloadKv_data_operator {
+  contains: JSON
+  equals: JSON
+  intersects: JSON
+  like: JSON
+  not_equals: JSON
+  within: JSON
+}
+
+input PayloadKv_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input PayloadKv_key_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input PayloadKv_where {
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  key: PayloadKv_key_operator
+}
+
+input PayloadKv_where_and {
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  key: PayloadKv_key_operator
+}
+
+input PayloadKv_where_or {
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  key: PayloadKv_key_operator
+}
+
+type PayloadKvs {
+  docs: [PayloadKv!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type PayloadLockedDocument {
+  createdAt: DateTime
+  document: PayloadLockedDocument_Document_Relationship
+  globalSlug: String
+  id: Int!
+  updatedAt: DateTime
+  user: PayloadLockedDocument_User_Relationship!
+}
+
+input PayloadLockedDocumentUpdate_DocumentRelationshipInput {
+  relationTo: PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo
+  value: JSON
+}
+
+enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
+  agentMessages
+  agents
+  channels
+  media
+  modelDefinitions
+  threads
+  userMessages
+  users
+}
+
+input PayloadLockedDocumentUpdate_UserRelationshipInput {
+  relationTo: PayloadLockedDocumentUpdate_UserRelationshipInputRelationTo
+  value: JSON
+}
+
+enum PayloadLockedDocumentUpdate_UserRelationshipInputRelationTo {
+  users
+}
+
+union PayloadLockedDocument_Document = Agent | AgentMessage | Channel | Media | ModelDefinition | Thread | User | UserMessage
+
+input PayloadLockedDocument_DocumentRelationshipInput {
+  relationTo: PayloadLockedDocument_DocumentRelationshipInputRelationTo
+  value: JSON
+}
+
+enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
+  agentMessages
+  agents
+  channels
+  media
+  modelDefinitions
+  threads
+  userMessages
+  users
+}
+
+enum PayloadLockedDocument_Document_RelationTo {
+  agentMessages
+  agents
+  channels
+  media
+  modelDefinitions
+  threads
+  userMessages
+  users
+}
+
+type PayloadLockedDocument_Document_Relationship {
+  relationTo: PayloadLockedDocument_Document_RelationTo
+  value: PayloadLockedDocument_Document
+}
+
+union PayloadLockedDocument_User = User
+
+input PayloadLockedDocument_UserRelationshipInput {
+  relationTo: PayloadLockedDocument_UserRelationshipInputRelationTo
+  value: JSON
+}
+
+enum PayloadLockedDocument_UserRelationshipInputRelationTo {
+  users
+}
+
+enum PayloadLockedDocument_User_RelationTo {
+  users
+}
+
+type PayloadLockedDocument_User_Relationship {
+  relationTo: PayloadLockedDocument_User_RelationTo
+  value: PayloadLockedDocument_User
+}
+
+input PayloadLockedDocument_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input PayloadLockedDocument_document_Relation {
+  relationTo: PayloadLockedDocument_document_Relation_RelationTo
+  value: JSON
+}
+
+enum PayloadLockedDocument_document_Relation_RelationTo {
+  agentMessages
+  agents
+  channels
+  media
+  modelDefinitions
+  threads
+  userMessages
+  users
+}
+
+input PayloadLockedDocument_globalSlug_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input PayloadLockedDocument_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input PayloadLockedDocument_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input PayloadLockedDocument_user_Relation {
+  relationTo: PayloadLockedDocument_user_Relation_RelationTo
+  value: JSON
+}
+
+enum PayloadLockedDocument_user_Relation_RelationTo {
+  users
+}
+
+input PayloadLockedDocument_where {
+  AND: [PayloadLockedDocument_where_and]
+  OR: [PayloadLockedDocument_where_or]
+  createdAt: PayloadLockedDocument_createdAt_operator
+  document: PayloadLockedDocument_document_Relation
+  globalSlug: PayloadLockedDocument_globalSlug_operator
+  id: PayloadLockedDocument_id_operator
+  updatedAt: PayloadLockedDocument_updatedAt_operator
+  user: PayloadLockedDocument_user_Relation
+}
+
+input PayloadLockedDocument_where_and {
+  AND: [PayloadLockedDocument_where_and]
+  OR: [PayloadLockedDocument_where_or]
+  createdAt: PayloadLockedDocument_createdAt_operator
+  document: PayloadLockedDocument_document_Relation
+  globalSlug: PayloadLockedDocument_globalSlug_operator
+  id: PayloadLockedDocument_id_operator
+  updatedAt: PayloadLockedDocument_updatedAt_operator
+  user: PayloadLockedDocument_user_Relation
+}
+
+input PayloadLockedDocument_where_or {
+  AND: [PayloadLockedDocument_where_and]
+  OR: [PayloadLockedDocument_where_or]
+  createdAt: PayloadLockedDocument_createdAt_operator
+  document: PayloadLockedDocument_document_Relation
+  globalSlug: PayloadLockedDocument_globalSlug_operator
+  id: PayloadLockedDocument_id_operator
+  updatedAt: PayloadLockedDocument_updatedAt_operator
+  user: PayloadLockedDocument_user_Relation
+}
+
+type PayloadLockedDocuments {
+  docs: [PayloadLockedDocument!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type PayloadLockedDocumentsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadLockedDocumentsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadLockedDocumentsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadLockedDocumentsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadLockedDocumentsDocAccessFields {
+  createdAt: PayloadLockedDocumentsDocAccessFields_createdAt
+  document: PayloadLockedDocumentsDocAccessFields_document
+  globalSlug: PayloadLockedDocumentsDocAccessFields_globalSlug
+  updatedAt: PayloadLockedDocumentsDocAccessFields_updatedAt
+  user: PayloadLockedDocumentsDocAccessFields_user
+}
+
+type PayloadLockedDocumentsDocAccessFields_createdAt {
+  create: PayloadLockedDocumentsDocAccessFields_createdAt_Create
+  delete: PayloadLockedDocumentsDocAccessFields_createdAt_Delete
+  read: PayloadLockedDocumentsDocAccessFields_createdAt_Read
+  update: PayloadLockedDocumentsDocAccessFields_createdAt_Update
+}
+
+type PayloadLockedDocumentsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_document {
+  create: PayloadLockedDocumentsDocAccessFields_document_Create
+  delete: PayloadLockedDocumentsDocAccessFields_document_Delete
+  read: PayloadLockedDocumentsDocAccessFields_document_Read
+  update: PayloadLockedDocumentsDocAccessFields_document_Update
+}
+
+type PayloadLockedDocumentsDocAccessFields_document_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_document_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_document_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_document_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_globalSlug {
+  create: PayloadLockedDocumentsDocAccessFields_globalSlug_Create
+  delete: PayloadLockedDocumentsDocAccessFields_globalSlug_Delete
+  read: PayloadLockedDocumentsDocAccessFields_globalSlug_Read
+  update: PayloadLockedDocumentsDocAccessFields_globalSlug_Update
+}
+
+type PayloadLockedDocumentsDocAccessFields_globalSlug_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_globalSlug_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_globalSlug_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_globalSlug_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_updatedAt {
+  create: PayloadLockedDocumentsDocAccessFields_updatedAt_Create
+  delete: PayloadLockedDocumentsDocAccessFields_updatedAt_Delete
+  read: PayloadLockedDocumentsDocAccessFields_updatedAt_Read
+  update: PayloadLockedDocumentsDocAccessFields_updatedAt_Update
+}
+
+type PayloadLockedDocumentsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_user {
+  create: PayloadLockedDocumentsDocAccessFields_user_Create
+  delete: PayloadLockedDocumentsDocAccessFields_user_Delete
+  read: PayloadLockedDocumentsDocAccessFields_user_Read
+  update: PayloadLockedDocumentsDocAccessFields_user_Update
+}
+
+type PayloadLockedDocumentsDocAccessFields_user_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_user_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_user_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsDocAccessFields_user_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields {
+  createdAt: PayloadLockedDocumentsFields_createdAt
+  document: PayloadLockedDocumentsFields_document
+  globalSlug: PayloadLockedDocumentsFields_globalSlug
+  updatedAt: PayloadLockedDocumentsFields_updatedAt
+  user: PayloadLockedDocumentsFields_user
+}
+
+type PayloadLockedDocumentsFields_createdAt {
+  create: PayloadLockedDocumentsFields_createdAt_Create
+  delete: PayloadLockedDocumentsFields_createdAt_Delete
+  read: PayloadLockedDocumentsFields_createdAt_Read
+  update: PayloadLockedDocumentsFields_createdAt_Update
+}
+
+type PayloadLockedDocumentsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_document {
+  create: PayloadLockedDocumentsFields_document_Create
+  delete: PayloadLockedDocumentsFields_document_Delete
+  read: PayloadLockedDocumentsFields_document_Read
+  update: PayloadLockedDocumentsFields_document_Update
+}
+
+type PayloadLockedDocumentsFields_document_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_document_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_document_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_document_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_globalSlug {
+  create: PayloadLockedDocumentsFields_globalSlug_Create
+  delete: PayloadLockedDocumentsFields_globalSlug_Delete
+  read: PayloadLockedDocumentsFields_globalSlug_Read
+  update: PayloadLockedDocumentsFields_globalSlug_Update
+}
+
+type PayloadLockedDocumentsFields_globalSlug_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_globalSlug_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_globalSlug_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_globalSlug_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_updatedAt {
+  create: PayloadLockedDocumentsFields_updatedAt_Create
+  delete: PayloadLockedDocumentsFields_updatedAt_Delete
+  read: PayloadLockedDocumentsFields_updatedAt_Read
+  update: PayloadLockedDocumentsFields_updatedAt_Update
+}
+
+type PayloadLockedDocumentsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_user {
+  create: PayloadLockedDocumentsFields_user_Create
+  delete: PayloadLockedDocumentsFields_user_Delete
+  read: PayloadLockedDocumentsFields_user_Read
+  update: PayloadLockedDocumentsFields_user_Update
+}
+
+type PayloadLockedDocumentsFields_user_Create {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_user_Delete {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_user_Read {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsFields_user_Update {
+  permission: Boolean!
+}
+
+type PayloadLockedDocumentsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadLockedDocumentsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadLockedDocumentsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadLockedDocumentsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreference {
+  createdAt: DateTime
+  id: Int!
+  key: String
+  updatedAt: DateTime
+  user: PayloadPreference_User_Relationship!
+  value: JSON
+}
+
+input PayloadPreferenceUpdate_UserRelationshipInput {
+  relationTo: PayloadPreferenceUpdate_UserRelationshipInputRelationTo
+  value: JSON
+}
+
+enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
+  users
+}
+
+union PayloadPreference_User = User
+
+input PayloadPreference_UserRelationshipInput {
+  relationTo: PayloadPreference_UserRelationshipInputRelationTo
+  value: JSON
+}
+
+enum PayloadPreference_UserRelationshipInputRelationTo {
+  users
+}
+
+enum PayloadPreference_User_RelationTo {
+  users
+}
+
+type PayloadPreference_User_Relationship {
+  relationTo: PayloadPreference_User_RelationTo
+  value: PayloadPreference_User
+}
+
+input PayloadPreference_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input PayloadPreference_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input PayloadPreference_key_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input PayloadPreference_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input PayloadPreference_user_Relation {
+  relationTo: PayloadPreference_user_Relation_RelationTo
+  value: JSON
+}
+
+enum PayloadPreference_user_Relation_RelationTo {
+  users
+}
+
+input PayloadPreference_value_operator {
+  contains: JSON
+  equals: JSON
+  exists: Boolean
+  intersects: JSON
+  like: JSON
+  not_equals: JSON
+  within: JSON
+}
+
+input PayloadPreference_where {
+  AND: [PayloadPreference_where_and]
+  OR: [PayloadPreference_where_or]
+  createdAt: PayloadPreference_createdAt_operator
+  id: PayloadPreference_id_operator
+  key: PayloadPreference_key_operator
+  updatedAt: PayloadPreference_updatedAt_operator
+  user: PayloadPreference_user_Relation
+  value: PayloadPreference_value_operator
+}
+
+input PayloadPreference_where_and {
+  AND: [PayloadPreference_where_and]
+  OR: [PayloadPreference_where_or]
+  createdAt: PayloadPreference_createdAt_operator
+  id: PayloadPreference_id_operator
+  key: PayloadPreference_key_operator
+  updatedAt: PayloadPreference_updatedAt_operator
+  user: PayloadPreference_user_Relation
+  value: PayloadPreference_value_operator
+}
+
+input PayloadPreference_where_or {
+  AND: [PayloadPreference_where_and]
+  OR: [PayloadPreference_where_or]
+  createdAt: PayloadPreference_createdAt_operator
+  id: PayloadPreference_id_operator
+  key: PayloadPreference_key_operator
+  updatedAt: PayloadPreference_updatedAt_operator
+  user: PayloadPreference_user_Relation
+  value: PayloadPreference_value_operator
+}
+
+type PayloadPreferences {
+  docs: [PayloadPreference!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type PayloadPreferencesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreferencesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreferencesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreferencesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreferencesDocAccessFields {
+  createdAt: PayloadPreferencesDocAccessFields_createdAt
+  key: PayloadPreferencesDocAccessFields_key
+  updatedAt: PayloadPreferencesDocAccessFields_updatedAt
+  user: PayloadPreferencesDocAccessFields_user
+  value: PayloadPreferencesDocAccessFields_value
+}
+
+type PayloadPreferencesDocAccessFields_createdAt {
+  create: PayloadPreferencesDocAccessFields_createdAt_Create
+  delete: PayloadPreferencesDocAccessFields_createdAt_Delete
+  read: PayloadPreferencesDocAccessFields_createdAt_Read
+  update: PayloadPreferencesDocAccessFields_createdAt_Update
+}
+
+type PayloadPreferencesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_key {
+  create: PayloadPreferencesDocAccessFields_key_Create
+  delete: PayloadPreferencesDocAccessFields_key_Delete
+  read: PayloadPreferencesDocAccessFields_key_Read
+  update: PayloadPreferencesDocAccessFields_key_Update
+}
+
+type PayloadPreferencesDocAccessFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_updatedAt {
+  create: PayloadPreferencesDocAccessFields_updatedAt_Create
+  delete: PayloadPreferencesDocAccessFields_updatedAt_Delete
+  read: PayloadPreferencesDocAccessFields_updatedAt_Read
+  update: PayloadPreferencesDocAccessFields_updatedAt_Update
+}
+
+type PayloadPreferencesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_user {
+  create: PayloadPreferencesDocAccessFields_user_Create
+  delete: PayloadPreferencesDocAccessFields_user_Delete
+  read: PayloadPreferencesDocAccessFields_user_Read
+  update: PayloadPreferencesDocAccessFields_user_Update
+}
+
+type PayloadPreferencesDocAccessFields_user_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_user_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_user_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_user_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_value {
+  create: PayloadPreferencesDocAccessFields_value_Create
+  delete: PayloadPreferencesDocAccessFields_value_Delete
+  read: PayloadPreferencesDocAccessFields_value_Read
+  update: PayloadPreferencesDocAccessFields_value_Update
+}
+
+type PayloadPreferencesDocAccessFields_value_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_value_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_value_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesDocAccessFields_value_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields {
+  createdAt: PayloadPreferencesFields_createdAt
+  key: PayloadPreferencesFields_key
+  updatedAt: PayloadPreferencesFields_updatedAt
+  user: PayloadPreferencesFields_user
+  value: PayloadPreferencesFields_value
+}
+
+type PayloadPreferencesFields_createdAt {
+  create: PayloadPreferencesFields_createdAt_Create
+  delete: PayloadPreferencesFields_createdAt_Delete
+  read: PayloadPreferencesFields_createdAt_Read
+  update: PayloadPreferencesFields_createdAt_Update
+}
+
+type PayloadPreferencesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_key {
+  create: PayloadPreferencesFields_key_Create
+  delete: PayloadPreferencesFields_key_Delete
+  read: PayloadPreferencesFields_key_Read
+  update: PayloadPreferencesFields_key_Update
+}
+
+type PayloadPreferencesFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_updatedAt {
+  create: PayloadPreferencesFields_updatedAt_Create
+  delete: PayloadPreferencesFields_updatedAt_Delete
+  read: PayloadPreferencesFields_updatedAt_Read
+  update: PayloadPreferencesFields_updatedAt_Update
+}
+
+type PayloadPreferencesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_user {
+  create: PayloadPreferencesFields_user_Create
+  delete: PayloadPreferencesFields_user_Delete
+  read: PayloadPreferencesFields_user_Read
+  update: PayloadPreferencesFields_user_Update
+}
+
+type PayloadPreferencesFields_user_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_user_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_user_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_user_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_value {
+  create: PayloadPreferencesFields_value_Create
+  delete: PayloadPreferencesFields_value_Delete
+  read: PayloadPreferencesFields_value_Read
+  update: PayloadPreferencesFields_value_Update
+}
+
+type PayloadPreferencesFields_value_Create {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_value_Delete {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_value_Read {
+  permission: Boolean!
+}
+
+type PayloadPreferencesFields_value_Update {
+  permission: Boolean!
+}
+
+type PayloadPreferencesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreferencesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreferencesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadPreferencesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Query {
+  Access: Access
+  Agent(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): Agent
+  AgentMessage(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): AgentMessage
+  AgentMessages(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: AgentMessage_where): AgentMessages
+  Agents(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: Agent_where): Agents
+  Channel(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): Channel
+  Channels(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: Channel_where): Channels
+  DocsMockDatum(draft: Boolean, select: Boolean): DocsMockDatum
+  Media(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): Media
+  Message(
+    """Message ID"""
+    id: Int!
+  ): VirtualMessage
+  Messages(
+    channelUid: String
+    includeDeleted: Boolean
+    limit: Int
+    page: Int
+    reverse: Boolean
+    senderAgentUid: String
+    senderType: String
+    senderUserUid: String
+    sort: String
+    source: String
+
+    """Thread UID (required)"""
+    threadUid: String!
+  ): VirtualMessagesResponse
+  ModelDefinition(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): ModelDefinition
+  ModelDefinitions(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: ModelDefinition_where): ModelDefinitions
+  PayloadKv(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): PayloadKv
+  PayloadKvs(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: PayloadKv_where): PayloadKvs
+  PayloadLockedDocument(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): PayloadLockedDocument
+  PayloadLockedDocuments(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: PayloadLockedDocument_where): PayloadLockedDocuments
+  PayloadPreference(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): PayloadPreference
+  PayloadPreferences(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: PayloadPreference_where): PayloadPreferences
+  RecentMessages(
+    channelUid: String
+    senderType: String
+
+    """Thread UID"""
+    threadUid: String!
+  ): RecentMessagesResponse
+  Thread(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): Thread
+  Threads(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: Thread_where): Threads
+  User(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): User
+  UserMessage(draft: Boolean, id: Int!, select: Boolean, trash: Boolean): UserMessage
+  UserMessages(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: UserMessage_where): UserMessages
+  Users(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: User_where): Users
+  allMedia(draft: Boolean, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean, where: Media_where): allMedia
+  countAgentMessages(draft: Boolean, trash: Boolean, where: AgentMessage_where): countAgentMessages
+  countAgents(draft: Boolean, trash: Boolean, where: Agent_where): countAgents
+  countChannels(draft: Boolean, trash: Boolean, where: Channel_where): countChannels
+  countModelDefinitions(draft: Boolean, trash: Boolean, where: ModelDefinition_where): countModelDefinitions
+  countPayloadKvs(draft: Boolean, trash: Boolean, where: PayloadKv_where): countPayloadKvs
+  countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where): countPayloadLockedDocuments
+  countPayloadPreferences(draft: Boolean, trash: Boolean, where: PayloadPreference_where): countPayloadPreferences
+  countThreads(draft: Boolean, trash: Boolean, where: Thread_where): countThreads
+  countUserMessages(draft: Boolean, trash: Boolean, where: UserMessage_where): countUserMessages
+  countUsers(draft: Boolean, trash: Boolean, where: User_where): countUsers
+  countallMedia(draft: Boolean, trash: Boolean, where: Media_where): countallMedia
+  docAccessAgent(id: Int!): agentsDocAccess
+  docAccessAgentMessage(id: Int!): agentMessagesDocAccess
+  docAccessChannel(id: Int!): channelsDocAccess
+  docAccessDocsMockDatum: docsMockDataDocAccess
+  docAccessMedia(id: Int!): mediaDocAccess
+  docAccessModelDefinition(id: Int!): modelDefinitionsDocAccess
+  docAccessPayloadKv(id: Int!): payload_kvDocAccess
+  docAccessPayloadLockedDocument(id: Int!): payload_locked_documentsDocAccess
+  docAccessPayloadPreference(id: Int!): payload_preferencesDocAccess
+  docAccessThread(id: Int!): threadsDocAccess
+  docAccessUser(id: Int!): usersDocAccess
+  docAccessUserMessage(id: Int!): userMessagesDocAccess
+  health: HealthStatus
+  initializedUser: Boolean
+  meUser: usersMe
+  metrics: MetricsSummary
+  threadLockStatus(
+    """The UID of the thread to check"""
+    threadUid: String!
+  ): ThreadLockStatus
+}
+
+type RecentMessagesResponse {
+  docs: [VirtualMessage]
+  source: String
+  totalDocs: Int
+}
+
+type Thread {
+  channel: Channel!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: Int!
+  lockReason: String
+  lockedAt: DateTime
+  threadUid: String!
+  updatedAt: DateTime
+}
+
+type ThreadLockStatus {
+  isLocked: Boolean!
+  lockReason: String
+  lockedAt: String
+  threadUid: String!
+}
+
+input Thread_channel_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input Thread_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Thread_deletedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Thread_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input Thread_lockReason_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Thread_lockedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Thread_threadUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input Thread_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input Thread_where {
+  AND: [Thread_where_and]
+  OR: [Thread_where_or]
+  channel: Thread_channel_operator
+  createdAt: Thread_createdAt_operator
+  deletedAt: Thread_deletedAt_operator
+  id: Thread_id_operator
+  lockReason: Thread_lockReason_operator
+  lockedAt: Thread_lockedAt_operator
+  threadUid: Thread_threadUid_operator
+  updatedAt: Thread_updatedAt_operator
+}
+
+input Thread_where_and {
+  AND: [Thread_where_and]
+  OR: [Thread_where_or]
+  channel: Thread_channel_operator
+  createdAt: Thread_createdAt_operator
+  deletedAt: Thread_deletedAt_operator
+  id: Thread_id_operator
+  lockReason: Thread_lockReason_operator
+  lockedAt: Thread_lockedAt_operator
+  threadUid: Thread_threadUid_operator
+  updatedAt: Thread_updatedAt_operator
+}
+
+input Thread_where_or {
+  AND: [Thread_where_and]
+  OR: [Thread_where_or]
+  channel: Thread_channel_operator
+  createdAt: Thread_createdAt_operator
+  deletedAt: Thread_deletedAt_operator
+  id: Thread_id_operator
+  lockReason: Thread_lockReason_operator
+  lockedAt: Thread_lockedAt_operator
+  threadUid: Thread_threadUid_operator
+  updatedAt: Thread_updatedAt_operator
+}
+
+type Threads {
+  docs: [Thread!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type ThreadsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ThreadsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ThreadsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ThreadsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ThreadsDocAccessFields {
+  channel: ThreadsDocAccessFields_channel
+  createdAt: ThreadsDocAccessFields_createdAt
+  deletedAt: ThreadsDocAccessFields_deletedAt
+  lockReason: ThreadsDocAccessFields_lockReason
+  lockedAt: ThreadsDocAccessFields_lockedAt
+  threadUid: ThreadsDocAccessFields_threadUid
+  updatedAt: ThreadsDocAccessFields_updatedAt
+}
+
+type ThreadsDocAccessFields_channel {
+  create: ThreadsDocAccessFields_channel_Create
+  delete: ThreadsDocAccessFields_channel_Delete
+  read: ThreadsDocAccessFields_channel_Read
+  update: ThreadsDocAccessFields_channel_Update
+}
+
+type ThreadsDocAccessFields_channel_Create {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_channel_Delete {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_channel_Read {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_channel_Update {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_createdAt {
+  create: ThreadsDocAccessFields_createdAt_Create
+  delete: ThreadsDocAccessFields_createdAt_Delete
+  read: ThreadsDocAccessFields_createdAt_Read
+  update: ThreadsDocAccessFields_createdAt_Update
+}
+
+type ThreadsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_deletedAt {
+  create: ThreadsDocAccessFields_deletedAt_Create
+  delete: ThreadsDocAccessFields_deletedAt_Delete
+  read: ThreadsDocAccessFields_deletedAt_Read
+  update: ThreadsDocAccessFields_deletedAt_Update
+}
+
+type ThreadsDocAccessFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockReason {
+  create: ThreadsDocAccessFields_lockReason_Create
+  delete: ThreadsDocAccessFields_lockReason_Delete
+  read: ThreadsDocAccessFields_lockReason_Read
+  update: ThreadsDocAccessFields_lockReason_Update
+}
+
+type ThreadsDocAccessFields_lockReason_Create {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockReason_Delete {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockReason_Read {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockReason_Update {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockedAt {
+  create: ThreadsDocAccessFields_lockedAt_Create
+  delete: ThreadsDocAccessFields_lockedAt_Delete
+  read: ThreadsDocAccessFields_lockedAt_Read
+  update: ThreadsDocAccessFields_lockedAt_Update
+}
+
+type ThreadsDocAccessFields_lockedAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockedAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockedAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_lockedAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_threadUid {
+  create: ThreadsDocAccessFields_threadUid_Create
+  delete: ThreadsDocAccessFields_threadUid_Delete
+  read: ThreadsDocAccessFields_threadUid_Read
+  update: ThreadsDocAccessFields_threadUid_Update
+}
+
+type ThreadsDocAccessFields_threadUid_Create {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_threadUid_Delete {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_threadUid_Read {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_threadUid_Update {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_updatedAt {
+  create: ThreadsDocAccessFields_updatedAt_Create
+  delete: ThreadsDocAccessFields_updatedAt_Delete
+  read: ThreadsDocAccessFields_updatedAt_Read
+  update: ThreadsDocAccessFields_updatedAt_Update
+}
+
+type ThreadsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsFields {
+  channel: ThreadsFields_channel
+  createdAt: ThreadsFields_createdAt
+  deletedAt: ThreadsFields_deletedAt
+  lockReason: ThreadsFields_lockReason
+  lockedAt: ThreadsFields_lockedAt
+  threadUid: ThreadsFields_threadUid
+  updatedAt: ThreadsFields_updatedAt
+}
+
+type ThreadsFields_channel {
+  create: ThreadsFields_channel_Create
+  delete: ThreadsFields_channel_Delete
+  read: ThreadsFields_channel_Read
+  update: ThreadsFields_channel_Update
+}
+
+type ThreadsFields_channel_Create {
+  permission: Boolean!
+}
+
+type ThreadsFields_channel_Delete {
+  permission: Boolean!
+}
+
+type ThreadsFields_channel_Read {
+  permission: Boolean!
+}
+
+type ThreadsFields_channel_Update {
+  permission: Boolean!
+}
+
+type ThreadsFields_createdAt {
+  create: ThreadsFields_createdAt_Create
+  delete: ThreadsFields_createdAt_Delete
+  read: ThreadsFields_createdAt_Read
+  update: ThreadsFields_createdAt_Update
+}
+
+type ThreadsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsFields_deletedAt {
+  create: ThreadsFields_deletedAt_Create
+  delete: ThreadsFields_deletedAt_Delete
+  read: ThreadsFields_deletedAt_Read
+  update: ThreadsFields_deletedAt_Update
+}
+
+type ThreadsFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockReason {
+  create: ThreadsFields_lockReason_Create
+  delete: ThreadsFields_lockReason_Delete
+  read: ThreadsFields_lockReason_Read
+  update: ThreadsFields_lockReason_Update
+}
+
+type ThreadsFields_lockReason_Create {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockReason_Delete {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockReason_Read {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockReason_Update {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockedAt {
+  create: ThreadsFields_lockedAt_Create
+  delete: ThreadsFields_lockedAt_Delete
+  read: ThreadsFields_lockedAt_Read
+  update: ThreadsFields_lockedAt_Update
+}
+
+type ThreadsFields_lockedAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockedAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockedAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsFields_lockedAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsFields_threadUid {
+  create: ThreadsFields_threadUid_Create
+  delete: ThreadsFields_threadUid_Delete
+  read: ThreadsFields_threadUid_Read
+  update: ThreadsFields_threadUid_Update
+}
+
+type ThreadsFields_threadUid_Create {
+  permission: Boolean!
+}
+
+type ThreadsFields_threadUid_Delete {
+  permission: Boolean!
+}
+
+type ThreadsFields_threadUid_Read {
+  permission: Boolean!
+}
+
+type ThreadsFields_threadUid_Update {
+  permission: Boolean!
+}
+
+type ThreadsFields_updatedAt {
+  create: ThreadsFields_updatedAt_Create
+  delete: ThreadsFields_updatedAt_Delete
+  read: ThreadsFields_updatedAt_Read
+  update: ThreadsFields_updatedAt_Update
+}
+
+type ThreadsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type ThreadsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type ThreadsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type ThreadsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type ThreadsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ThreadsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ThreadsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ThreadsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type User {
+  allowedAgents: [Agent!]
+  createdAt: DateTime
+  email: EmailAddress!
+  hash: String
+  id: Int!
+  lastLoginAt: DateTime
+  lockUntil: DateTime
+  loginAttempts: Float
+  loginCode: String
+  loginCodeExpiresAt: DateTime
+  resetPasswordExpiration: DateTime
+  resetPasswordToken: String
+  roles: [User_roles!]!
+  salt: String
+  updatedAt: DateTime
+  userUid: String!
+}
+
+type UserMessage {
+  channel: Channel!
+  channelUid: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: Int!
+  messageContent: JSON!
+  messageUid: String
+  noStreamBroadcast: Boolean
+  processOnlyCurrentMessage: Boolean
+  recipientType: UserMessage_recipientType!
+  recipientUid: String
+  senderUser: User!
+  senderUserUid: String
+  thread: Thread!
+  threadUid: String!
+  updatedAt: DateTime
+}
+
+enum UserMessageUpdate_recipientType_MutationInput {
+  agent
+  broadcast
+  user
+}
+
+input UserMessage_channelUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input UserMessage_channel_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input UserMessage_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input UserMessage_deletedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input UserMessage_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input UserMessage_messageContent_operator {
+  contains: JSON
+  equals: JSON
+  intersects: JSON
+  like: JSON
+  not_equals: JSON
+  within: JSON
+}
+
+input UserMessage_messageUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input UserMessage_noStreamBroadcast_operator {
+  equals: Boolean
+  exists: Boolean
+  not_equals: Boolean
+}
+
+input UserMessage_processOnlyCurrentMessage_operator {
+  equals: Boolean
+  exists: Boolean
+  not_equals: Boolean
+}
+
+enum UserMessage_recipientType {
+  agent
+  broadcast
+  user
+}
+
+enum UserMessage_recipientType_Input {
+  agent
+  broadcast
+  user
+}
+
+enum UserMessage_recipientType_MutationInput {
+  agent
+  broadcast
+  user
+}
+
+input UserMessage_recipientType_operator {
+  all: [UserMessage_recipientType_Input]
+  equals: UserMessage_recipientType_Input
+  in: [UserMessage_recipientType_Input]
+  not_equals: UserMessage_recipientType_Input
+  not_in: [UserMessage_recipientType_Input]
+}
+
+input UserMessage_recipientUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input UserMessage_senderUserUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input UserMessage_senderUser_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input UserMessage_threadUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input UserMessage_thread_operator {
+  all: [JSON]
+  equals: JSON
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input UserMessage_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input UserMessage_where {
+  AND: [UserMessage_where_and]
+  OR: [UserMessage_where_or]
+  channel: UserMessage_channel_operator
+  channelUid: UserMessage_channelUid_operator
+  createdAt: UserMessage_createdAt_operator
+  deletedAt: UserMessage_deletedAt_operator
+  id: UserMessage_id_operator
+  messageContent: UserMessage_messageContent_operator
+  messageUid: UserMessage_messageUid_operator
+  noStreamBroadcast: UserMessage_noStreamBroadcast_operator
+  processOnlyCurrentMessage: UserMessage_processOnlyCurrentMessage_operator
+  recipientType: UserMessage_recipientType_operator
+  recipientUid: UserMessage_recipientUid_operator
+  senderUser: UserMessage_senderUser_operator
+  senderUserUid: UserMessage_senderUserUid_operator
+  thread: UserMessage_thread_operator
+  threadUid: UserMessage_threadUid_operator
+  updatedAt: UserMessage_updatedAt_operator
+}
+
+input UserMessage_where_and {
+  AND: [UserMessage_where_and]
+  OR: [UserMessage_where_or]
+  channel: UserMessage_channel_operator
+  channelUid: UserMessage_channelUid_operator
+  createdAt: UserMessage_createdAt_operator
+  deletedAt: UserMessage_deletedAt_operator
+  id: UserMessage_id_operator
+  messageContent: UserMessage_messageContent_operator
+  messageUid: UserMessage_messageUid_operator
+  noStreamBroadcast: UserMessage_noStreamBroadcast_operator
+  processOnlyCurrentMessage: UserMessage_processOnlyCurrentMessage_operator
+  recipientType: UserMessage_recipientType_operator
+  recipientUid: UserMessage_recipientUid_operator
+  senderUser: UserMessage_senderUser_operator
+  senderUserUid: UserMessage_senderUserUid_operator
+  thread: UserMessage_thread_operator
+  threadUid: UserMessage_threadUid_operator
+  updatedAt: UserMessage_updatedAt_operator
+}
+
+input UserMessage_where_or {
+  AND: [UserMessage_where_and]
+  OR: [UserMessage_where_or]
+  channel: UserMessage_channel_operator
+  channelUid: UserMessage_channelUid_operator
+  createdAt: UserMessage_createdAt_operator
+  deletedAt: UserMessage_deletedAt_operator
+  id: UserMessage_id_operator
+  messageContent: UserMessage_messageContent_operator
+  messageUid: UserMessage_messageUid_operator
+  noStreamBroadcast: UserMessage_noStreamBroadcast_operator
+  processOnlyCurrentMessage: UserMessage_processOnlyCurrentMessage_operator
+  recipientType: UserMessage_recipientType_operator
+  recipientUid: UserMessage_recipientUid_operator
+  senderUser: UserMessage_senderUser_operator
+  senderUserUid: UserMessage_senderUserUid_operator
+  thread: UserMessage_thread_operator
+  threadUid: UserMessage_threadUid_operator
+  updatedAt: UserMessage_updatedAt_operator
+}
+
+type UserMessages {
+  docs: [UserMessage!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type UserMessagesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UserMessagesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UserMessagesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UserMessagesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UserMessagesDocAccessFields {
+  channel: UserMessagesDocAccessFields_channel
+  channelUid: UserMessagesDocAccessFields_channelUid
+  createdAt: UserMessagesDocAccessFields_createdAt
+  deletedAt: UserMessagesDocAccessFields_deletedAt
+  messageContent: UserMessagesDocAccessFields_messageContent
+  messageUid: UserMessagesDocAccessFields_messageUid
+  noStreamBroadcast: UserMessagesDocAccessFields_noStreamBroadcast
+  processOnlyCurrentMessage: UserMessagesDocAccessFields_processOnlyCurrentMessage
+  recipientType: UserMessagesDocAccessFields_recipientType
+  recipientUid: UserMessagesDocAccessFields_recipientUid
+  senderUser: UserMessagesDocAccessFields_senderUser
+  senderUserUid: UserMessagesDocAccessFields_senderUserUid
+  thread: UserMessagesDocAccessFields_thread
+  threadUid: UserMessagesDocAccessFields_threadUid
+  updatedAt: UserMessagesDocAccessFields_updatedAt
+}
+
+type UserMessagesDocAccessFields_channel {
+  create: UserMessagesDocAccessFields_channel_Create
+  delete: UserMessagesDocAccessFields_channel_Delete
+  read: UserMessagesDocAccessFields_channel_Read
+  update: UserMessagesDocAccessFields_channel_Update
+}
+
+type UserMessagesDocAccessFields_channelUid {
+  create: UserMessagesDocAccessFields_channelUid_Create
+  delete: UserMessagesDocAccessFields_channelUid_Delete
+  read: UserMessagesDocAccessFields_channelUid_Read
+  update: UserMessagesDocAccessFields_channelUid_Update
+}
+
+type UserMessagesDocAccessFields_channelUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_channelUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_channelUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_channelUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_channel_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_channel_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_channel_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_channel_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_createdAt {
+  create: UserMessagesDocAccessFields_createdAt_Create
+  delete: UserMessagesDocAccessFields_createdAt_Delete
+  read: UserMessagesDocAccessFields_createdAt_Read
+  update: UserMessagesDocAccessFields_createdAt_Update
+}
+
+type UserMessagesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_deletedAt {
+  create: UserMessagesDocAccessFields_deletedAt_Create
+  delete: UserMessagesDocAccessFields_deletedAt_Delete
+  read: UserMessagesDocAccessFields_deletedAt_Read
+  update: UserMessagesDocAccessFields_deletedAt_Update
+}
+
+type UserMessagesDocAccessFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageContent {
+  create: UserMessagesDocAccessFields_messageContent_Create
+  delete: UserMessagesDocAccessFields_messageContent_Delete
+  read: UserMessagesDocAccessFields_messageContent_Read
+  update: UserMessagesDocAccessFields_messageContent_Update
+}
+
+type UserMessagesDocAccessFields_messageContent_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageContent_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageContent_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageContent_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageUid {
+  create: UserMessagesDocAccessFields_messageUid_Create
+  delete: UserMessagesDocAccessFields_messageUid_Delete
+  read: UserMessagesDocAccessFields_messageUid_Read
+  update: UserMessagesDocAccessFields_messageUid_Update
+}
+
+type UserMessagesDocAccessFields_messageUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_messageUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_noStreamBroadcast {
+  create: UserMessagesDocAccessFields_noStreamBroadcast_Create
+  delete: UserMessagesDocAccessFields_noStreamBroadcast_Delete
+  read: UserMessagesDocAccessFields_noStreamBroadcast_Read
+  update: UserMessagesDocAccessFields_noStreamBroadcast_Update
+}
+
+type UserMessagesDocAccessFields_noStreamBroadcast_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_noStreamBroadcast_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_noStreamBroadcast_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_noStreamBroadcast_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_processOnlyCurrentMessage {
+  create: UserMessagesDocAccessFields_processOnlyCurrentMessage_Create
+  delete: UserMessagesDocAccessFields_processOnlyCurrentMessage_Delete
+  read: UserMessagesDocAccessFields_processOnlyCurrentMessage_Read
+  update: UserMessagesDocAccessFields_processOnlyCurrentMessage_Update
+}
+
+type UserMessagesDocAccessFields_processOnlyCurrentMessage_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_processOnlyCurrentMessage_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_processOnlyCurrentMessage_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_processOnlyCurrentMessage_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientType {
+  create: UserMessagesDocAccessFields_recipientType_Create
+  delete: UserMessagesDocAccessFields_recipientType_Delete
+  read: UserMessagesDocAccessFields_recipientType_Read
+  update: UserMessagesDocAccessFields_recipientType_Update
+}
+
+type UserMessagesDocAccessFields_recipientType_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientType_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientType_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientType_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientUid {
+  create: UserMessagesDocAccessFields_recipientUid_Create
+  delete: UserMessagesDocAccessFields_recipientUid_Delete
+  read: UserMessagesDocAccessFields_recipientUid_Read
+  update: UserMessagesDocAccessFields_recipientUid_Update
+}
+
+type UserMessagesDocAccessFields_recipientUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_recipientUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUser {
+  create: UserMessagesDocAccessFields_senderUser_Create
+  delete: UserMessagesDocAccessFields_senderUser_Delete
+  read: UserMessagesDocAccessFields_senderUser_Read
+  update: UserMessagesDocAccessFields_senderUser_Update
+}
+
+type UserMessagesDocAccessFields_senderUserUid {
+  create: UserMessagesDocAccessFields_senderUserUid_Create
+  delete: UserMessagesDocAccessFields_senderUserUid_Delete
+  read: UserMessagesDocAccessFields_senderUserUid_Read
+  update: UserMessagesDocAccessFields_senderUserUid_Update
+}
+
+type UserMessagesDocAccessFields_senderUserUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUserUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUserUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUserUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUser_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUser_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUser_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_senderUser_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_thread {
+  create: UserMessagesDocAccessFields_thread_Create
+  delete: UserMessagesDocAccessFields_thread_Delete
+  read: UserMessagesDocAccessFields_thread_Read
+  update: UserMessagesDocAccessFields_thread_Update
+}
+
+type UserMessagesDocAccessFields_threadUid {
+  create: UserMessagesDocAccessFields_threadUid_Create
+  delete: UserMessagesDocAccessFields_threadUid_Delete
+  read: UserMessagesDocAccessFields_threadUid_Read
+  update: UserMessagesDocAccessFields_threadUid_Update
+}
+
+type UserMessagesDocAccessFields_threadUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_threadUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_threadUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_threadUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_thread_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_thread_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_thread_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_thread_Update {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_updatedAt {
+  create: UserMessagesDocAccessFields_updatedAt_Create
+  delete: UserMessagesDocAccessFields_updatedAt_Delete
+  read: UserMessagesDocAccessFields_updatedAt_Read
+  update: UserMessagesDocAccessFields_updatedAt_Update
+}
+
+type UserMessagesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type UserMessagesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields {
+  channel: UserMessagesFields_channel
+  channelUid: UserMessagesFields_channelUid
+  createdAt: UserMessagesFields_createdAt
+  deletedAt: UserMessagesFields_deletedAt
+  messageContent: UserMessagesFields_messageContent
+  messageUid: UserMessagesFields_messageUid
+  noStreamBroadcast: UserMessagesFields_noStreamBroadcast
+  processOnlyCurrentMessage: UserMessagesFields_processOnlyCurrentMessage
+  recipientType: UserMessagesFields_recipientType
+  recipientUid: UserMessagesFields_recipientUid
+  senderUser: UserMessagesFields_senderUser
+  senderUserUid: UserMessagesFields_senderUserUid
+  thread: UserMessagesFields_thread
+  threadUid: UserMessagesFields_threadUid
+  updatedAt: UserMessagesFields_updatedAt
+}
+
+type UserMessagesFields_channel {
+  create: UserMessagesFields_channel_Create
+  delete: UserMessagesFields_channel_Delete
+  read: UserMessagesFields_channel_Read
+  update: UserMessagesFields_channel_Update
+}
+
+type UserMessagesFields_channelUid {
+  create: UserMessagesFields_channelUid_Create
+  delete: UserMessagesFields_channelUid_Delete
+  read: UserMessagesFields_channelUid_Read
+  update: UserMessagesFields_channelUid_Update
+}
+
+type UserMessagesFields_channelUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_channelUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_channelUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_channelUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_channel_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_channel_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_channel_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_channel_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_createdAt {
+  create: UserMessagesFields_createdAt_Create
+  delete: UserMessagesFields_createdAt_Delete
+  read: UserMessagesFields_createdAt_Read
+  update: UserMessagesFields_createdAt_Update
+}
+
+type UserMessagesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_deletedAt {
+  create: UserMessagesFields_deletedAt_Create
+  delete: UserMessagesFields_deletedAt_Delete
+  read: UserMessagesFields_deletedAt_Read
+  update: UserMessagesFields_deletedAt_Update
+}
+
+type UserMessagesFields_deletedAt_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_deletedAt_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_deletedAt_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_deletedAt_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageContent {
+  create: UserMessagesFields_messageContent_Create
+  delete: UserMessagesFields_messageContent_Delete
+  read: UserMessagesFields_messageContent_Read
+  update: UserMessagesFields_messageContent_Update
+}
+
+type UserMessagesFields_messageContent_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageContent_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageContent_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageContent_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageUid {
+  create: UserMessagesFields_messageUid_Create
+  delete: UserMessagesFields_messageUid_Delete
+  read: UserMessagesFields_messageUid_Read
+  update: UserMessagesFields_messageUid_Update
+}
+
+type UserMessagesFields_messageUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_messageUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_noStreamBroadcast {
+  create: UserMessagesFields_noStreamBroadcast_Create
+  delete: UserMessagesFields_noStreamBroadcast_Delete
+  read: UserMessagesFields_noStreamBroadcast_Read
+  update: UserMessagesFields_noStreamBroadcast_Update
+}
+
+type UserMessagesFields_noStreamBroadcast_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_noStreamBroadcast_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_noStreamBroadcast_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_noStreamBroadcast_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_processOnlyCurrentMessage {
+  create: UserMessagesFields_processOnlyCurrentMessage_Create
+  delete: UserMessagesFields_processOnlyCurrentMessage_Delete
+  read: UserMessagesFields_processOnlyCurrentMessage_Read
+  update: UserMessagesFields_processOnlyCurrentMessage_Update
+}
+
+type UserMessagesFields_processOnlyCurrentMessage_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_processOnlyCurrentMessage_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_processOnlyCurrentMessage_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_processOnlyCurrentMessage_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientType {
+  create: UserMessagesFields_recipientType_Create
+  delete: UserMessagesFields_recipientType_Delete
+  read: UserMessagesFields_recipientType_Read
+  update: UserMessagesFields_recipientType_Update
+}
+
+type UserMessagesFields_recipientType_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientType_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientType_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientType_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientUid {
+  create: UserMessagesFields_recipientUid_Create
+  delete: UserMessagesFields_recipientUid_Delete
+  read: UserMessagesFields_recipientUid_Read
+  update: UserMessagesFields_recipientUid_Update
+}
+
+type UserMessagesFields_recipientUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_recipientUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUser {
+  create: UserMessagesFields_senderUser_Create
+  delete: UserMessagesFields_senderUser_Delete
+  read: UserMessagesFields_senderUser_Read
+  update: UserMessagesFields_senderUser_Update
+}
+
+type UserMessagesFields_senderUserUid {
+  create: UserMessagesFields_senderUserUid_Create
+  delete: UserMessagesFields_senderUserUid_Delete
+  read: UserMessagesFields_senderUserUid_Read
+  update: UserMessagesFields_senderUserUid_Update
+}
+
+type UserMessagesFields_senderUserUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUserUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUserUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUserUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUser_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUser_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUser_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_senderUser_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_thread {
+  create: UserMessagesFields_thread_Create
+  delete: UserMessagesFields_thread_Delete
+  read: UserMessagesFields_thread_Read
+  update: UserMessagesFields_thread_Update
+}
+
+type UserMessagesFields_threadUid {
+  create: UserMessagesFields_threadUid_Create
+  delete: UserMessagesFields_threadUid_Delete
+  read: UserMessagesFields_threadUid_Read
+  update: UserMessagesFields_threadUid_Update
+}
+
+type UserMessagesFields_threadUid_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_threadUid_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_threadUid_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_threadUid_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_thread_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_thread_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_thread_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_thread_Update {
+  permission: Boolean!
+}
+
+type UserMessagesFields_updatedAt {
+  create: UserMessagesFields_updatedAt_Create
+  delete: UserMessagesFields_updatedAt_Delete
+  read: UserMessagesFields_updatedAt_Read
+  update: UserMessagesFields_updatedAt_Update
+}
+
+type UserMessagesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type UserMessagesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type UserMessagesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type UserMessagesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type UserMessagesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UserMessagesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UserMessagesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UserMessagesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+enum UserUpdate_roles_MutationInput {
+  ADMIN
+  READ_ONLY
+  SUPER_ADMIN
+  WRITE
+}
+
+input User_allowedAgents_operator {
+  all: [JSON]
+  equals: JSON
+  exists: Boolean
+  in: [JSON]
+  not_equals: JSON
+  not_in: [JSON]
+}
+
+input User_createdAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input User_email_operator {
+  all: [EmailAddress]
+  contains: EmailAddress
+  equals: EmailAddress
+  in: [EmailAddress]
+  like: EmailAddress
+  not_equals: EmailAddress
+  not_in: [EmailAddress]
+}
+
+input User_id_operator {
+  equals: Int
+  exists: Boolean
+  greater_than: Int
+  greater_than_equal: Int
+  less_than: Int
+  less_than_equal: Int
+  not_equals: Int
+}
+
+input User_lastLoginAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input User_loginCodeExpiresAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input User_loginCode_operator {
+  all: [String]
+  contains: String
+  equals: String
+  exists: Boolean
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+enum User_roles {
+  ADMIN
+  READ_ONLY
+  SUPER_ADMIN
+  WRITE
+}
+
+enum User_roles_Input {
+  ADMIN
+  READ_ONLY
+  SUPER_ADMIN
+  WRITE
+}
+
+enum User_roles_MutationInput {
+  ADMIN
+  READ_ONLY
+  SUPER_ADMIN
+  WRITE
+}
+
+input User_roles_operator {
+  all: [User_roles_Input]
+  equals: User_roles_Input
+  in: [User_roles_Input]
+  not_equals: User_roles_Input
+  not_in: [User_roles_Input]
+}
+
+input User_updatedAt_operator {
+  equals: DateTime
+  exists: Boolean
+  greater_than: DateTime
+  greater_than_equal: DateTime
+  less_than: DateTime
+  less_than_equal: DateTime
+  like: DateTime
+  not_equals: DateTime
+}
+
+input User_userUid_operator {
+  all: [String]
+  contains: String
+  equals: String
+  in: [String]
+  like: String
+  not_equals: String
+  not_in: [String]
+}
+
+input User_where {
+  AND: [User_where_and]
+  OR: [User_where_or]
+  allowedAgents: User_allowedAgents_operator
+  createdAt: User_createdAt_operator
+  email: User_email_operator
+  id: User_id_operator
+  lastLoginAt: User_lastLoginAt_operator
+  loginCode: User_loginCode_operator
+  loginCodeExpiresAt: User_loginCodeExpiresAt_operator
+  roles: User_roles_operator
+  updatedAt: User_updatedAt_operator
+  userUid: User_userUid_operator
+}
+
+input User_where_and {
+  AND: [User_where_and]
+  OR: [User_where_or]
+  allowedAgents: User_allowedAgents_operator
+  createdAt: User_createdAt_operator
+  email: User_email_operator
+  id: User_id_operator
+  lastLoginAt: User_lastLoginAt_operator
+  loginCode: User_loginCode_operator
+  loginCodeExpiresAt: User_loginCodeExpiresAt_operator
+  roles: User_roles_operator
+  updatedAt: User_updatedAt_operator
+  userUid: User_userUid_operator
+}
+
+input User_where_or {
+  AND: [User_where_and]
+  OR: [User_where_or]
+  allowedAgents: User_allowedAgents_operator
+  createdAt: User_createdAt_operator
+  email: User_email_operator
+  id: User_id_operator
+  lastLoginAt: User_lastLoginAt_operator
+  loginCode: User_loginCode_operator
+  loginCodeExpiresAt: User_loginCodeExpiresAt_operator
+  roles: User_roles_operator
+  updatedAt: User_updatedAt_operator
+  userUid: User_userUid_operator
+}
+
+type Users {
+  docs: [User!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type UsersCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersDocAccessFields {
+  allowedAgents: UsersDocAccessFields_allowedAgents
+  createdAt: UsersDocAccessFields_createdAt
+  email: UsersDocAccessFields_email
+  lastLoginAt: UsersDocAccessFields_lastLoginAt
+  loginCode: UsersDocAccessFields_loginCode
+  loginCodeExpiresAt: UsersDocAccessFields_loginCodeExpiresAt
+  roles: UsersDocAccessFields_roles
+  updatedAt: UsersDocAccessFields_updatedAt
+  userUid: UsersDocAccessFields_userUid
+}
+
+type UsersDocAccessFields_allowedAgents {
+  create: UsersDocAccessFields_allowedAgents_Create
+  delete: UsersDocAccessFields_allowedAgents_Delete
+  read: UsersDocAccessFields_allowedAgents_Read
+  update: UsersDocAccessFields_allowedAgents_Update
+}
+
+type UsersDocAccessFields_allowedAgents_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_allowedAgents_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_allowedAgents_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_allowedAgents_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt {
+  create: UsersDocAccessFields_createdAt_Create
+  delete: UsersDocAccessFields_createdAt_Delete
+  read: UsersDocAccessFields_createdAt_Read
+  update: UsersDocAccessFields_createdAt_Update
+}
+
+type UsersDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email {
+  create: UsersDocAccessFields_email_Create
+  delete: UsersDocAccessFields_email_Delete
+  read: UsersDocAccessFields_email_Read
+  update: UsersDocAccessFields_email_Update
+}
+
+type UsersDocAccessFields_email_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_lastLoginAt {
+  create: UsersDocAccessFields_lastLoginAt_Create
+  delete: UsersDocAccessFields_lastLoginAt_Delete
+  read: UsersDocAccessFields_lastLoginAt_Read
+  update: UsersDocAccessFields_lastLoginAt_Update
+}
+
+type UsersDocAccessFields_lastLoginAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_lastLoginAt_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_lastLoginAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_lastLoginAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCode {
+  create: UsersDocAccessFields_loginCode_Create
+  delete: UsersDocAccessFields_loginCode_Delete
+  read: UsersDocAccessFields_loginCode_Read
+  update: UsersDocAccessFields_loginCode_Update
+}
+
+type UsersDocAccessFields_loginCodeExpiresAt {
+  create: UsersDocAccessFields_loginCodeExpiresAt_Create
+  delete: UsersDocAccessFields_loginCodeExpiresAt_Delete
+  read: UsersDocAccessFields_loginCodeExpiresAt_Read
+  update: UsersDocAccessFields_loginCodeExpiresAt_Update
+}
+
+type UsersDocAccessFields_loginCodeExpiresAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCodeExpiresAt_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCodeExpiresAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCodeExpiresAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCode_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCode_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCode_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_loginCode_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles {
+  create: UsersDocAccessFields_roles_Create
+  delete: UsersDocAccessFields_roles_Delete
+  read: UsersDocAccessFields_roles_Read
+  update: UsersDocAccessFields_roles_Update
+}
+
+type UsersDocAccessFields_roles_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt {
+  create: UsersDocAccessFields_updatedAt_Create
+  delete: UsersDocAccessFields_updatedAt_Delete
+  read: UsersDocAccessFields_updatedAt_Read
+  update: UsersDocAccessFields_updatedAt_Update
+}
+
+type UsersDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_userUid {
+  create: UsersDocAccessFields_userUid_Create
+  delete: UsersDocAccessFields_userUid_Delete
+  read: UsersDocAccessFields_userUid_Read
+  update: UsersDocAccessFields_userUid_Update
+}
+
+type UsersDocAccessFields_userUid_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_userUid_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_userUid_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_userUid_Update {
+  permission: Boolean!
+}
+
+type UsersFields {
+  allowedAgents: UsersFields_allowedAgents
+  createdAt: UsersFields_createdAt
+  email: UsersFields_email
+  lastLoginAt: UsersFields_lastLoginAt
+  loginCode: UsersFields_loginCode
+  loginCodeExpiresAt: UsersFields_loginCodeExpiresAt
+  roles: UsersFields_roles
+  updatedAt: UsersFields_updatedAt
+  userUid: UsersFields_userUid
+}
+
+type UsersFields_allowedAgents {
+  create: UsersFields_allowedAgents_Create
+  delete: UsersFields_allowedAgents_Delete
+  read: UsersFields_allowedAgents_Read
+  update: UsersFields_allowedAgents_Update
+}
+
+type UsersFields_allowedAgents_Create {
+  permission: Boolean!
+}
+
+type UsersFields_allowedAgents_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_allowedAgents_Read {
+  permission: Boolean!
+}
+
+type UsersFields_allowedAgents_Update {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt {
+  create: UsersFields_createdAt_Create
+  delete: UsersFields_createdAt_Delete
+  read: UsersFields_createdAt_Read
+  update: UsersFields_createdAt_Update
+}
+
+type UsersFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_email {
+  create: UsersFields_email_Create
+  delete: UsersFields_email_Delete
+  read: UsersFields_email_Read
+  update: UsersFields_email_Update
+}
+
+type UsersFields_email_Create {
+  permission: Boolean!
+}
+
+type UsersFields_email_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_email_Read {
+  permission: Boolean!
+}
+
+type UsersFields_email_Update {
+  permission: Boolean!
+}
+
+type UsersFields_lastLoginAt {
+  create: UsersFields_lastLoginAt_Create
+  delete: UsersFields_lastLoginAt_Delete
+  read: UsersFields_lastLoginAt_Read
+  update: UsersFields_lastLoginAt_Update
+}
+
+type UsersFields_lastLoginAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_lastLoginAt_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_lastLoginAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_lastLoginAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_loginCode {
+  create: UsersFields_loginCode_Create
+  delete: UsersFields_loginCode_Delete
+  read: UsersFields_loginCode_Read
+  update: UsersFields_loginCode_Update
+}
+
+type UsersFields_loginCodeExpiresAt {
+  create: UsersFields_loginCodeExpiresAt_Create
+  delete: UsersFields_loginCodeExpiresAt_Delete
+  read: UsersFields_loginCodeExpiresAt_Read
+  update: UsersFields_loginCodeExpiresAt_Update
+}
+
+type UsersFields_loginCodeExpiresAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_loginCodeExpiresAt_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_loginCodeExpiresAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_loginCodeExpiresAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_loginCode_Create {
+  permission: Boolean!
+}
+
+type UsersFields_loginCode_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_loginCode_Read {
+  permission: Boolean!
+}
+
+type UsersFields_loginCode_Update {
+  permission: Boolean!
+}
+
+type UsersFields_roles {
+  create: UsersFields_roles_Create
+  delete: UsersFields_roles_Delete
+  read: UsersFields_roles_Read
+  update: UsersFields_roles_Update
+}
+
+type UsersFields_roles_Create {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Read {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Update {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt {
+  create: UsersFields_updatedAt_Create
+  delete: UsersFields_updatedAt_Delete
+  read: UsersFields_updatedAt_Read
+  update: UsersFields_updatedAt_Update
+}
+
+type UsersFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_userUid {
+  create: UsersFields_userUid_Create
+  delete: UsersFields_userUid_Delete
+  read: UsersFields_userUid_Read
+  update: UsersFields_userUid_Update
+}
+
+type UsersFields_userUid_Create {
+  permission: Boolean!
+}
+
+type UsersFields_userUid_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_userUid_Read {
+  permission: Boolean!
+}
+
+type UsersFields_userUid_Update {
+  permission: Boolean!
+}
+
+type UsersReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUnlockAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUnlockDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type VirtualAgent {
+  agentName: String!
+  agentUid: String!
+  id: Int!
+}
+
+type VirtualMessage {
+  channelUid: String!
+  createdAt: String!
+  deletedAt: String
+  id: Int!
+  messageContent: VirtualMessageContent
+  messageUid: String
+  originatorUser: VirtualUser
+  originatorUserUid: String
+  recipientType: String!
+  recipientUid: String
+  senderAgent: VirtualAgent
+  senderAgentUid: String
+  senderType: String!
+  senderUser: VirtualUser
+  senderUserUid: String
+  threadUid: String!
+  updatedAt: String!
+}
+
+type VirtualMessageContent {
+  error: String
+  status: String
+  text: String!
+}
+
+type VirtualMessagesResponse {
+  docs: [VirtualMessage]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+type VirtualUser {
+  email: String!
+  id: Int!
+  userUid: String!
+}
+
+type agentMessagesAccess {
+  create: AgentMessagesCreateAccess
+  delete: AgentMessagesDeleteAccess
+  fields: AgentMessagesFields
+  read: AgentMessagesReadAccess
+  update: AgentMessagesUpdateAccess
+}
+
+type agentMessagesDocAccess {
+  create: AgentMessagesCreateDocAccess
+  delete: AgentMessagesDeleteDocAccess
+  fields: AgentMessagesDocAccessFields
+  read: AgentMessagesReadDocAccess
+  update: AgentMessagesUpdateDocAccess
+}
+
+type agentsAccess {
+  create: AgentsCreateAccess
+  delete: AgentsDeleteAccess
+  fields: AgentsFields
+  read: AgentsReadAccess
+  update: AgentsUpdateAccess
+}
+
+type agentsDocAccess {
+  create: AgentsCreateDocAccess
+  delete: AgentsDeleteDocAccess
+  fields: AgentsDocAccessFields
+  read: AgentsReadDocAccess
+  update: AgentsUpdateDocAccess
+}
+
+type allMedia {
+  docs: [Media!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type channelsAccess {
+  create: ChannelsCreateAccess
+  delete: ChannelsDeleteAccess
+  fields: ChannelsFields
+  read: ChannelsReadAccess
+  update: ChannelsUpdateAccess
+}
+
+type channelsDocAccess {
+  create: ChannelsCreateDocAccess
+  delete: ChannelsDeleteDocAccess
+  fields: ChannelsDocAccessFields
+  read: ChannelsReadDocAccess
+  update: ChannelsUpdateDocAccess
+}
+
+type countAgentMessages {
+  totalDocs: Int
+}
+
+type countAgents {
+  totalDocs: Int
+}
+
+type countChannels {
+  totalDocs: Int
+}
+
+type countModelDefinitions {
+  totalDocs: Int
+}
+
+type countPayloadKvs {
+  totalDocs: Int
+}
+
+type countPayloadLockedDocuments {
+  totalDocs: Int
+}
+
+type countPayloadPreferences {
+  totalDocs: Int
+}
+
+type countThreads {
+  totalDocs: Int
+}
+
+type countUserMessages {
+  totalDocs: Int
+}
+
+type countUsers {
+  totalDocs: Int
+}
+
+type countallMedia {
+  totalDocs: Int
+}
+
+type docsMockDataAccess {
+  fields: DocsMockDataFields
+  read: DocsMockDataReadAccess
+  update: DocsMockDataUpdateAccess
+}
+
+type docsMockDataDocAccess {
+  fields: DocsMockDataDocAccessFields
+  read: DocsMockDataReadDocAccess
+  update: DocsMockDataUpdateDocAccess
+}
+
+type mediaAccess {
+  create: MediaCreateAccess
+  delete: MediaDeleteAccess
+  fields: MediaFields
+  read: MediaReadAccess
+  update: MediaUpdateAccess
+}
+
+type mediaDocAccess {
+  create: MediaCreateDocAccess
+  delete: MediaDeleteDocAccess
+  fields: MediaDocAccessFields
+  read: MediaReadDocAccess
+  update: MediaUpdateDocAccess
+}
+
+type modelDefinitionsAccess {
+  create: ModelDefinitionsCreateAccess
+  delete: ModelDefinitionsDeleteAccess
+  fields: ModelDefinitionsFields
+  read: ModelDefinitionsReadAccess
+  update: ModelDefinitionsUpdateAccess
+}
+
+type modelDefinitionsDocAccess {
+  create: ModelDefinitionsCreateDocAccess
+  delete: ModelDefinitionsDeleteDocAccess
+  fields: ModelDefinitionsDocAccessFields
+  read: ModelDefinitionsReadDocAccess
+  update: ModelDefinitionsUpdateDocAccess
+}
+
+input mutationAgentInput {
+  agentModel: Int
+  agentName: String!
+  agentSystemMessage: String!
+  agentUid: String!
+  createdAt: String
+  updatedAt: String
+}
+
+input mutationAgentMessageInput {
+  channel: Int
+  channelUid: String!
+  createdAt: String
+  deletedAt: String
+  messageContent: JSON!
+  messageUid: String
+  originatorUser: Int
+  originatorUserUid: String
+  recipientType: AgentMessage_recipientType_MutationInput!
+  recipientUid: String
+  senderAgent: Int
+  senderAgentUid: String
+  thread: Int
+  threadUid: String!
+  updatedAt: String
+}
+
+input mutationAgentMessageUpdateInput {
+  channel: Int
+  channelUid: String
+  createdAt: String
+  deletedAt: String
+  messageContent: JSON
+  messageUid: String
+  originatorUser: Int
+  originatorUserUid: String
+  recipientType: AgentMessageUpdate_recipientType_MutationInput
+  recipientUid: String
+  senderAgent: Int
+  senderAgentUid: String
+  thread: Int
+  threadUid: String
+  updatedAt: String
+}
+
+input mutationAgentUpdateInput {
+  agentModel: Int
+  agentName: String
+  agentSystemMessage: String
+  agentUid: String
+  createdAt: String
+  updatedAt: String
+}
+
+input mutationChannelInput {
+  blacklistedAgents: [Int]
+  blacklistedUsers: [Int]
+  channelName: String!
+  channelSlug: String
+  channelUid: String
+  createdAt: String
+  deletedAt: String
+  mainThread: Int
+  parentChannel: Int
+  participantAgents: [Int]
+  participantUsers: [Int]
+  updatedAt: String
+}
+
+input mutationChannelUpdateInput {
+  blacklistedAgents: [Int]
+  blacklistedUsers: [Int]
+  channelName: String
+  channelSlug: String
+  channelUid: String
+  createdAt: String
+  deletedAt: String
+  mainThread: Int
+  parentChannel: Int
+  participantAgents: [Int]
+  participantUsers: [Int]
+  updatedAt: String
+}
+
+input mutationDocsMockDatumInput {
+  createdAt: String
+  mockData: JSON
+  updatedAt: String
+}
+
+input mutationMediaInput {
+  alt: String
+  createdAt: String
+  filename: String
+  filesize: Float
+  focalX: Float
+  focalY: Float
+  height: Float
+  mimeType: String
+  thumbnailURL: String
+  updatedAt: String
+  url: String
+  width: Float
+}
+
+input mutationMediaUpdateInput {
+  alt: String
+  createdAt: String
+  filename: String
+  filesize: Float
+  focalX: Float
+  focalY: Float
+  height: Float
+  mimeType: String
+  thumbnailURL: String
+  updatedAt: String
+  url: String
+  width: Float
+}
+
+input mutationModelDefinitionInput {
+  apiKey: String!
+  createdAt: String
+  label: String!
+  provider: ModelDefinition_provider_MutationInput!
+  updatedAt: String
+  value: String!
+}
+
+input mutationModelDefinitionUpdateInput {
+  apiKey: String
+  createdAt: String
+  label: String
+  provider: ModelDefinitionUpdate_provider_MutationInput
+  updatedAt: String
+  value: String
+}
+
+input mutationPayloadKvInput {
+  data: JSON!
+  key: String!
+}
+
+input mutationPayloadKvUpdateInput {
+  data: JSON
+  key: String
+}
+
+input mutationPayloadLockedDocumentInput {
+  createdAt: String
+  document: PayloadLockedDocument_DocumentRelationshipInput
+  globalSlug: String
+  updatedAt: String
+  user: PayloadLockedDocument_UserRelationshipInput
+}
+
+input mutationPayloadLockedDocumentUpdateInput {
+  createdAt: String
+  document: PayloadLockedDocumentUpdate_DocumentRelationshipInput
+  globalSlug: String
+  updatedAt: String
+  user: PayloadLockedDocumentUpdate_UserRelationshipInput
+}
+
+input mutationPayloadPreferenceInput {
+  createdAt: String
+  key: String
+  updatedAt: String
+  user: PayloadPreference_UserRelationshipInput
+  value: JSON
+}
+
+input mutationPayloadPreferenceUpdateInput {
+  createdAt: String
+  key: String
+  updatedAt: String
+  user: PayloadPreferenceUpdate_UserRelationshipInput
+  value: JSON
+}
+
+input mutationThreadInput {
+  channel: Int
+  createdAt: String
+  deletedAt: String
+  lockReason: String
+  lockedAt: String
+  threadUid: String!
+  updatedAt: String
+}
+
+input mutationThreadUpdateInput {
+  channel: Int
+  createdAt: String
+  deletedAt: String
+  lockReason: String
+  lockedAt: String
+  threadUid: String
+  updatedAt: String
+}
+
+input mutationUserInput {
+  allowedAgents: [Int]
+  createdAt: String
+  email: String!
+  hash: String
+  lastLoginAt: String
+  lockUntil: String
+  loginAttempts: Float
+  loginCode: String
+  loginCodeExpiresAt: String
+  password: String!
+  resetPasswordExpiration: String
+  resetPasswordToken: String
+  roles: [User_roles_MutationInput]!
+  salt: String
+  updatedAt: String
+  userUid: String!
+}
+
+input mutationUserMessageInput {
+  channel: Int
+  channelUid: String!
+  createdAt: String
+  deletedAt: String
+  messageContent: JSON!
+  messageUid: String
+  noStreamBroadcast: Boolean
+  processOnlyCurrentMessage: Boolean
+  recipientType: UserMessage_recipientType_MutationInput!
+  recipientUid: String
+  senderUser: Int
+  senderUserUid: String
+  thread: Int
+  threadUid: String!
+  updatedAt: String
+}
+
+input mutationUserMessageUpdateInput {
+  channel: Int
+  channelUid: String
+  createdAt: String
+  deletedAt: String
+  messageContent: JSON
+  messageUid: String
+  noStreamBroadcast: Boolean
+  processOnlyCurrentMessage: Boolean
+  recipientType: UserMessageUpdate_recipientType_MutationInput
+  recipientUid: String
+  senderUser: Int
+  senderUserUid: String
+  thread: Int
+  threadUid: String
+  updatedAt: String
+}
+
+input mutationUserUpdateInput {
+  allowedAgents: [Int]
+  createdAt: String
+  email: String
+  hash: String
+  lastLoginAt: String
+  lockUntil: String
+  loginAttempts: Float
+  loginCode: String
+  loginCodeExpiresAt: String
+  password: String
+  resetPasswordExpiration: String
+  resetPasswordToken: String
+  roles: [UserUpdate_roles_MutationInput]
+  salt: String
+  updatedAt: String
+  userUid: String
+}
+
+type payload_kvAccess {
+  create: PayloadKvCreateAccess
+  delete: PayloadKvDeleteAccess
+  fields: PayloadKvFields
+  read: PayloadKvReadAccess
+  update: PayloadKvUpdateAccess
+}
+
+type payload_kvDocAccess {
+  create: PayloadKvCreateDocAccess
+  delete: PayloadKvDeleteDocAccess
+  fields: PayloadKvDocAccessFields
+  read: PayloadKvReadDocAccess
+  update: PayloadKvUpdateDocAccess
+}
+
+type payload_locked_documentsAccess {
+  create: PayloadLockedDocumentsCreateAccess
+  delete: PayloadLockedDocumentsDeleteAccess
+  fields: PayloadLockedDocumentsFields
+  read: PayloadLockedDocumentsReadAccess
+  update: PayloadLockedDocumentsUpdateAccess
+}
+
+type payload_locked_documentsDocAccess {
+  create: PayloadLockedDocumentsCreateDocAccess
+  delete: PayloadLockedDocumentsDeleteDocAccess
+  fields: PayloadLockedDocumentsDocAccessFields
+  read: PayloadLockedDocumentsReadDocAccess
+  update: PayloadLockedDocumentsUpdateDocAccess
+}
+
+type payload_preferencesAccess {
+  create: PayloadPreferencesCreateAccess
+  delete: PayloadPreferencesDeleteAccess
+  fields: PayloadPreferencesFields
+  read: PayloadPreferencesReadAccess
+  update: PayloadPreferencesUpdateAccess
+}
+
+type payload_preferencesDocAccess {
+  create: PayloadPreferencesCreateDocAccess
+  delete: PayloadPreferencesDeleteDocAccess
+  fields: PayloadPreferencesDocAccessFields
+  read: PayloadPreferencesReadDocAccess
+  update: PayloadPreferencesUpdateDocAccess
+}
+
+type threadsAccess {
+  create: ThreadsCreateAccess
+  delete: ThreadsDeleteAccess
+  fields: ThreadsFields
+  read: ThreadsReadAccess
+  update: ThreadsUpdateAccess
+}
+
+type threadsDocAccess {
+  create: ThreadsCreateDocAccess
+  delete: ThreadsDeleteDocAccess
+  fields: ThreadsDocAccessFields
+  read: ThreadsReadDocAccess
+  update: ThreadsUpdateDocAccess
+}
+
+type userMessagesAccess {
+  create: UserMessagesCreateAccess
+  delete: UserMessagesDeleteAccess
+  fields: UserMessagesFields
+  read: UserMessagesReadAccess
+  update: UserMessagesUpdateAccess
+}
+
+type userMessagesDocAccess {
+  create: UserMessagesCreateDocAccess
+  delete: UserMessagesDeleteDocAccess
+  fields: UserMessagesDocAccessFields
+  read: UserMessagesReadDocAccess
+  update: UserMessagesUpdateDocAccess
+}
+
+type usersAccess {
+  create: UsersCreateAccess
+  delete: UsersDeleteAccess
+  fields: UsersFields
+  read: UsersReadAccess
+  unlock: UsersUnlockAccess
+  update: UsersUpdateAccess
+}
+
+type usersDocAccess {
+  create: UsersCreateDocAccess
+  delete: UsersDeleteDocAccess
+  fields: UsersDocAccessFields
+  read: UsersReadDocAccess
+  unlock: UsersUnlockDocAccess
+  update: UsersUpdateDocAccess
+}
+
+type usersJWT {
+  collection: String!
+  email: EmailAddress!
+  roles: [usersJWT_roles!]!
+}
+
+enum usersJWT_roles {
+  ADMIN
+  READ_ONLY
+  SUPER_ADMIN
+  WRITE
+}
+
+type usersLoginResult {
+  exp: Int
+  token: String
+  user: User
+}
+
+type usersMe {
+  collection: String
+  exp: Int
+  strategy: String
+  token: String
+  user: User
+}
+
+type usersRefreshedUser {
+  exp: Int
+  refreshedToken: String
+  strategy: String
+  user: usersJWT
+}
+
+type usersResetPassword {
+  token: String
+  user: User
+}

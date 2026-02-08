@@ -1,0 +1,122 @@
+name: Hello World with Diagnostics
+
+# Test comment
+on:
+  workflow_dispatch:
+
+jobs:
+  hello-diagnostics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hello World
+        run: |
+          echo "============================================"
+          echo "          HELLO WORLD! 👋                  "
+          echo "============================================"
+          echo ""
+
+      - name: System Information
+        run: |
+          echo "📊 System Information:"
+          echo "  OS: $(uname -s)"
+          echo "  Kernel: $(uname -r)"
+          echo "  Architecture: $(uname -m)"
+          echo "  Hostname: $(hostname)"
+          echo "  User: $(whoami)"
+          echo "  Date/Time: $(date)"
+          echo ""
+
+      - name: Runner Details
+        run: |
+          echo "🏃 Runner Details:"
+          echo "  Runner Name: ${{ runner.name }}"
+          echo "  Runner OS: ${{ runner.os }}"
+          echo "  Runner Arch: ${{ runner.arch }}"
+          echo "  Runner Temp: ${{ runner.temp }}"
+          echo "  Runner Tool Cache: ${{ runner.tool_cache }}"
+          echo ""
+
+      - name: GitHub Context
+        run: |
+          echo "🐙 GitHub Context:"
+          echo "  Repository: ${{ github.repository }}"
+          echo "  Repository Owner: ${{ github.repository_owner }}"
+          echo "  Event Name: ${{ github.event_name }}"
+          echo "  Ref: ${{ github.ref }}"
+          echo "  SHA: ${{ github.sha }}"
+          echo "  Actor: ${{ github.actor }}"
+          echo "  Workflow: ${{ github.workflow }}"
+          echo "  Run ID: ${{ github.run_id }}"
+          echo "  Run Number: ${{ github.run_number }}"
+          echo ""
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Git Information
+        run: |
+          echo "📦 Git Information:"
+          echo "  Current Branch: $(git branch --show-current)"
+          echo "  Latest Commit: $(git log -1 --pretty=format:'%H')"
+          echo "  Commit Message: $(git log -1 --pretty=format:'%s')"
+          echo "  Commit Author: $(git log -1 --pretty=format:'%an <%ae>')"
+          echo "  Commit Date: $(git log -1 --pretty=format:'%ai')"
+          echo ""
+
+      - name: Resource Usage
+        run: |
+          echo "💾 Resource Usage:"
+          echo "  Memory:"
+          free -h
+          echo ""
+          echo "  Disk Space:"
+          df -h /
+          echo ""
+          echo "  CPU Info:"
+          lscpu | grep -E "^(Architecture|CPU\(s\)|Model name|Thread)"
+          echo ""
+
+      - name: Environment Variables
+        run: |
+          echo "🌍 Key Environment Variables:"
+          echo "  GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          echo "  GITHUB_ACTION: $GITHUB_ACTION"
+          echo "  GITHUB_ACTIONS: $GITHUB_ACTIONS"
+          echo "  GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH"
+          echo "  HOME: $HOME"
+          echo "  PATH: $PATH"
+          echo ""
+
+      - name: Installed Software
+        run: |
+          echo "🛠️  Pre-installed Software Versions:"
+          echo "  Git: $(git --version)"
+          echo "  Node: $(node --version 2>/dev/null || echo 'Not installed')"
+          echo "  npm: $(npm --version 2>/dev/null || echo 'Not installed')"
+          echo "  Python: $(python --version 2>/dev/null || python3 --version 2>/dev/null || echo 'Not installed')"
+          echo "  Docker: $(docker --version 2>/dev/null || echo 'Not installed')"
+          echo "  curl: $(curl --version | head -n 1)"
+          echo "  wget: $(wget --version | head -n 1)"
+          echo ""
+
+      - name: Network Diagnostics
+        run: |
+          echo "🌐 Network Diagnostics:"
+          echo "  Public IP: $(curl -s ifconfig.me || echo 'Unable to fetch')"
+          echo "  DNS Resolution (google.com): $(host google.com | head -n 1)"
+          echo ""
+
+      - name: Workflow Summary
+        run: |
+          echo "✅ Workflow Complete!"
+          echo ""
+          echo "This workflow has successfully demonstrated:"
+          echo "  ✓ Basic GitHub Actions execution"
+          echo "  ✓ System information gathering"
+          echo "  ✓ GitHub context access"
+          echo "  ✓ Repository checkout"
+          echo "  ✓ Resource monitoring"
+          echo "  ✓ Environment variable inspection"
+          echo ""
+          echo "Goodbye! 👋"

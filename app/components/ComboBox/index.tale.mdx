@@ -1,0 +1,142 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+import Link from '@/components/Link';
+import ComboBox, { ComboBoxItem } from '@/components/ComboBox';
+
+<Heading level={2}>Standalone ComboBox Example</Heading>
+
+In any other case unrelated to using a form to send data to the server (e.g. as part of in-browser interactions), you can use the standalone version of the ComboBox component.
+
+
+<div className="card bg-base-200 shadow-sm max-w-md">
+  <div className="card-body">
+    <ComboBox
+      label={props.label}
+      selectedKey={props.selectedKey}
+      onSelectionChange={props.onSelectionChange}
+    >
+      {props.items.map((option) => (
+        <ComboBoxItem key={option.id} id={option.id}>
+          {option.name}
+        </ComboBoxItem>
+      ))}
+    </ComboBox>
+  </div>
+</div>
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useEffect, useState } from 'react';
+  import ComboBox, type { ComboBoxItemType } from '@/components/ComboBox';
+  import eventService from '@/services/event';
+
+  const comboBoxOptions: ComboBoxItemType[] = ${JSON.stringify(props.items, null, 2)};
+
+  /* ... */
+
+    const [selectedKey, setSelectedKey] = useState<string>('default');
+
+    const handleSelectionChange = (key: string) => {
+      setSelectedKey(key);
+    };
+
+  /* ... */
+
+      <ComboBox
+        label="${props.label}"
+        selectedKey={selectedKey}
+        onSelectionChange={handleSelectionChange}
+        description="${props.description}"
+        isDisabled={${props.isDisabled ? 'true' : 'false'}}
+        isLoading={${props.isLoading ? 'true' : 'false'}}
+      >
+        {comboBoxOptions.map((option) => (
+          <ComboBoxItem key={option.id} id={option.id}>
+            {option.name}
+          </ComboBoxItem>
+        ))}
+      </ComboBox>
+  `}
+/>
+</details>
+
+<Heading level={2}>Standalone ComboBox Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>React.ReactNode</code> | <code>(item: T) =&gt; React.ReactNode</code></td>
+        <td>✅</td>
+        <td>The ComboBoxItem elements or a function that renders items</td>
+      </tr>
+      <tr>
+        <td><code>label</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The label text displayed above the ComboBox</td>
+      </tr>
+      <tr>
+        <td><code>selectedKey</code></td>
+        <td><code>string</code> | <code>number</code> | <code>null</code></td>
+        <td>❌</td>
+        <td>The currently selected item's key/id</td>
+      </tr>
+      <tr>
+        <td><code>onSelectionChange</code></td>
+        <td><code>(key: string | number | null) =&gt; void</code></td>
+        <td>❌</td>
+        <td>Handler called when the selection changes</td>
+      </tr>
+      <tr>
+        <td><code>description</code></td>
+        <td><code>string</code> | <code>null</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Optional description text displayed below the ComboBox</td>
+      </tr>
+      <tr>
+        <td><code>errorMessage</code></td>
+        <td><code>string</code> | <code>function</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Error message to display. Can be a string or function that receives validation result</td>
+      </tr>
+      <tr>
+        <td><code>isLoading</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Shows skeleton loading state when true</td>
+      </tr>
+      <tr>
+        <td><code>isDisabled</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Disables the ComboBox when true</td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The name attribute for form submission</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">This component extends React Aria's ComboBoxProps and provides additional features like loading states and error handling. For form usage, see the Form ComboBox example above.</p>
+  <p className="text-sm">You can read more about the underlying props in the <Link to="https://react-spectrum.adobe.com/react-aria/ComboBox.html#props" external={true}>React Aria ComboBox component</Link> documentation.</p>
+</div>

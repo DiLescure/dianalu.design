@@ -1,0 +1,113 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Code from '@/components/Code';
+
+<h2>Search Param Powered State Management</h2>
+
+We use the library <Link to="https://nuqs.47ng.com/" external={true}>nuqs</Link> to manage search parameters. It provides a type-safe search params state manager for React, not just parsing URL params into typed objects, but also serializing complex data back into compact, readable URLs with built-in and custom parsers.
+
+<Heading level={2}>Interactive Example</Heading>
+
+These are the current search parameters in the URL:
+
+<Code
+  readOnly={true}
+  language="json"
+  value={`${JSON.stringify(props, null, 2)}`}
+/>
+
+The search params state is fully bidirectional. If you change the search parameters in the URL, the state will be updated. Likewise, if you change the state using the tale controls below, the URL will be updated.
+
+<Heading level={2}>Usage</Heading>
+
+<Heading level={3}>As State Manager</Heading>
+
+Nuqs provides a `useQueryState` hook that you should think of as a replacement for `useStae` in your code:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`
+  import {
+    useQueryState,
+    parseAsString,
+    parseAsNumber,
+  } from 'nuqs';
+
+  // ...
+
+  const [hello, setHello] = useQueryState(
+    'hello',
+    parseAsString.withDefault('world'),
+  );
+  const [count, setCount] = useQueryState(
+    'count',
+    parseAsNumber.withDefault(0),
+  );
+
+  return (
+    <div>
+      <strong>Hello:</strong> {hello}
+      <br />
+      <strong>Count:</strong> {count}
+      <br />
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+    </div>
+  );
+  `}
+/>
+
+<Heading level={3}>With The Link Component</Heading>
+
+The <Link to="/docs/components/navigation/link/">`<Link />` component</Link> has a `searchParams` prop that, when provided, is serialized into a URL search string and appended to the link's destination:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`
+  import Link from '@/components/Link';
+
+  // ...
+
+  <Link
+    to="/"
+    searchParams={{
+      hello: 'world',
+      count: 42,
+    }}
+  >
+    My Link
+  </Link>
+  `}
+/>
+
+<Heading level={2}>Utility Functions</Heading>
+
+The `generateNuqsSearchParams` utility is a helper function that converts a JSON object into a `useQueryStates` compatible object.
+
+The `searchParamsStringToJson` utility is a helper function that converts a search params string into a JSON object. It optimistically converts the search params string into an object where the values are parsed into the correct type.
+
+**IMPORTANT:** You must use the `useQueryStates` **(plural)** hook to manage the search params state with these utilities.
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useQueryStates } from 'nuqs';
+  import { generateNuqsSearchParams } from '@/util/generate-nuqs-search-params';
+  import { searchParamsStringToJson } from '@/util/search-params-string-to-json';
+
+  const defaultSearchParams = { /*... */ };
+
+  // ...
+
+    const [searchParams, setSearchParams] = useQueryStates(
+      generateNuqsSearchParams(defaultSearchParams),
+    );
+
+    useEffect(() => {
+      if (typeof window !== 'undefined' && window.location.search) {
+        setSearchParams(searchParamsStringToJson(window.location.search));
+      }
+    }, []);
+  `}
+/>

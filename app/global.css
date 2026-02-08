@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+@theme {
+  --font-roboto: "IBM Plex Sans", sans-serif;
+  --font-readex: "Readex Pro", sans-serif;
+}
+
+/* @config "./tailwind.config.js"; */
+
+@plugin "tailwindcss-react-aria-components";
+@plugin "@tailwindcss/typography";
+
+@plugin "daisyui" {
+  themes:
+    default-light --default,
+    default-dark --prefersdark,
+    alternate-light,
+    alternate-dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "default-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(8% 0.019 230.69);
+  --color-base-200: oklch(22% 0.019 230.69);
+  --color-base-300: oklch(30% 0.019 230.69);
+  --color-base-content: oklch(95.383% 0.01 255);
+  --color-primary: oklch(58.92% 0.199 134.6);
+  --color-primary-content: oklch(95.383% 0.01 255);
+  --color-secondary: oklch(53.92% 0.162 241.36);
+  --color-secondary-content: oklch(99% 0.032 241.36);
+  --color-accent: oklch(71.294% 0.166 299.844);
+  --color-accent-content: oklch(14.258% 0.033 299.844);
+  --color-neutral: oklch(14% 0.005 285.823);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --color-info: oklch(74% 0.16 232.661);
+  --color-info-content: oklch(15% 0.066 243.157);
+  --color-success: oklch(78.119% 0.192 132.154);
+  --color-success-content: oklch(15.623% 0.038 132.154);
+  --color-warning: oklch(84.8% 0.1962 84.62);
+  --color-warning-content: oklch(27% 0.1962 84.62);
+  --color-error: oklch(65% 0.1985 24.22);
+  --color-error-content: oklch(15% 0.1985 24.22);
+  --radius-selector: 0rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "default-light";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(95% 0 0);
+  --color-base-300: oklch(90% 0 0);
+  --color-base-content: oklch(20% 0 0);
+  --color-primary: oklch(37.45% 0.189 325.02);
+  --color-primary-content: oklch(99% 0.037 325.02);
+  --color-secondary: oklch(53.92% 0.162 241.36);
+  --color-secondary-content: oklch(99% 0.032 241.36);
+  --color-accent: oklch(75.98% 0.204 56.72);
+  --color-accent-content: oklch(15.196% 0.04 56.72);
+  --color-neutral: oklch(27.807% 0.029 256.847);
+  --color-neutral-content: oklch(85.561% 0.005 256.847);
+  --color-info: oklch(72.06% 0.191 231.6);
+  --color-info-content: oklch(0% 0 0);
+  --color-success: oklch(64.8% 0.45 160);
+  --color-success-content: oklch(0% 0 0);
+  --color-warning: oklch(84.71% 0.199 83.87);
+  --color-warning-content: oklch(0% 0 0);
+  --color-error: oklch(62.013% 0.208 28.717);
+  --color-error-content: oklch(12.402% 0.041 28.717);
+  --radius-selector: 0rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "alternate-dark";
+  default: false;
+  prefersdark: false;
+  color-scheme: "dark";
+  --color-base-100: oklch(24% 0.023 329.708);
+  --color-base-200: oklch(21% 0.021 329.708);
+  --color-base-300: oklch(16% 0.019 329.708);
+  --color-base-content: oklch(72.354% 0.092 79.129);
+  --color-primary: oklch(71.996% 0.123 62.756);
+  --color-primary-content: oklch(14.399% 0.024 62.756);
+  --color-secondary: oklch(34.465% 0.029 199.194);
+  --color-secondary-content: oklch(86.893% 0.005 199.194);
+  --color-accent: oklch(42.621% 0.074 224.389);
+  --color-accent-content: oklch(88.524% 0.014 224.389);
+  --color-neutral: oklch(16.51% 0.015 326.261);
+  --color-neutral-content: oklch(83.302% 0.003 326.261);
+  --color-info: oklch(79.49% 0.063 184.558);
+  --color-info-content: oklch(15.898% 0.012 184.558);
+  --color-success: oklch(74.722% 0.072 131.116);
+  --color-success-content: oklch(14.944% 0.014 131.116);
+  --color-warning: oklch(88.15% 0.14 87.722);
+  --color-warning-content: oklch(17.63% 0.028 87.722);
+  --color-error: oklch(77.318% 0.128 31.871);
+  --color-error-content: oklch(15.463% 0.025 31.871);
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "alternate-light";
+  default: false;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(98.71% 0.02 123.72);
+  --color-base-200: oklch(91.8% 0.018 123.72);
+  --color-base-300: oklch(84.89% 0.017 123.72);
+  --color-base-content: oklch(19.742% 0.004 123.72);
+  --color-primary: oklch(58.92% 0.199 134.6);
+  --color-primary-content: oklch(11.784% 0.039 134.6);
+  --color-secondary: oklch(77.75% 0.196 111.09);
+  --color-secondary-content: oklch(15.55% 0.039 111.09);
+  --color-accent: oklch(85.39% 0.201 100.73);
+  --color-accent-content: oklch(17.078% 0.04 100.73);
+  --color-neutral: oklch(30.98% 0.075 108.6);
+  --color-neutral-content: oklch(86.196% 0.015 108.6);
+  --color-info: oklch(86.19% 0.047 224.14);
+  --color-info-content: oklch(17.238% 0.009 224.14);
+  --color-success: oklch(86.19% 0.047 157.85);
+  --color-success-content: oklch(17.238% 0.009 157.85);
+  --color-warning: oklch(86.19% 0.047 102.15);
+  --color-warning-content: oklch(17.238% 0.009 102.15);
+  --color-error: oklch(86.19% 0.047 25.85);
+  --color-error-content: oklch(17.238% 0.009 25.85);
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@custom-variant dark (&:where([data-theme$="dark"], [data-theme$="dark"] *));
+
+* {
+  /* biome-ignore lint/complexity/noImportantStyles: needed for browser compatibility */
+  -webkit-print-color-adjust: exact !important; /* Chrome, Safari 6 – 15.3, Edge */
+
+  /* biome-ignore lint/complexity/noImportantStyles: needed for browser compatibility */
+  color-adjust: exact !important; /* Firefox 48 – 96 */
+
+  /* biome-ignore lint/complexity/noImportantStyles: needed for browser compatibility */
+  print-color-adjust: exact !important; /* Firefox 97+, Safari 15.4+ */
+}
+
+html,
+body {
+  @apply h-full w-full font-roboto;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-readex;
+  }
+
+  .content {
+    .table-container {
+      @apply overflow-x-auto border border-base-content/5 bg-base-200/50;
+
+      border-radius: var(--radius-box);
+    }
+
+    table {
+      @apply border-b-2 border-base-300 my-0;
+
+      thead {
+        tr:not(:last-child) {
+          @apply border-b border-base-content/50;
+        }
+      }
+
+      tfoot {
+        tr:not(:first-child) {
+          @apply border-t border-base-content/50;
+        }
+      }
+
+      th:first-child,
+      tr td:first-child {
+        @apply pl-4;
+      }
+
+      th:last-child,
+      tr td:last-child {
+        @apply pr-4;
+      }
+
+      th {
+        @apply bg-base-300 uppercase py-2 pe-2 ps-2;
+
+        &:not(:last-child) {
+          @apply border-r border-base-content/50;
+        }
+      }
+
+      td:not(:last-child) {
+        @apply border-r border-base-300;
+      }
+    }
+
+    & :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+      @apply my-0;
+    }
+
+    :where(code):not(pre > code) {
+      @apply bg-secondary/75 text-secondary-content border border-secondary;
+      white-space: nowrap;
+    }
+  }
+}
+
+#root {
+  @apply h-full;
+}
+
+@media screen {
+  html,
+  body {
+    @apply m-0 p-0 overflow-hidden print:overflow-auto;
+  }
+
+  #root {
+    @apply overflow-auto;
+
+    .content {
+      @apply m-8 p-8;
+
+      .prose {
+        @apply m-0 p-0;
+      }
+    }
+  }
+}
+
+@media print {
+  body {
+    .content {
+      @apply max-w-none h-full;
+    }
+  }
+}
+
+.form-control {
+  @apply w-full mb-4;
+
+  label,
+  .label {
+    @apply block w-full mb-1;
+  }
+
+  input[type="text"] {
+    @apply w-full;
+  }
+
+  [slot="description"] {
+    @apply block ml-2;
+  }
+}
+
+/* input[type="text"],
+input[type="number"] {
+  @apply input shadow-sm dark:text-white;
+} */
+
+/* select {
+  @apply select shadow-sm dark:text-white;
+} */
+
+.react-aria-FieldError {
+  @apply text-error text-sm ml-2 block;
+}
+
+dialog.modal {
+  z-index: 900;
+}
+
+a[target="_blank"] {
+  @apply relative;
+}
+
+a[target="_blank"]::after {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z'%3E%3C/path%3E%3C/svg%3E");
+  @apply inline-block w-[1em] h-[1em] ml-0.5 top-[0.1em] relative;
+}
+
+*[data-theme$="dark"] a[target="_blank"]::after {
+  @apply invert;
+}
+
+/* input[type="text"], input[type="number"] {
+  &:has(> input[disabled]), &:is(:disabled, [disabled]) {
+    @apply border-base-content/20 bg-base-100/50;
+  }
+}
+
+textarea {
+  &:has(> textarea[disabled]), &:is(:disabled, [disabled]) {
+    @apply border-base-content/20 bg-base-100/50;
+  }
+} */
+
+.input[data-disabled],
+*[data-disabled] .input {
+  @apply border-base-content/20 bg-base-100/50 text-base-content/50;
+}
+
+#tableOfContents:not(:empty) {
+  @apply mb-18;
+}

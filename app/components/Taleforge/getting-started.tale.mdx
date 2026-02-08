@@ -1,0 +1,48 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Code from '@/components/Code';
+
+<Heading level={2}>Markdown</Heading>
+
+From the "Markdown" title above on-forward, the content you're looking at is being generated from the `getting-started.tale.mdx` file.
+
+You can use MDX, which is a flavor of Markdown that allows you to use JSX (React Components) inside your markdown.
+
+Simply create a new file with a `.mdx` extension, then import into your tale like this:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import TaleMarkdown from './my-tale.mdx';
+
+  const tale: TaleDefinition = {
+    title: 'My Tale',
+    slug: 'my-tale',
+    taleContent: () => <TaleMarkdown />,
+    defaultValues: {},
+    schema: z.object({}),
+  };
+`}
+/>
+
+Furthermore, we extended mdx with <Link to="https://github.com/remarkjs/remark-gfm" target="_blank">remark-gfm</Link> to allow for the use of GFM (GitHub Flavored Markdown) in your tales.
+
+For example, you can use checkboxes:
+
+- [ ] This is a checkbox
+- [x] This is a checked checkbox
+
+<details>
+<summary>Source Code</summary>
+
+```mdx
+- [ ] This is a checkbox
+- [x] This is a checked checkbox
+```
+</details>
+
+For a more complete example of Github Flavored Markdown you can checkout <Link to="https://github.com/remarkjs/remark-gfm?tab=readme-ov-file#use" target="_blank">this example from remark-gfm</Link>.
+
+<Heading level={3}>Next Steps</Heading>
+
+Check out the <Link to="/docs/taleforge/basics/">Basics</Link> tale to see examples of different field types and how they're rendered in the controls panel.

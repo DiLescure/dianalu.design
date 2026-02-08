@@ -1,0 +1,97 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+import ComboBox, { ComboBoxItem} from '@/components/ComboBox';
+
+The Theme Service is a centralized system for managing the theme and color scheme of the application.
+
+
+
+<Heading level={2}>Event-Driven Architecture</Heading>
+
+The Theme Service uses an event-driven architecture to manage state and trigger updates. This approach prevents unnecessary re-renders and ensures consistent behavior across your application.
+
+<Heading level={3}>Events you can emit</Heading>
+
+- `theme:request-update`: Used to change the theme name. Take a look at the example below to see how to properly use this event.
+
+- `theme:request-mode-toggle`: Used to toggle the theme color mode (light/dark). We recommend using the `<ColorSchemeButton />` component to toggle the theme color mode. You can read more about it [here](/docs/components/utilities/copy-button/).
+
+<Heading level={3}>Events you can listen to</Heading>
+
+- `theme:updated`: Used when you want to receive the latest theme state (which includes the theme name and color mode).
+
+- `theme:request-update-announce`: Used to request the theme service to emit the `theme:updated` event. This is used to avoid the race-condition on first render where the theme service might emit the `theme:updated` event before the component is mounted. Take a look at the example below to see how to properly use this event.
+
+<Heading level={2}>Interactive Example</Heading>
+
+You can already change the color mode by clicking the toggle button in the bottom left corner of the page. That button is a fully customizable component called `<ColorSchemeButton />`. You can read more about it [here](/docs/components/utilities/copy-button/).
+
+And, here is an example of how you can use the Theme Service to change the theme:
+
+<ComboBox
+  label="Theme"
+  selectedKey={props.themeName}
+  onSelectionChange={(key) => props.handleThemeRequestUpdate(key)}
+>
+  {props.themeOptions.map((option) => (
+    <ComboBoxItem key={option.id} id={option.id}>
+      {option.name}
+    </ComboBoxItem>
+  ))}
+</ComboBox>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useEffect, useState } from 'react';
+  import ComboBox, type { ComboBoxItemType } from '@/components/ComboBox';
+  import eventService from '@/services/event';
+
+  const themeOptions: ComboBoxItemType[] = [
+    {
+      "id": "default",
+      "name": "Default Theme"
+    },
+    {
+      "id": "alternate",
+      "name": "Alternate Theme"
+    }
+  ];
+
+  /* ... */
+
+    const [themeName, setThemeName] = useState<string>('default');
+
+    useEffect(() => {
+      const handleThemeUpdated = ({ themeName }: { themeName: string }) => {
+        setThemeName(themeName as string);
+      };
+
+      eventService.on('theme:updated', handleThemeUpdated);
+
+      eventService.emit('theme:request-update-announce');
+
+      return () => {
+        eventService.off('theme:updated', handleThemeUpdated);
+      };
+    }, []);
+
+    const handleThemeRequestUpdate = (themeName: string) => {
+      eventService.emit('theme:request-update', themeName);
+    };
+
+  /* ... */
+
+      <ComboBox
+        label="Theme"
+        selectedKey={themeName}
+        onSelectionChange={(key) => handleThemeRequestUpdate(key)}
+      >
+        {themeOptions.map((option) => (
+          <ComboBoxItem key={option.id} id={option.id}>
+            {option.name}
+          </ComboBoxItem>
+        ))}
+      </ComboBox>
+  `}
+/>

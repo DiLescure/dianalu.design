@@ -1,0 +1,123 @@
+import Code from '@/components/Code';
+import Button from '@/components/Button';
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+
+Even though the `<Modal/>` component is usable on its own, we have implemented a global instance of the component that is available in the app by default through our [Overlay Service](/docs/services/overlay-service/).
+
+You can emit the `setModalProps` event to set the gobal modal's props.
+
+We only suggest using this method for simple use cases. For more complex use cases, we recommend you take a look at the [Modal (Form)](/docs/components/actions/modal-form/) tale which shows how to implement a modal with a form that handles async operations.
+
+Here's an example implementation (including source code) of calling the global modal instance with a button (that you can configure using the tale controls below), it's meant to show how easy it is to use the global modal instance:
+
+<div className="flex flex-col gap-4">
+  <div className="flex justify-center">
+    <Button className="btn-primary" onPress={props.handleOpenModal}>
+      Open Modal
+    </Button>
+  </div>
+</div>
+
+<details open>
+  <summary>Source Code</summary>
+
+  <Code
+    readOnly={true}
+    language="tsx"
+    value={`import eventService from '@/services/event';
+
+  /* ... */
+
+    const handleCloseModal = () => {
+      eventService.emit('overlay:request-set-modal-props', null);
+    };
+
+    const handleOpenModal = () => {
+      eventService.emit('overlay:request-set-modal-props', {
+        isOpen: ${props.taleState.isOpen},
+        title: "${props.taleState.title}",
+        children: "${props.taleState.content}",
+        onClose: handleCloseModal,
+        closeButtonLabel: ${props.taleState.showCloseButton ? '"Close"' : 'undefined'},
+      });
+    };
+
+    return (
+      <Button className="btn-primary" onPress={handleOpenModal}>
+        Open Modal
+      </Button>
+    );`}
+  />
+</details>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>title</code></td>
+        <td><code>string</code></td>
+        <td>✅</td>
+        <td>The title displayed in the modal header</td>
+      </tr>
+      <tr>
+        <td><code>onClose</code></td>
+        <td><code>(args?: any) =&gt; void</code></td>
+        <td>✅</td>
+        <td>Handler called when the modal should be closed</td>
+      </tr>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>ReactNode</code> | <code>((...props: any) =&gt; ReactNode)</code></td>
+        <td>❌</td>
+        <td>The content of the modal body. Can be a React node or a function that receives childrenProps</td>
+      </tr>
+      <tr>
+        <td><code>isOpen</code></td>
+        <td><code>boolean</code></td>
+        <td>❌</td>
+        <td>Controls whether the modal is open or closed</td>
+      </tr>
+      <tr>
+        <td><code>onOpen</code></td>
+        <td><code>function</code> | <code>null</code></td>
+        <td>❌</td>
+        <td>Async handler called when the modal opens, receives props management functions for dynamic content</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes to apply to the modal</td>
+      </tr>
+      <tr>
+        <td><code>closeButtonLabel</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Label for the close button in the modal actions. If provided, shows a close button</td>
+      </tr>
+      <tr>
+        <td><code>actionChildren</code></td>
+        <td><code>ReactNode</code> | <code>((...props: any) =&gt; ReactNode)</code> | <code>null</code></td>
+        <td>❌</td>
+        <td>Additional action buttons/elements to display in the modal footer. Can be a React node or a function that receives childrenProps</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">This component extends React Aria's Modal component and provides a custom implementation with additional features like automatic close button, action area, and prop management for dynamic content.</p>
+  <p className="text-sm">For more complex modal implementations, check out the <Link to="/docs/components/actions/modal-form/">Modal (Form)</Link> tale and the <Link to="/docs/services/overlay-service/">Overlay Service</Link> documentation.</p>
+</div>

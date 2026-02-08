@@ -1,0 +1,151 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+import Link from '@/components/Link';
+import TextField from '@/components/TextField';
+
+<Heading level={2}>Standalone TextField Example</Heading>
+
+In any other case unrelated to using a form to send data to the server (e.g. as part of in-browser interactions), you can use the standalone version of the TextField component.
+
+
+<div className="card bg-base-200 shadow-sm max-w-md">
+  <div className="card-body">
+    <TextField
+      label={props.label}
+      value={props.value}
+      onChange={props.onChange}
+      placeholder={props.placeholder}
+      description={props.description}
+      isDisabled={props.isDisabled}
+      isLoading={props.isLoading}
+    />
+  </div>
+</div>
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useState } from 'react';
+  import TextField from '@/components/TextField';
+
+  /* ... */
+
+    const [value, setValue] = useState<string>('');
+
+    const handleChange = (newValue: string) => {
+      setValue(newValue);
+    };
+
+  /* ... */
+
+      <TextField
+        label="${props.label}"
+        value={value}
+        isLoading={${props.isLoading ? 'true' : 'false'}}
+        isDisabled={${props.isDisabled ? 'true' : 'false'}}
+        placeholder="${props.placeholder}"
+        description="${props.description}"
+        onChange={handleChange}
+      />
+  `}
+/>
+</details> 
+
+<Heading level={2}>Standalone TextField Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>value</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The current value of the text field</td>
+      </tr>
+      <tr>
+        <td><code>onChange</code></td>
+        <td><code>(value: string) =&gt; void</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Handler called when the text value changes</td>
+      </tr>
+      <tr>
+        <td><code>label</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The label text displayed above the text field</td>
+      </tr>
+      <tr>
+        <td><code>placeholder</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Placeholder text shown when the field is empty</td>
+      </tr>
+      <tr>
+        <td><code>description</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Optional description text displayed below the text field</td>
+      </tr>
+      <tr>
+        <td><code>errorMessage</code></td>
+        <td><code>string</code> | <code>function</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Error message to display. Can be a string or function that receives validation result</td>
+      </tr>
+      <tr>
+        <td><code>isLoading</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Shows skeleton loading state when true</td>
+      </tr>
+      <tr>
+        <td><code>isDisabled</code></td>
+        <td><code>boolean</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Disables the text field when true</td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The name attribute for form submission</td>
+      </tr>
+      <tr>
+        <td><code>type</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The input type (text, email, password, etc.)</td>
+      </tr>
+      <tr>
+        <td><code>maxLength</code></td>
+        <td><code>number</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Maximum number of characters allowed</td>
+      </tr>
+      <tr>
+        <td><code>onKeyDown</code></td>
+        <td><code>(e: KeyboardEvent) =&gt; void</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Handler called when a key is pressed</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">This component extends React Aria's TextFieldProps and provides additional features like loading states and error handling. For form usage, see the Form TextField example above.</p>
+  <p className="text-sm">You can read more about the underlying props in the <Link to="https://react-spectrum.adobe.com/react-aria/TextField.html#props" external={true}>React Aria TextField component</Link> documentation.</p>
+</div>
+ 

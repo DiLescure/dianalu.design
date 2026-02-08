@@ -1,0 +1,20 @@
+---
+- name: Restart Clever Stack
+  hosts: dianalu.design
+  become: false
+
+  tasks:
+    - name: Stop existing screen session
+      shell: screen -S dianalu.design -X quit
+      ignore_errors: true
+
+    - name: Stop docker containers
+      shell: make production-stop
+      ignore_errors: true
+      args:
+        chdir: ~/dianalu.design
+
+    - name: Start screen session with make production
+      shell: screen -dmS dianalu.design make production
+      args:
+        chdir: ~/dianalu.design

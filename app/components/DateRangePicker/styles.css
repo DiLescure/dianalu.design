@@ -1,0 +1,46 @@
+@reference "@/global.css";
+
+.react-aria-DateRangePicker {
+  @apply text-base-content;
+
+  .react-aria-Group {
+    @apply flex w-fit items-center;
+  }
+}
+
+.react-aria-Popover[data-trigger="DateRangePicker"] {
+  @apply max-w-none bg-base-200 border border-base-300 rounded-lg shadow-lg;
+}
+
+/* Reuse the same calendar styles as DatePicker */
+.datepicker-calendar {
+  @apply p-4;
+
+  table {
+    @apply mb-4;
+  }
+
+  .react-aria-CalendarGridHeader {
+    tr {
+      @apply border-b border-base-300 mb-2;
+    }
+  }
+
+  .react-aria-CalendarGridBody {
+    td {
+      @apply text-center py-1;
+
+      &:not([aria-disabled="true"]) {
+        @apply cursor-pointer hover:bg-base-300;
+      }
+
+      &[aria-disabled="true"] {
+        @apply opacity-50;
+      }
+
+      &[aria-selected="true"] {
+        @apply bg-primary text-primary-content;
+      }
+    }
+  }
+}

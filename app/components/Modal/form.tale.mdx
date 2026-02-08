@@ -1,0 +1,582 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Code from '@/components/Code';
+
+Building forms with proper validation, state management, and error handling can be a complex endeavor.
+
+This tale demonstrates how we create robust form modals by leveraging the power of <Link to="https://tanstack.com/form/latest" target="_blank">TanStack Form</Link> and <Link to="https://zod.dev/" target="_blank">Zod</Link>.
+
+We invite you to explore the functionality implemented in the example at the top of this page.
+
+In the following sections, we'll explain how to implement this functionality yourself.
+
+While the implementation might look extensive at first glance, it provides a solid foundation with type safety, validation, and great developer experience right out of the box. The approach detailed below has allowed us to handle both creation and editing scenarios with ease, while maintaining a clean and maintainable codebase. We hope it does the same for you.
+
+<Heading level={2}>Core Dependencies</Heading>
+
+Let's start by importing our core dependencies. We'll use React's hooks for state management, Zod for schema validation, and TanStack Form for handling our form state and validation logic:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import type { CheckboxGroupOption } from '@/components/CheckboxGroup';
+import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
+import { useEffect, useRef, useState } from 'react';
+import { z } from 'zod';`}
+/>
+
+<Heading level={2}>Additional Utility Imports</Heading>
+
+We'll also import utility functions and services needed for the implementation:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import Button from '@/components/Button';
+import eventService from '@/services/event';
+import { type WithOptionalId, uid, wait } from '@/util';`}
+/>
+
+<Heading level={2}>Custom Form Components</Heading>
+
+Next, we'll import our custom form components. These are pre-configured components that integrate with TanStack Form and provide consistent styling and behavior across our application. Each component is designed to handle specific input types while maintaining type safety and providing proper validation feedback:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import {
+  createFormCheckboxGroup,
+  createFormComboBox,
+  createFormNotesField,
+  createFormTextArea,
+  createFormTextField,
+} from '@/components/Form';
+import FormModal, { type FormModalOnOpenProps, type FormModalRef } from '@/components/Form/Modal';`}
+/>
+
+<Heading level={2}>Static Data Structures</Heading>
+
+Here we define our static data structures. The `itemTypes` array represents the available types an item can have, while `categoryOptions` defines the selectable categories. These structures are used to populate our form's select and checkbox inputs, ensuring consistent options across the application:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const itemTypes = [
+  { id: '1', name: 'Product' },
+  { id: '2', name: 'Service' },
+  { id: '3', name: 'Subscription' },
+];
+
+const categoryOptions: CheckboxGroupOption[] = [
+  { value: 'electronics', label: 'Electronics' },
+  { value: 'clothing', label: 'Clothing' },
+  { value: 'food', label: 'Food' },
+  { value: 'books', label: 'Books' },
+];`}
+/>
+
+<Heading level={2}>Form Schema</Heading>
+
+The form schema is the backbone of our type-safe form implementation. Using Zod, we define strict validation rules for each field. This schema not only provides runtime validation but also generates TypeScript types, ensuring type safety throughout our application. Each field has specific validation rules with meaningful error messages to guide users:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const formSchema = z.object({
+    name: z.string().min(3, 'Name must be at least 3 characters'),
+    description: z.string().min(10, 'Description must be at least 10 characters'),
+    type: z.string().min(1, 'Item type is required'),
+    categories: z.array(z.string()).min(1, 'Select at least one category'),
+    notes: z.string().min(1, 'Notes are required'),
+    details: z.string().optional(),
+  });`}
+/>
+
+<Heading level={2}>TypeScript Interface</Heading>
+
+We leverage Zod's type inference capabilities to automatically generate our TypeScript interface from the schema. We use `WithOptionalId` utility type to make the `id` field optional for new items:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`type Item = WithOptionalId<z.infer<typeof formSchema>>;`}
+/>
+
+<Heading level={2}>TanStack Form Contexts</Heading>
+
+TanStack Form provides context utilities that help manage form state across components:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const { fieldContext, formContext, useFieldContext } = createFormHookContexts();`}
+/>
+
+<Heading level={2}>Field Components</Heading>
+
+Our form fields need access to the form context to function properly. Here we create specialized versions of our form components by injecting the field context. This setup enables each field to automatically handle state management, validation, and error display:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const fieldComponents = {
+    FormTextField: createFormTextField(useFieldContext),
+    FormTextArea: createFormTextArea(useFieldContext),
+    FormComboBox: createFormComboBox(useFieldContext),
+    FormCheckboxGroup: createFormCheckboxGroup(useFieldContext),
+    FormNotesField: createFormNotesField(useFieldContext),
+  };`}
+/>
+
+<Heading level={2}>Form Hook</Heading>
+
+With our components and contexts prepared, we create the main form hook that will manage our form's state and behavior. This hook combines our field components and contexts into a cohesive form management solution:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const { useAppForm } = createFormHook({
+    fieldComponents,
+    formComponents: {},
+    fieldContext,
+    formContext,
+  });`}
+/>
+
+<Heading level={2}>Initial Form Values</Heading>
+
+Every form needs initial values. We define these values to match our Item type, setting empty defaults for all fields. This ensures our form starts in a clean state when creating new items, while still being able to populate these values when editing existing items:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const initialFormValues: Item = {
+    name: '',
+    description: '',
+    type: '',
+    categories: [],
+    notes: '',
+    details: '',
+  };`}
+/>
+
+<Heading level={2}>Custom State Management Hook</Heading>
+
+We create a custom hook to manage our modal state, providing a clean interface for handling items:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const useModalState = () => {
+    const [items, setItems] = useState<Item[]>([]);
+
+    return {
+      items,
+      setItems,
+    };
+  };`}
+/>
+
+<Heading level={2}>Modal State Management</Heading>
+
+For this example, the modal's state management uses the custom hook and tracks the currently selected item for editing:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const { items, setItems } = useModalState();
+const [selectedItem, setSelectedItem] = useState<Item | null>(null);`}
+/>
+
+<Heading level={2}>Form Instance</Heading>
+
+Now we use the `useAppForm` hook we created earlier to initialize our form instance with the default values and validation schema:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const form = useAppForm({
+    defaultValues: initialFormValues,
+    validators: {
+      // @ts-ignore
+      onChange: formSchema,
+    },
+  });`}
+/>
+
+<Heading level={2}>Populating Form Values When Editing an Existing Item</Heading>
+
+When editing an existing item, we need to populate the form with the selected item's values. This snippet ensures all form fields are properly initialized with the existing item's data:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`if (selectedItem) {
+    for (const [key, value] of Object.entries(selectedItem)) {
+      form.setFieldValue(key as keyof Item, value);
+    }
+  }`}
+/>
+
+<Heading level={2}>Handler to Open the Modal</Heading>
+
+The modal opening handler ensures we start with a clean form state and uses the tale state management system:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const handleOpenModal = async () => {
+    form.reset();
+
+    taleOnChange({
+      stateKey: 'isOpen',
+      value: true,
+    });
+  };`}
+/>
+
+<Heading level={2}>Modal Initial (Async) Operations Handler</Heading>
+
+When the modal opens, we can perform any necessary async operations to prepare the form before the user can interact with it. This includes a simulated delay and form validation initialization:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const onOpenModal = async ({ setChildrenProps }: FormModalOnOpenProps) => {
+    setChildrenProps({
+      canSubmit: false,
+    });
+
+    console.log('onOpenModal');
+    await wait(1000);
+
+    form.validateAllFields('change');
+  };`}
+/>
+
+<Heading level={2}>Handler to Close the Modal</Heading>
+
+The close handler resets both the modal state and the selected item, using the tale state management system:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const handleCloseModal = () => {
+    taleOnChange({
+      stateKey: 'isOpen',
+      value: false,
+    });
+    setSelectedItem(null);
+  };`}
+/>
+
+<Heading level={2}>Submit Handler</Heading>
+
+The submit handler processes the form data, handling both creation and editing cases. It includes simulated API delay, error handling, and updates the items list accordingly:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const handleSubmit = async () => {
+    await wait(1000);
+    if (!submitShouldSucceed) {
+      throw new Error('API call failed');
+    }
+
+    if (!form.store?.state?.values) {
+      throw new Error('Form values are not set');
+    }
+
+    let updatedItems = items;
+
+    if (selectedItem?.id) {
+      updatedItems = items.map((item) => {
+        if (item.id === selectedItem.id) {
+          return {
+            ...form.store.state.values,
+            id: selectedItem.id,
+          };
+        }
+        return item;
+      });
+    } else {
+      updatedItems = [
+        ...items,
+        {
+          ...form.store.state.values,
+          id: uid.rnd(),
+        },
+      ];
+    }
+
+    setItems(updatedItems);
+  };`}
+/>
+
+<Heading level={2}>Error Handling for Form Submission</Heading>
+
+Error handling for form submission includes both toast notifications and console logging for debugging purposes:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const handleSubmitError = (error: any) => {
+    eventService.emit('overlay:request-toast-queue-add', {
+      message: 'API call "failed"',
+      level: 'error',
+    });
+    console.error('API call failed', error);
+  };`}
+/>
+
+<Heading level={2}>Additional Utility Functions</Heading>
+
+We include additional utility functions for managing the demo state and item removal:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const clearItems = () => {
+    setItems([]);
+  };
+
+  const toggleSucceed = () => {
+    taleOnChange({
+      stateKey: 'submitShouldSucceed',
+      value: !submitShouldSucceed,
+    });
+  };
+
+  const handleRemoveItem = (item: Item) => {
+    setItems(items.filter((i) => i.id !== item.id));
+  };`}
+/>
+
+<Heading level={2}>Form Modal Reference</Heading>
+
+We maintain a reference to the form modal to programmatically control its behavior and state:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const formModalRef = useRef<FormModalRef | null>(null);`}
+/>
+
+<Heading level={2}>Updating Ability to Submit Form</Heading>
+
+This effect monitors form validation state and updates the submit button's enabled state accordingly, ensuring users can only submit the form when all validation rules are satisfied:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`useEffect(() => {
+    form.validateAllFields('change');
+    form.store.subscribe(({ currentVal }) => {
+      // console.log('currentVal', currentVal);
+      formModalRef.current?.setCanSubmit(currentVal.isFieldsValid && !currentVal.isPristine);
+    });
+  }, [form]);`}
+/>
+
+<Heading level={2}>Opening the Modal When an Item is Selected</Heading>
+
+When an item is selected for editing, this effect automatically opens the modal using the tale state management:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`useEffect(() => {
+    if (selectedItem) {
+      taleOnChange({
+        stateKey: 'isOpen',
+        value: true,
+      });
+    }
+  }, [selectedItem]);`}
+/>
+
+<Heading level={2}>Control Buttons</Heading>
+
+The demo includes control buttons for adding new items, toggling API success/failure, and clearing items:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`<div className="mt-4 flex gap-3">
+    <Button onPress={handleOpenModal} className="btn-primary" iconName="add">
+      Add New Item
+    </Button>
+    <Button
+      onPress={toggleSucceed}
+      className={submitShouldSucceed ? 'btn-success' : 'btn-error'}
+      iconName={submitShouldSucceed ? 'checkmark' : 'close'}
+    >
+      {submitShouldSucceed ? 'API Call: Will Succeed' : 'API Call: Will Fail'}
+    </Button>
+    <Button onPress={clearItems} className="btn-error" iconName="delete">
+      Clear Items
+    </Button>
+  </div>`}
+/>
+
+<Heading level={2}>Example Items List Component</Heading>
+
+This is an example of an items list that displays all existing items with options to edit or remove them, using updated CSS classes for better theming:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`<div className="mt-4 flex flex-col gap-3">
+    <h3 className="text-lg font-bold">Items</h3>
+    {items.length < 1 && (
+      <div className="text-center text-sm text-gray-500">No items added yet</div>
+    )}
+    {items.map((item) => (
+      <div
+        key={item.name}
+        className="card bg-base-100 border border-base-300 p-4 shadow-md"
+      >
+        <div>
+          <strong>Name:</strong> {item.name}
+        </div>
+        <div>
+          <strong>Description:</strong> {item.description}
+        </div>
+        <div>
+          <strong>Type:</strong> {item.type}
+        </div>
+        <div>
+          <strong>Categories:</strong> {item.categories.join(', ')}
+        </div>
+        <div>
+          {/* biome-ignore lint/security/noDangerouslySetInnerHtml: it's not a user-generated value */}
+          <strong>Notes:</strong> <div dangerouslySetInnerHTML={{ __html: item.notes }} />
+        </div>
+        <div>
+          <strong>Details:</strong>{' '}
+          {item.details || <em className="text-gray-500">No details provided</em>}
+        </div>
+        <div className="divider" />
+        <div className="flex gap-2 justify-end">
+          <Button
+            onPress={() => handleRemoveItem(item)}
+            className="btn-error"
+            iconName="remove"
+          >
+            Remove
+          </Button>
+          <Button
+            onPress={() => setSelectedItem(item)}
+            className="btn-primary"
+            iconName="edit"
+          >
+            Edit
+          </Button>
+        </div>
+      </div>
+    ))}
+  </div>`}
+/>
+
+<Heading level={2}>Form Modal Component</Heading>
+
+Finally, we render the form modal component with all our configured handlers and form fields:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`<FormModal
+    ref={formModalRef}
+    isOpen={isOpen}
+    title="Add New Item"
+    onOpen={onOpenModal}
+    onClose={handleCloseModal}
+    onSubmit={handleSubmit}
+    onSubmitError={handleSubmitError}
+    submitButtonLabel="Save Item"
+  >
+    {({ isLoading, isSubmitting }) => (
+      <div className="p-2 flex flex-col gap-4">
+        <div className="opacity-75 text-sm mb-2">
+          Complete the form below to add a new item to the list.
+        </div>
+
+        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form.AppField name="name">
+            {(field) => {
+              return (
+                <field.FormTextField
+                  label="Name"
+                  isDisabled={isSubmitting}
+                  isLoading={isLoading}
+                />
+              );
+            }}
+          </form.AppField>
+
+          <form.AppField name="description">
+            {(field) => {
+              return (
+                <field.FormTextArea
+                  label="Description"
+                  isDisabled={isSubmitting}
+                  isLoading={isLoading}
+                />
+              );
+            }}
+          </form.AppField>
+
+          <form.AppField name="type">
+            {(field) => {
+              return (
+                <field.FormComboBox
+                  label="Item Type"
+                  isDisabled={isSubmitting}
+                  isLoading={isLoading}
+                  items={itemTypes}
+                />
+              );
+            }}
+          </form.AppField>
+
+          <form.AppField name="categories">
+            {(field) => {
+              return (
+                <field.FormCheckboxGroup
+                  label="Categories"
+                  isDisabled={isSubmitting}
+                  isLoading={isLoading}
+                  options={categoryOptions}
+                />
+              );
+            }}
+          </form.AppField>
+
+          <form.AppField name="notes">
+            {(field) => {
+              return (
+                <field.FormNotesField
+                  label="Notes"
+                  isDisabled={isSubmitting}
+                  isLoading={isLoading}
+                />
+              );
+            }}
+          </form.AppField>
+
+          <form.AppField name="details">
+            {(field) => {
+              return (
+                <field.FormTextArea
+                  label="Additional Details"
+                  isDisabled={isSubmitting}
+                  isLoading={isLoading}
+                />
+              );
+            }}
+          </form.AppField>
+        </form>
+      </div>
+    )}
+  </FormModal>`}
+/>

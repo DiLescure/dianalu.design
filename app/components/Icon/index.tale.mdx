@@ -1,0 +1,134 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Code from '@/components/Code';
+import Icon from '@/components/Icon';
+
+The `<Icon />` component is a wrapper around the Remix Icons library. It allows you to use any of the 3000+ available icons in your components.
+
+Use the tale controls below to modify the look and feel of this icon:
+
+<Icon {...props.iconProps} />
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`<Icon name="${props.iconProps.name}"${props.iconProps.className !== 'w-4' ? ` className="${props.iconProps.className}"` : ''} />`}
+/>
+</details>
+
+<Heading level={2}>Available Icons</Heading>
+
+By default we do not include all of the available icons. This is because we want to keep the bundle size down.
+
+If you need to add an icon to the system, please see the [Adding Icons](#adding-icons) section below.
+
+Here are the icons that are currently available:
+
+<div className="grid grid-cols-2 gap-2">
+  {props.availableIconNames.map((iconName) => (
+    <div key={iconName} className="flex w-full justify-start items-center gap-2">
+      <Icon key={iconName} name={iconName} className="w-12" />
+      <span className="flex-1">{iconName}</span>
+    </div>
+  ))}
+</div>
+
+<Heading level={2}>Adding Icons</Heading>
+
+We use **<Link to="https://github.com/Remix-Design/RemixIcon" target="_blank">Remix Icons</Link>** for our icon component.
+
+You can browse all available icon categories and their class names at:
+
+<Link to="https://remixicon.com" target="_blank">https:<span>//</span>remixicon<span>.com</span></Link>
+
+To add a new icon to the system:
+
+1. **Find your icon** on the Remix Icons website and note its category (e.g., "System", "Arrows", "Business") and class name (e.g., "home-line")
+2. **Import the icon** in `app/components/Icon/index.tsx` using the SVG React format:
+   <Code
+     readOnly={true}
+     language="tsx"
+     value="import YourIconName from 'remixicon/icons/Category/icon-class-name.svg?react';"
+   />
+3. **Add it to the availableIcons object** with a friendly name:
+   <Code
+     readOnly={true}
+     language="tsx"
+     value="export const availableIcons = {
+     // ... existing icons
+     yourFriendlyName: YourIconName,
+   };"
+   />
+4. **Use the icon** in your components with the friendly name:
+   <Code
+     readOnly={true}
+     language="tsx"
+     value="<Icon name='yourFriendlyName' />"
+   />
+
+For example, to add the "home" icon from the Buildings category, you would:
+
+1. Import the icon:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value="import HomeIcon from 'remixicon/icons/Buildings/home-line.svg?react';"
+/>
+
+2. Add it to the availableIcons object:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value="export const availableIcons = {
+  // ... existing icons
+  home: HomeIcon,
+};"
+/>
+
+3. Use the icon in your components:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value="<Icon name='home' />"
+/>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>IconName</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>The name of the icon to display. Must be one of the available icon names. Defaults to 'image' if not provided.</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes to apply to the icon wrapper span element</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">The <code>IconName</code> type includes all available icon names. See the Available Icons section above for the complete list.</p>
+  <p className="text-sm">This component is built on top of <Link to="https://remixicon.com" external={true}>Remix Icons</Link>. To add new icons, follow the instructions in the <Link to="#adding-icons">Adding Icons</Link> section above.</p>
+</div>

@@ -1,0 +1,82 @@
+import Heading from '@/components/Heading';
+import Code from '@/components/Code';
+import Icon from '@/components/Icon';
+import ColorSchemeButton from '@/components/ColorSchemeButton';
+
+The `<ColorSchemeButton />` toggles the site color scheme between light and dark modes. It uses a render-prop child to receive the current `themeMode` and decide what to render.
+
+<ColorSchemeButton {...props.colorSchemeButtonProps}>
+  {(themeMode) => (
+    themeMode === 'dark' ? (
+      <>
+        <Icon name="sun" className="w-6 h-6" />
+        <span>Light mode</span>
+      </>
+    ) : (
+      <>
+        <Icon name="moon" className="w-6 h-6" />
+        <span>Dark mode</span>
+      </>
+    )
+  )}
+  </ColorSchemeButton>
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`<ColorSchemeButton className="${props.colorSchemeButtonProps.className}">
+  {(themeMode) => themeMode === 'dark' ? (
+    <>
+      <Icon name='sun' className='w-6 h-6' />
+      <span>Light mode</span>
+    </>
+  ) : (
+    <>
+      <Icon name='moon' className='w-6 h-6' />
+      <span>Dark mode</span>
+    </>
+  )}
+</ColorSchemeButton>`}
+/>
+</details>
+<br/>
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>(themeMode: 'light' | 'dark') =&gt; ReactNode</code></td>
+        <td>✅</td>
+        <td>Render-prop that receives the current theme mode and returns the button content.</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code> | <code>undefined</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes for styling. Works with DaisyUI button variants.</td>
+      </tr>
+      <tr>
+        <td><code>...ButtonProps</code></td>
+        <td><code>ButtonProps</code></td>
+        <td>❌</td>
+        <td>All other props supported by the base <code>Button</code> component.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+

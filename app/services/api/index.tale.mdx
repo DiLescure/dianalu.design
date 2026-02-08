@@ -1,0 +1,150 @@
+import Heading from '@/components/Heading';
+import Button from '@/components/Button';
+import Code from '@/components/Code';
+
+The API Service centralizes GraphQL queries and mutations, and also exposes a preconfigured REST client. It's built on `@urql/core` and `@tanstack/react-query` for GraphQL, and `ky` for REST.
+
+<Heading level={2}>Live Example</Heading>
+
+Click the button to run the query:
+
+<div className="mb-4">
+  <Button className="btn-primary" onClick={props.onRun} isLoading={props.isFetching}>
+    Run query
+  </Button>
+</div>
+
+{props.error && (
+  <div style={{ color: 'red' }}>An error occurred while fetching data.</div>
+)}
+
+<Code
+  readOnly={true}
+  language="json"
+  value={JSON.stringify(props.data, null, 2) || 'Press button to load data from API'}
+/>
+
+<Heading level={2}>Provider Setup</Heading>
+
+Wrap your app with the `ApiProvider`. It internally configures React Query's `QueryClientProvider` and the GraphQL client, so you only need this one provider.
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { ApiProvider } from '@/services/api';
+
+export default function App() {
+  return (
+    <ApiProvider>
+      {/* your app */}
+    </ApiProvider>
+  );
+}`}
+/><br/>
+
+<Heading level={2}>Queries with React Query</Heading>
+
+Access predefined queries via `useApi().queries`. Each entry returns an object compatible with `useQuery`.
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useQuery } from '@tanstack/react-query';
+import { useApi } from '@/services/api';
+
+export function DocsMockData() {
+  const { queries } = useApi();
+  const { data, isPending, error } = useQuery(queries.DocsMockDatum());
+
+  if (isPending) return <div>Loading...</div>;
+  if (error) return <div>Failed to load.</div>;
+
+  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+}`}
+/><br/>
+
+To pass variables, call the query factory with defaults, and optionally merge at call-time:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`const { data } = useQuery(queries.SomeQuery({ foo: 'bar' }));
+// or at runtime:
+const { data } = useQuery({
+  ...queries.SomeQuery(),
+  queryKey: ['SomeQuery', 'bar'],
+  queryFn: () => queries.SomeQuery({ foo: 'bar' }).queryFn(),
+});`}
+/><br/>
+
+<Heading level={2}>Mutations with React Query</Heading>
+
+Access predefined mutations via `useApi().mutations`. Each entry returns an object suitable for `useMutation`.
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useMutation } from '@tanstack/react-query';
+import { useApi } from '@/services/api';
+
+export function CreateMessageButton() {
+  const { mutations } = useApi();
+  const createMessageMutation = useMutation(mutations.createMessage());
+
+  return (
+    <button
+      onClick={() =>
+        createMessageMutation.mutate({
+          // variables follow your GraphQL schema
+          data: { /* ...mutationMessageInput */ },
+        })
+      }
+      disabled={createMessageMutation.isPending}
+    >
+      {createMessageMutation.isPending ? 'Creating...' : 'Create Message'}
+    </button>
+  );
+}`}
+/><br/>
+
+<Heading level={2}>REST Client</Heading>
+
+For non-GraphQL endpoints, use the included `restApiClient` (a `ky` instance with base URL, JSON headers, retries).
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import { useApi } from '@/services/api';
+
+export function LoadSomething() {
+  const { restApiClient } = useApi();
+
+  async function load() {
+    const result = await restApiClient.get('some/resource').json<any>();
+    console.log(result);
+  }
+
+  return <button onClick={load}>Load</button>;
+}`}
+/><br/>
+
+<Heading level={2}>Type-safe Definitions</Heading>
+
+Queries and mutations are defined with small objects that wrap `gql` documents and default variables, ensuring consistent usage.
+
+<Code
+  readOnly={true}
+  language="ts"
+  value={`// queries/globals/DocsMockDatum.ts
+import type { QueryDefinition } from '@/services/api/types';
+import { gql } from '@urql/core';
+
+const DocsMockDatum: QueryDefinition = {
+  query: gql(\`
+    query { DocsMockDatum { mockData createdAt updatedAt } }
+  \`),
+  defaultVariables: {},
+};
+
+export default DocsMockDatum;`}
+/>

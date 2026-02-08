@@ -1,0 +1,58 @@
+@reference "@/global.css";
+
+.react-aria-CheckboxGroup {
+  .react-aria-Checkbox {
+    @apply flex items-center gap-2 pt-1 cursor-pointer;
+
+    &[data-selected="true"] {
+      .checkbox {
+        background-color: var(--input-color, #0000);
+        box-shadow:
+          0 0 #0000 inset,
+          0 8px 0 -4px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset,
+          0 1px oklch(0% 0 0 / calc(var(--depth) * 0.1));
+
+        &:before {
+          clip-path: polygon(20% 100%, 20% 80%, 50% 80%, 50% 0%, 70% 0%, 70% 100%);
+          @apply opacity-100;
+        }
+        @media (forced-colors: active) {
+          &:before {
+            @apply rotate-0 bg-transparent [--tw-content:"✔︎"] [clip-path:none];
+          }
+        }
+        @media print {
+          &:before {
+            @apply rotate-0 bg-transparent;
+            --tw-content: "✔︎";
+            clip-path: none;
+          }
+        }
+      }
+    }
+
+    &[data-indeterminate="true"] {
+      .checkbox {
+        &:before {
+          @apply rotate-0 opacity-100;
+          translate: 0 -35%;
+          clip-path: polygon(20% 100%, 20% 80%, 50% 80%, 50% 80%, 80% 80%, 80% 100%);
+        }
+      }
+    }
+
+    &[data-focused="true"] {
+      .checkbox {
+        @apply border-primary;
+      }
+    }
+  }
+
+  &[data-invalid="true"] {
+    .react-aria-Checkbox {
+      .checkbox {
+        @apply border-error;
+      }
+    }
+  }
+}

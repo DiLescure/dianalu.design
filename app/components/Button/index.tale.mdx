@@ -1,0 +1,400 @@
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Button from '@/components/Button';
+import Code from '@/components/Code';
+
+The `<Button />` component is a simple button component that is a wrapper around the `react-aria-components` button component.
+
+It is a great way to add buttons to your application, and is a great way to make your application more accessible.
+
+<Heading level={2} className="mb-2">B.Y.O.B. <span className="font-normal">(Build Your Own Button)</span></Heading>
+
+Use the tale controls below to modify the look and feel of this button:
+
+<Button {...props.byobButtonProps}>{props.byobButtonText || ''}</Button>
+
+<details open>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={
+`import Button from '@/components/Button';
+
+  <Button${props.byobButtonProps.isLoading ? '\n  isLoading={true}' : '\n  isLoading={false}'}${props.byobButtonProps.isDisabled ? '\n  isDisabled={true}' : '\n  isDisabled={false}'}${props.byobButtonProps.className ? `\n  className="${props.byobButtonProps.className}"` : ''}${props.byobButtonProps.iconName ? `\n  iconName="${props.byobButtonProps.iconName}"` : ''}
+  >
+    ${props.byobButtonText || '{ /* No button text */ }'}
+  </Button>`
+  }
+/>
+</details>
+<br/>
+
+<Heading level={2}>The `onPress` prop</Heading>
+
+The `onPress` prop is a function that is called when the button is pressed. It simplifies the process of handling button clicks, mobile touch events, and keyboard events; it's a great way to make your application more interactive.
+
+Example:
+
+export const handlePress = () => {
+  alert('Button pressed');
+};
+
+<Button className="btn-primary" onPress={handlePress}>
+  Click me
+</Button>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={
+`const handlePress = () => {
+    alert('Button pressed');
+  };
+
+  <Button className="btn-primary" onPress={handlePress}>
+    Click me
+  </Button>`
+}
+/>
+</details>
+<br/>
+
+<Heading level={2}>The `isLoading` prop</Heading>
+
+The `isLoading` prop is a boolean that can be used to show a loading spinner inside the button.
+
+Example:
+
+<Button className="btn-primary" isLoading={true}>
+  Click me
+</Button>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={`<Button className="btn-primary" isLoading={true}>Click me</Button>`}
+/>
+</details>
+<br/>
+
+<Heading level={2}>The `isDisabled` prop</Heading>
+
+The `isDisabled` prop is a boolean that can be used to disable the button.
+
+Example:
+
+<Button className="btn-primary" isDisabled={true}>
+  Click me
+</Button>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={`<Button className="btn-primary" isDisabled={true}>Click me</Button>`}
+/>
+</details>
+<br/>
+
+<Heading level={2}>Icon Button</Heading>
+
+The `<Button />` component can have an additional icon placed before the button text, by using the `iconName` prop.
+
+Example:
+
+<Button className="btn-primary" iconName="starSmile">
+  Icon Button
+</Button>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={
+`<Button className="btn-primary" iconName="starSmile">
+    Icon Button
+  </Button>`
+}
+/>
+</details>
+<br/>
+
+Take a look at the [Icon component tale](/docs/components/feedback/icon/) for a complete list of available icons.
+
+<Heading level={2}>Style Variants</Heading>
+
+The base `<Button />` component looks like this:
+
+<Button>Base Button</Button>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={ 
+`<Button>Base Button</Button>`
+}
+/>
+</details>
+<br/>
+
+We have a number of style variants that can be applied to it, by using the `className` prop.
+
+<Heading level={3}>Colors</Heading>
+
+The following colors are available:
+
+- `btn-neutral`
+- `btn-primary`
+- `btn-secondary`
+- `btn-accent`
+- `btn-info`
+- `btn-success`
+- `btn-warning`
+- `btn-error`
+
+<div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+  <Button className="btn-neutral">Neutral Button</Button>
+  <Button className="btn-primary">Primary Button</Button>
+  <Button className="btn-secondary">Secondary Button</Button>
+  <Button className="btn-accent">Accent Button</Button>
+  <Button className="btn-info">Info Button</Button>
+  <Button className="btn-success">Success Button</Button>
+  <Button className="btn-warning">Warning Button</Button>
+  <Button className="btn-error">Error Button</Button>
+</div>
+
+<details >
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={
+`<Button className="btn-neutral">Neutral Button</Button>
+  <Button className="btn-primary">Primary Button</Button>
+  <Button className="btn-secondary">Secondary Button</Button>
+  <Button className="btn-accent">Accent Button</Button>
+  <Button className="btn-info">Info Button</Button>
+  <Button className="btn-success">Success Button</Button>
+  <Button className="btn-warning">Warning Button</Button>
+  <Button className="btn-error">Error Button</Button>`
+}
+/>
+</details>
+<br/>
+
+<Heading level={3}>Styles</Heading>
+
+The following styles are available:
+
+- `btn-outline`
+- `btn-dash`
+- `btn-soft`
+- `btn-ghost`
+- `btn-link`
+
+<div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
+  <Button className="btn-outline">Outline Button</Button>
+  <Button className="btn-dash">Dash Button</Button>
+  <Button className="btn-soft">Soft Button</Button>
+</div>
+<div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+  <Button className="btn-ghost">Ghost Button</Button>
+  <Button className="btn-link">Link Button</Button>
+</div>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={
+`<Button className="btn-outline">Outline Button</Button>
+  <Button className="btn-dash">Dash Button</Button>
+  <Button className="btn-soft">Soft Button</Button>
+  <Button className="btn-ghost">Ghost Button</Button>
+  <Button className="btn-link">Link Button</Button>`
+}
+/>
+</details>
+<br/>
+
+<Heading level={3}>Behavior</Heading>
+
+The following behaviors are available:
+
+- `btn-active`
+
+Example:
+
+<Button className="btn-primary btn-active">Active Button</Button>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={`<Button className="btn-primary btn-active">Active Button</Button>`}
+/>
+</details>
+<br/>
+
+<Heading level={3}>Size</Heading>
+
+The following sizes are available:
+
+- `btn-xs`
+- `btn-sm`
+- `btn-md`
+- `btn-lg`
+- `btn-xl`
+
+Example:
+
+<Button className="btn-primary btn-xs">Small Button</Button>
+<Button className="btn-primary btn-sm">Medium Button</Button>
+<Button className="btn-primary btn-md">Large Button</Button>
+<Button className="btn-primary btn-lg">Extra Large Button</Button>
+<Button className="btn-primary btn-xl">Huge Button</Button>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={`<Button className="btn-primary btn-xs">Small Button</Button>
+  <Button className="btn-primary btn-sm">Medium Button</Button>
+  <Button className="btn-primary btn-md">Large Button</Button>
+  <Button className="btn-primary btn-lg">Extra Large Button</Button>
+  <Button className="btn-primary btn-xl">Huge Button</Button>`
+}
+/>
+</details>
+<br/>
+
+<Heading level={3}>Modifier</Heading>
+
+The following modifiers are available:
+
+- `btn-wide`
+- `btn-block`
+- `btn-square`
+- `btn-circle`
+
+Example:
+
+<div className="grid grid-cols-1 gap-2">
+  <Button className="btn-primary btn-wide">Wide Button</Button>
+  <Button className="btn-primary btn-block">Block Button</Button>
+  <Button iconName="starSmile" className="btn-primary btn-square"/>
+  <Button iconName="starSmile" className="btn-primary btn-circle"/>
+</div>
+
+<details>
+<summary>Source Code</summary>
+
+<Code
+  readOnly={true}
+  language="html"
+  value={`<Button className="btn-primary btn-wide">Wide Button</Button>
+  <Button className="btn-primary btn-block">Block Button</Button>
+  <Button iconName="starSmile" className="btn-primary btn-square"/>
+  <Button iconName="starSmile" className="btn-primary btn-circle"/>`
+}
+/>
+</details> 
+
+<Heading level={2}>Props</Heading>
+
+<div className="table-container">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>children</code></td>
+        <td><code>React.ReactNode</code></td>
+        <td>✅</td>
+        <td>The content of the button</td>
+      </tr>
+      <tr>
+        <td><code>onPress</code></td>
+        <td><code>(e: PressEvent) =&gt; void</code></td>
+        <td>❌</td>
+        <td>Handler called when the button is pressed (covers mouse, touch, and keyboard interactions)</td>
+      </tr>
+      <tr>
+        <td><code>isLoading</code></td>
+        <td><code>boolean</code></td>
+        <td>❌</td>
+        <td>Shows a loading spinner and disables the button when true</td>
+      </tr>
+      <tr>
+        <td><code>isDisabled</code></td>
+        <td><code>boolean</code></td>
+        <td>❌</td>
+        <td>Disables the button when true</td>
+      </tr>
+      <tr>
+        <td><code>iconName</code></td>
+        <td><code>IconName</code></td>
+        <td>❌</td>
+        <td>Name of the icon to display before the button text (see Icon component for available icons)</td>
+      </tr>
+      <tr>
+        <td><code>iconClassName</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes to apply to the icon</td>
+      </tr>
+      <tr>
+        <td><code>className</code></td>
+        <td><code>string</code></td>
+        <td>❌</td>
+        <td>Additional CSS classes to apply (supports DaisyUI button classes like btn-primary, btn-outline, etc.)</td>
+      </tr>
+      <tr>
+        <td><code>type</code></td>
+        <td><code>'button'</code> | <code>'submit'</code> | <code>'reset'</code></td>
+        <td>❌</td>
+        <td>The button type for form submission behavior (defaults to 'button')</td>
+      </tr>
+      <tr>
+        <td><code>autoFocus</code></td>
+        <td><code>boolean</code></td>
+        <td>❌</td>
+        <td>Whether the button should receive focus on render</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-400 dark:border-blue-600 mt-8 p-4 text-blue-700 dark:text-blue-300">
+  <p className="font-medium">Developer Note:</p>
+  <p className="text-sm">This component extends React Aria's ButtonProps, which provides additional props for accessibility, events (onPressStart, onPressEnd, etc.), focus management, and more. The props listed above are the custom additions and most commonly used ones.</p>
+  <p className="text-sm">You can read more about the props in the <Link to="https://react-spectrum.adobe.com/react-aria/Button.html#props" external={true}>React Aria Button component</Link> documentation.</p>
+</div> 

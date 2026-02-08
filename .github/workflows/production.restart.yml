@@ -1,0 +1,29 @@
+name: Staging Restart
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Staging Restart
+        uses: dawidd6/action-ansible-playbook@v7
+        with:
+          directory: ./scripts/playbooks/staging
+          playbook: restart.yml
+          inventory: |
+            [debian_servers]
+            dianalu.design ansible_user=admin
+          key: ${{ secrets.STAGING_PRIVATE_KEY }}
+
+      - name: Wait for Clever Stack CMS to be ready
+        uses: gerdemann/http-status-code@1.0.0
+        with:
+          url: 'https://dianalu.design/admin'
+          code: 200
+          timeout: 240
+          interval: 10

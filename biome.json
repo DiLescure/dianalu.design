@@ -1,0 +1,73 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
+	"vcs": {
+		"enabled": false,
+		"clientKind": "git",
+		"useIgnoreFile": false
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"includes": [
+			"**/*.{ts,tsx,js,mjs,jsx,json,css,scss,md,mdx}",
+			"!node_modules",
+			"!*/node_modules",
+			"!*/**/node_modules",
+			"!*/**/dist",
+			"!*/**/build",
+			"!*/**/.next",
+			"!*/**/.nuxt",
+			"!*/**/.vite",
+			"!*/**/.vitest",
+			"!*/**/.storybook",
+			"!app/gql",
+			"!cms/src/app",
+			"!cms/src/payload-types.ts"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineWidth": 100
+	},
+	"assist":{
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"complexity": {
+				"noBannedTypes": "off",
+				"noUselessFragments": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noArrayIndexKey": "off",
+				"noTsIgnore": "off"
+			},
+			"correctness": {
+				"noUndeclaredDependencies": "off",
+				"useExhaustiveDependencies": "off",
+				"noChildrenProp": "off",
+				"noUnknownProperty": "off"
+			},
+			"style": {
+				"noNonNullAssertion": "off"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single"
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	}
+}

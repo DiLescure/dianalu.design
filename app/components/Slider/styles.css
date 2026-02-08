@@ -1,0 +1,58 @@
+@reference "@/global.css";
+
+.react-aria-SliderTrack {
+  @apply relative h-10 mx-4;
+
+  &::before {
+    @apply bg-primary h-3 absolute left-0 w-full top-1/2;
+    content: "";
+    transform: translateY(-50%);
+  }
+}
+
+.react-aria-SliderThumb {
+  @apply h-6 w-6 overflow-visible top-1/2;
+
+  &::before {
+    @apply h-3 top-1/2 bg-base-300;
+    content: "";
+    position: absolute;
+    transform: translateY(-50%);
+  }
+
+  &:first-child::before {
+    left: -100vw;
+    right: 50%;
+  }
+
+  &:last-child::before {
+    left: 50%;
+    right: -100vw;
+  }
+
+  &::after {
+    @apply rounded-full bg-base-100 border-4 border-primary h-6 absolute left-0 w-full top-1/2;
+    content: "";
+    transform: translateY(-50%);
+  }
+
+  &[data-focused]::after {
+    @apply outline outline-2 outline-black outline-offset-2;
+  }
+
+  &[data-disabled]::after {
+    @apply bg-base-300;
+  }
+}
+
+#root[data-theme$="dark"] .react-aria-SliderThumb {
+  &[data-focused]::after {
+    @apply outline outline-2 outline-white outline-offset-2;
+  }
+}
+
+.min-max-slider-component.form-control {
+  label {
+    @apply w-auto flex-1;
+  }
+}

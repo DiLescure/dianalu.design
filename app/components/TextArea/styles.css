@@ -1,0 +1,9 @@
+@reference "@/global.css";
+
+.components-text-area-error {
+  @apply text-error;
+}
+
+textarea {
+  @apply textarea w-full text-wrap shadow-sm dark:text-white p-2;
+}

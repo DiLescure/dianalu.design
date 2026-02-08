@@ -1,0 +1,13 @@
+@reference "@/global.css";
+
+.modal-header {
+  @apply flex items-center gap-2;
+}
+
+.modal-close-button {
+  @apply flex items-center btn-ghost cursor-pointer w-8;
+
+  .icon {
+    @apply w-full;
+  }
+}

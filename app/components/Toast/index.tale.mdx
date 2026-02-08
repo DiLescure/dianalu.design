@@ -1,0 +1,204 @@
+import Code from '@/components/Code';
+import Button from '@/components/Button';
+import Heading from '@/components/Heading';
+import Link from '@/components/Link';
+import Toast from '@/components/Toast';
+
+The Toast component provides a global notification system that allows you to display temporary messages to users. Similar to the [Modal component](/docs/components/actions/modal-basic/), we've implemented a global instance that's available throughout the app by default through our [Overlay Service](/docs/services/overlay-service/).
+
+<Heading level={2}>Try it out</Heading>
+
+Edit the message and level in the tale controls below, then click the button to add a toast to the queue:
+
+<div className="flex flex-col gap-4">
+  <div className="flex justify-center">
+    <Button className="btn-primary" onPress={props.handleAddToast}>
+      Add Toast to Queue
+    </Button>
+  </div>
+</div>
+
+<details open>
+  <summary>Source Code</summary>
+
+  <Code
+    readOnly={true}
+    language="tsx"
+    value={`import eventService from '@/services/event';
+
+  const handleAddToast = () => {
+    eventService.emit('overlay:request-toast-queue-add', {
+      message: "${props.taleState.message}",
+      level: "${props.taleState.level}",
+    });
+  };
+
+  return (
+    <Button className="btn-primary" onPress={handleAddToast}>
+      Add Toast to Queue
+    </Button>
+  );`}
+  />
+</details>
+<br/>
+
+<Heading level={2}>Queuing Multiple Toasts</Heading>
+
+You can queue multiple toasts by emitting the `toastQueueAdd` event multiple times.
+
+Each toast will be displayed for 5 seconds before automatically dismissing and moving onto the next toast in the queue.
+
+You'll see a countdown timer that shows how much longer the toast will be displayed for.
+
+If you hover your mouse over the toast (or tap on it in mobile), the countdown timer will reset and pause. Once you move your mouse away, the countdown timer will resume.
+
+You can also click the "next" or "close" button to dismiss it early.
+
+Click the button below to queue 4 toasts:
+
+<div className="flex flex-col gap-4">
+  <div className="flex justify-center">
+    <Button className="btn-primary" onPress={props.handleAddMultipleToasts}>
+      Queue 4 Toasts
+    </Button>
+  </div>
+</div>
+
+<details>
+  <summary>Source Code</summary>
+
+  <Code
+    readOnly={true}
+    language="tsx"
+    value={`import eventService from '@/services/event';
+
+  const handleAddMultipleToasts = async () => {
+    eventService.emit('overlay:request-toast-queue-add', {
+      message: 'This is an info toast',
+      level: 'info',
+    });
+
+    await wait(100);
+
+    eventService.emit('overlay:request-toast-queue-add', {
+      message: 'This is a success toast',
+      level: 'success',
+    });
+
+    await wait(100);
+
+    eventService.emit('overlay:request-toast-queue-add', {
+      message: 'This is a warning toast',
+      level: 'warning',
+    });
+
+    await wait(100);
+
+    eventService.emit('overlay:request-toast-queue-add', {
+      message: 'This is an error toast',
+      level: 'error',
+    });
+  };
+
+  return (
+    <Button className="btn-primary" onPress={handleAddMultipleToasts}>
+      Queue 4 Toasts
+    </Button>
+  );`}
+  />
+</details>
+<br/>
+
+<Heading level={2}>Big Content Handling</Heading>
+
+The toast component can handle a lot of content without overflowing the screen.
+
+Click the button below to queue a toast with a lot of content:
+
+<div className="flex flex-col gap-4">
+  <div className="flex justify-center">
+    <Button className="btn-primary" onPress={props.handleBigContentToast}>
+      Queue Toast with Big Content
+    </Button>
+  </div>
+</div>
+
+<details>
+  <summary>Source Code</summary>
+
+  <Code
+    readOnly={true}
+    language="tsx"
+    value={`import eventService from '@/services/event';
+
+  const handleBigContentToast = () => {
+    eventService.emit('overlay:request-toast-queue-add', {
+      message: /* ... */,
+      level: 'info',
+    });
+  };
+
+  return (
+    <Button className="btn-primary" onPress={handleBigContentToast}>
+      Queue Toast with Big Content
+    </Button>
+  );`}
+  />
+</details>
+<br/>
+
+<Heading level={2}>Event-Driven Architecture</Heading>
+
+We use an event-driven approach for managing toasts. Instead of directly rendering toast components, you emit events to add toasts to a global queue. This approach avoids extraneous page re-renders and ensures consistent toast behavior across your application.
+
+To add a toast to the queue, emit the `toastQueueAdd` event:
+
+<Code
+  readOnly={true}
+  language="tsx"
+  value={`import eventService from '@/services/event';
+
+  eventService.emit('overlay:request-toast-queue-add', {
+    message: 'Your action was successful!',
+    level: 'success', // 'info' | 'success' | 'warning' | 'error'
+  });`}
+/>
+<br/>
+
+<Heading level={2}>Visual Implementation</Heading>
+
+If you need to implement your own toast-like notifications visually, you can utilize DaisyUI's toast classes. Here's an example structure:
+
+<Code
+  readOnly={true}
+  language="html"
+  value={`<div class="toast toast-top toast-end">
+    <div class="alert alert-info">
+      <span>New message arrived.</span>
+    </div>
+  </div>`}
+/>
+
+Visit <Link to="https://daisyui.com/components/toast/" target="_blank">DaisyUI's Toast documentation</Link> for more positioning and styling options.
+
+<Heading level={2}>Auto-Dismissal</Heading>
+
+Our global toast implementation includes automatic dismissal functionality using the countdown utility located at `src/util/countdown/index.ts`. This utility provides a clean way to handle timed operations with progress tracking.
+
+<Heading level={2}>Toast Levels</Heading>
+
+The toast system supports four different levels to convey various types of messages:
+
+- `info`: For general information and neutral messages
+- `success`: For successful operations and positive feedback
+- `warning`: For important notices that require attention
+- `error`: For critical issues and failed operations
+
+Each level comes with appropriate styling to help users quickly understand the nature of the message:
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <Toast className="static" noCountdown={true} message="This is an info toast" level="info" />
+  <Toast className="static" noCountdown={true} message="This is a success toast" level="success" />
+  <Toast className="static" noCountdown={true} message="This is a warning toast" level="warning" />
+  <Toast className="static" noCountdown={true} message="This is an error toast" level="error" />
+</div>
