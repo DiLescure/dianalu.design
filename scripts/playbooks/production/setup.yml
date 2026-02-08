@@ -105,9 +105,27 @@
       args:
         creates: /home/admin/.bun/bin/bun
 
+    - name: Install FNM
+      ansible.builtin.shell: curl -fsSL https://fnm.vercel.app/install | bash
+      become_user: admin
+      args:
+        creates: /home/admin/.fnm
+
+    - name: Install Node.js LTS using FNM
+      ansible.builtin.shell: |
+        export PATH="$HOME/.local/share/fnm:$PATH"
+        eval "$($HOME/.local/share/fnm/fnm env --use-on-cd)"
+        $HOME/.local/share/fnm/fnm install --lts
+      become_user: admin
+      args:
+        creates: /home/admin/.fnm/node-versions
+
     - name: Display completion message
       ansible.builtin.debug:
         msg:
           - "Setup complete!"
           - "User added to docker group - log out and back in for changes to take effect"
           - "Certbot installed - use 'certbot --help' to get started"
+          - "Bun installed - use 'bun --help' to get started"
+          - "FNM installed - use 'fnm --help' to get started"
+          - "Node.js LTS installed using FNM"
