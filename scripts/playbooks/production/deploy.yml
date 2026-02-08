@@ -5,7 +5,7 @@
 
   tasks:
     - name: Pull latest code from production
-      shell: git pull origin production
+      shell: git pull origin main
       args:
         chdir: ~/dianalu.design
 
