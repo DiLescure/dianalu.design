@@ -1,6 +1,6 @@
 ---
 - name: Deploy DianaLú
-  hosts: dianalu.design
+  hosts: ec2-34-228-89-155.compute-1.amazonaws.com
   become: false
 
   tasks:
