@@ -89,9 +89,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     docsMockData: DocsMockDatum;
+    homePageContent: HomePageContent;
   };
   globalsSelect: {
     docsMockData: DocsMockDataSelect<false> | DocsMockDataSelect<true>;
+    homePageContent: HomePageContentSelect<false> | HomePageContentSelect<true>;
   };
   locale: null;
   user: User & {
@@ -336,10 +338,33 @@ export interface DocsMockDatum {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homePageContent".
+ */
+export interface HomePageContent {
+  id: number;
+  /**
+   * Tagline text for the homepage.
+   */
+  tagline: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "docsMockData_select".
  */
 export interface DocsMockDataSelect<T extends boolean = true> {
   mockData?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homePageContent_select".
+ */
+export interface HomePageContentSelect<T extends boolean = true> {
+  tagline?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

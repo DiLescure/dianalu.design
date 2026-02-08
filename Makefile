@@ -190,6 +190,9 @@ build-app: ## Build app
 build-cms: ## Build cms
 	cd cms && bun run build
 
+cms-migration-generate: ## Migrate cms
+	cd cms && bun --env-file=../.env run payload migrate:create
+
 cms-migrate: ## Migrate cms
 	cd cms && npx --yes dotenv-cli -e ../.env -- npx --yes payload migrate
 
