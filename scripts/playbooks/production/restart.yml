@@ -1,5 +1,5 @@
 ---
-- name: Restart Clever Stack
+- name: Restart DianaLú
   hosts: dianalu.design
   become: false
 

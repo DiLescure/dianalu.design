@@ -28,7 +28,7 @@ export const Sidebar = () => {
           to="/"
           className="text-xl font-bold flex items-center gap-2 no-underline text-base-content hover:text-primary transition-colors"
         >
-          Clever Stack
+          DianaLú
         </Link>
       </div>
 

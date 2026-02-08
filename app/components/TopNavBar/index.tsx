@@ -28,7 +28,7 @@ export const TopNavBar = () => {
         </div>
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost text-xl lg:hidden">
-            Clever Stack
+            DianaLú
           </Link>
         </div>
         <div className="flex-none flex items-center gap-2">

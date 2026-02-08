@@ -16,8 +16,8 @@ const serverExternalPackages = [
 const nextConfig = {
   // Your Next.js config here
   env: {
-    NEXT_BRAND_COMPANY_NAME: process.env.BRAND_COMPANY_NAME || 'Clever Stack',
-    NEXT_BRAND_EMAIL_FROM_NAME: process.env.BRAND_EMAIL_FROM_NAME || 'Clever Stack',
+    NEXT_BRAND_COMPANY_NAME: process.env.BRAND_COMPANY_NAME || 'DianaLú',
+    NEXT_BRAND_EMAIL_FROM_NAME: process.env.BRAND_EMAIL_FROM_NAME || 'DianaLú',
     NEXT_PUBLIC_PAYLOAD_PUBLIC_HOST: `${process.env.APP_PAYLOAD_PUBLIC_HOST || 'localhost'}`,
     NEXT_PUBLIC_PAYLOAD_PUBLIC_PORT: process.env.APP_PAYLOAD_PUBLIC_PORT || 3000,
     NEXT_PUBLIC_PAYLOAD_ADMIN_PATH: process.env.APP_PAYLOAD_ADMIN_PATH || '/admin',

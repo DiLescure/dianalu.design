@@ -22,7 +22,7 @@ jobs:
             dianalu.design ansible_user=admin
           key: ${{ secrets.PRODUCTION_PRIVATE_KEY }}
 
-      - name: Wait for Clever Stack CMS to be ready
+      - name: Wait for DianaLú CMS to be ready
         uses: gerdemann/http-status-code@1.0.0
         with:
           url: 'https://dianalu.design/admin'

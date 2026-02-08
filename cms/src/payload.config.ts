@@ -86,7 +86,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   email: nodemailerAdapter({
     defaultFromAddress: `postmaster@${process.env.PAYLOAD_MAILGUN_DOMAIN || ''}`,
-    defaultFromName: process.env.NEXT_BRAND_EMAIL_FROM_NAME || 'Clever Stack',
+    defaultFromName: process.env.NEXT_BRAND_EMAIL_FROM_NAME || 'DianaLú',
     transportOptions: nodemailerMailgun({
       auth: {
         api_key: process.env.PAYLOAD_MAILGUN_API_KEY || '-',

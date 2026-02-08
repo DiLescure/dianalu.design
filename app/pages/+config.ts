@@ -19,8 +19,8 @@ export default {
   Layout,
 
   // https://vike.dev/head-tags
-  title: 'Clever Stack',
-  description: 'Clever Stack is an open-source battle-tested framework for building modern web applications with React, Vite, Vike, and PayloadCMS.',
+  title: 'DianaLú',
+  description: 'DianaLú is an open-source battle-tested framework for building modern web applications with React, Vite, Vike, and PayloadCMS.',
 
   trailingSlash: true,
 
