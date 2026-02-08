@@ -39,11 +39,3 @@
       shell: screen -dmS dianalu.design make production
       args:
         chdir: ~/dianalu.design
-
-    - name: Run database migrations
-      shell: |
-        export PATH="$HOME/.local/share/fnm:$PATH"
-        eval "$($HOME/.local/share/fnm/fnm env --use-on-cd)"
-        make cms-migrate
-      args:
-        chdir: ~/dianalu.design
