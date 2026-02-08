@@ -10,14 +10,8 @@ import { openapi, rapidoc, redoc, swaggerUI } from 'payload-oapi';
 import pino from 'pino';
 import pinoPretty from 'pino-pretty';
 import sharp from 'sharp';
-import { AgentMessages } from './collections/AgentMessages';
-import { Agents } from './collections/Agents';
-import { Channels } from './collections/Channels';
-import { Media } from './collections/Media';
-import { ModelDefinitions } from './collections/ModelDefinitions';
-import { Threads } from './collections/Threads';
-import { UserMessages } from './collections/UserMessages';
 import { Users } from './collections/Users';
+import { Media } from './collections/Media';
 import { healthEndpoint } from './endpoints/health';
 import { getMessage, getRecentMessages, listMessages } from './endpoints/messages';
 import { metricsEndpoint } from './endpoints/metrics';
@@ -108,12 +102,6 @@ export default buildConfig({
   collections: [
     Users,
     Media,
-    ModelDefinitions,
-    Agents,
-    Channels,
-    Threads,
-    UserMessages,
-    AgentMessages,
   ],
   globals: [DocsMockData],
   editor: lexicalEditor(),
