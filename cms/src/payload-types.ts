@@ -69,12 +69,6 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    modelDefinitions: ModelDefinition;
-    agents: Agent;
-    channels: Channel;
-    threads: Thread;
-    userMessages: UserMessage;
-    agentMessages: AgentMessage;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,12 +78,6 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    modelDefinitions: ModelDefinitionsSelect<false> | ModelDefinitionsSelect<true>;
-    agents: AgentsSelect<false> | AgentsSelect<true>;
-    channels: ChannelsSelect<false> | ChannelsSelect<true>;
-    threads: ThreadsSelect<false> | ThreadsSelect<true>;
-    userMessages: UserMessagesSelect<false> | UserMessagesSelect<true>;
-    agentMessages: AgentMessagesSelect<false> | AgentMessagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -140,7 +128,6 @@ export interface User {
   id: number;
   userUid: string;
   roles: ('SUPER_ADMIN' | 'ADMIN' | 'WRITE' | 'READ_ONLY')[];
-  allowedAgents?: (number | Agent)[] | null;
   loginCode?: string | null;
   loginCodeExpiresAt?: string | null;
   lastLoginAt?: string | null;
@@ -154,32 +141,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "agents".
- */
-export interface Agent {
-  id: number;
-  agentUid: string;
-  agentName: string;
-  agentModel: number | ModelDefinition;
-  agentSystemMessage: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "modelDefinitions".
- */
-export interface ModelDefinition {
-  id: number;
-  provider: 'openai' | 'anthropic' | 'google' | 'openrouter';
-  value: string;
-  label: string;
-  apiKey: string;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -202,99 +163,6 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "channels".
- */
-export interface Channel {
-  id: number;
-  channelUid?: string | null;
-  channelName: string;
-  channelSlug?: string | null;
-  mainThread?: (number | null) | Thread;
-  participantUsers?: (number | User)[] | null;
-  participantAgents?: (number | Agent)[] | null;
-  blacklistedUsers?: (number | User)[] | null;
-  blacklistedAgents?: (number | Agent)[] | null;
-  parentChannel?: (number | null) | Channel;
-  deletedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "threads".
- */
-export interface Thread {
-  id: number;
-  threadUid: string;
-  channel: number | Channel;
-  lockedAt?: string | null;
-  lockReason?: string | null;
-  deletedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "userMessages".
- */
-export interface UserMessage {
-  id: number;
-  messageUid?: string | null;
-  channel: number | Channel;
-  channelUid: string;
-  thread: number | Thread;
-  threadUid: string;
-  senderUser: number | User;
-  senderUserUid?: string | null;
-  recipientType: 'user' | 'agent' | 'broadcast';
-  recipientUid?: string | null;
-  noStreamBroadcast?: boolean | null;
-  processOnlyCurrentMessage?: boolean | null;
-  messageContent:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  deletedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "agentMessages".
- */
-export interface AgentMessage {
-  id: number;
-  messageUid?: string | null;
-  channel: number | Channel;
-  channelUid: string;
-  thread: number | Thread;
-  threadUid: string;
-  senderAgent: number | Agent;
-  senderAgentUid?: string | null;
-  originatorUser: number | User;
-  originatorUserUid?: string | null;
-  recipientType: 'user' | 'agent' | 'broadcast';
-  recipientUid?: string | null;
-  messageContent:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  deletedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -327,30 +195,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'modelDefinitions';
-        value: number | ModelDefinition;
-      } | null)
-    | ({
-        relationTo: 'agents';
-        value: number | Agent;
-      } | null)
-    | ({
-        relationTo: 'channels';
-        value: number | Channel;
-      } | null)
-    | ({
-        relationTo: 'threads';
-        value: number | Thread;
-      } | null)
-    | ({
-        relationTo: 'userMessages';
-        value: number | UserMessage;
-      } | null)
-    | ({
-        relationTo: 'agentMessages';
-        value: number | AgentMessage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -401,7 +245,6 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   userUid?: T;
   roles?: T;
-  allowedAgents?: T;
   loginCode?: T;
   loginCodeExpiresAt?: T;
   lastLoginAt?: T;
@@ -432,103 +275,6 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "modelDefinitions_select".
- */
-export interface ModelDefinitionsSelect<T extends boolean = true> {
-  provider?: T;
-  value?: T;
-  label?: T;
-  apiKey?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "agents_select".
- */
-export interface AgentsSelect<T extends boolean = true> {
-  agentUid?: T;
-  agentName?: T;
-  agentModel?: T;
-  agentSystemMessage?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "channels_select".
- */
-export interface ChannelsSelect<T extends boolean = true> {
-  channelUid?: T;
-  channelName?: T;
-  channelSlug?: T;
-  mainThread?: T;
-  participantUsers?: T;
-  participantAgents?: T;
-  blacklistedUsers?: T;
-  blacklistedAgents?: T;
-  parentChannel?: T;
-  deletedAt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "threads_select".
- */
-export interface ThreadsSelect<T extends boolean = true> {
-  threadUid?: T;
-  channel?: T;
-  lockedAt?: T;
-  lockReason?: T;
-  deletedAt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "userMessages_select".
- */
-export interface UserMessagesSelect<T extends boolean = true> {
-  messageUid?: T;
-  channel?: T;
-  channelUid?: T;
-  thread?: T;
-  threadUid?: T;
-  senderUser?: T;
-  senderUserUid?: T;
-  recipientType?: T;
-  recipientUid?: T;
-  noStreamBroadcast?: T;
-  processOnlyCurrentMessage?: T;
-  messageContent?: T;
-  deletedAt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "agentMessages_select".
- */
-export interface AgentMessagesSelect<T extends boolean = true> {
-  messageUid?: T;
-  channel?: T;
-  channelUid?: T;
-  thread?: T;
-  threadUid?: T;
-  senderAgent?: T;
-  senderAgentUid?: T;
-  originatorUser?: T;
-  originatorUserUid?: T;
-  recipientType?: T;
-  recipientUid?: T;
-  messageContent?: T;
-  deletedAt?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
