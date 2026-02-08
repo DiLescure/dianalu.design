@@ -194,7 +194,7 @@ cms-migration-generate: ## Migrate cms
 	cd cms && bun --env-file=../.env run payload migrate:create
 
 cms-migrate: ## Migrate cms
-	cd cms && npx --yes dotenv-cli -e ../.env -- npx --yes payload migrate
+	cd cms && npx --yes dotenv-cli -e ../.env -- npx --yes payload migrate --no-input
 
 cms-cli: ## Run cms cli
 	docker compose exec -it cms bash
