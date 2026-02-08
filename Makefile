@@ -110,6 +110,9 @@ production-stop: ## Stop production environment using Docker Compose
 production-down: ## Stop and remove production containers and volumes using Docker Compose
 	docker compose down
 
+production-setup: ## Run production setup playbook
+	ansible-playbook --inventory scripts/playbooks/production/inventory.ini scripts/playbooks/production/setup.yml
+
 lint-all: lint-app lint-cms lint-message-broker ## Lint all code
 lint-all-fix: lint-app-fix lint-cms-fix lint-message-broker-fix ## Lint all code
 
@@ -188,7 +191,7 @@ build-cms: ## Build cms
 	cd cms && bun run build
 
 cms-migrate: ## Migrate cms
-	cd cms && bunx --env-file=../.env payload migrate
+	cd cms && npx --yes dotenv-cli -e ../.env -- npx --yes payload migrate
 
 cms-cli: ## Run cms cli
 	docker compose exec -it cms bash
