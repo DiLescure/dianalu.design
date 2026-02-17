@@ -6,6 +6,7 @@ const HomePageContent: QueryDefinition = {
     query {
       HomePageContent {
         tagline
+        dummyContent
       }
     }
   `),

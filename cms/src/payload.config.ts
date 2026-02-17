@@ -12,6 +12,7 @@ import pinoPretty from 'pino-pretty';
 import sharp from 'sharp';
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
+import { CaseStudies } from './collections/CaseStudies';
 import { healthEndpoint } from './endpoints/health';
 import { metricsEndpoint } from './endpoints/metrics';
 import DocsMockData from './globals/DocsMockData';
@@ -82,6 +83,7 @@ export default buildConfig({
   collections: [
     Users,
     Media,
+    CaseStudies,
   ],
   globals: [
     DocsMockData,

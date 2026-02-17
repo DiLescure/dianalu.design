@@ -18,6 +18,7 @@ import { AgentList } from './queries/collections/Agents';
 import { ChannelList } from './queries/collections/Channels';
 import { MessageList } from './queries/collections/Messages';
 import { ThreadLockStatus } from './queries/collections/Threads';
+import { CaseStudyBySlug, CaseStudyList } from './queries/collections/CaseStudies';
 import DocsMockDatum from './queries/globals/DocsMockDatum';
 import HomePageContent from './queries/globals/HomePageContent';
 import meUser from './queries/globals/meUser';
@@ -68,6 +69,8 @@ const queryDefinitions = {
   MessageList,
   AgentList,
   ThreadLockStatus,
+  CaseStudyBySlug,
+  CaseStudyList,
 };
 const mutationDefinitions = {
   CreateChannel,

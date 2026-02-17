@@ -4,7 +4,7 @@ import LogoSvg from '@/inline/images/dianalu-logo.svg?react';
 import type { Data } from './+data.client';
 
 export default function Page() {
-  const { tagline } = useData<Data>();
+  const { tagline, dummyContent } = useData<Data>();
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-white text-black leading-relaxed">
@@ -19,6 +19,11 @@ export default function Page() {
         <div className="text-[0.9rem] md:text-base font-normal text-gray-600 mb-[60px] uppercase tracking-[3px] md:tracking-[4px] leading-normal">
           {tagline}
         </div>
+        {dummyContent && (
+          <div className="text-base text-gray-500 mb-[40px]">
+            {dummyContent}
+          </div>
+        )}
 
         <div>
           <h2 className="text-[0.8rem] font-semibold uppercase tracking-[4px] mb-[25px] text-black">

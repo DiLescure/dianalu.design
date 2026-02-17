@@ -7,10 +7,11 @@ export type Data = Awaited<ReturnType<typeof data>>;
 export const data = async () => {
   const commonErrorHandler = createCommonErrorHandler(DEFAULT_LOCALE);
   const {HomePageContent} = await runQuery({query: 'HomePageContent', commonErrorHandler});
-  const {tagline} = HomePageContent;
+  const {tagline, dummyContent} = HomePageContent;
 
   // Return data for client-side redirect
   return {
     tagline,
+    dummyContent,
   };
 };

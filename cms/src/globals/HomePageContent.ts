@@ -16,5 +16,14 @@ export const HomePageContent: GlobalConfig = {
         description: 'Tagline text for the homepage.',
       },
     },
+    {
+      name: 'dummyContent',
+      type: 'text',
+      required: false,
+      defaultValue: '',
+      admin: {
+        description: 'Dummy content for testing purposes.',
+      },
+    },
   ],
 };
